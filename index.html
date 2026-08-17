@@ -981,12 +981,12 @@
     </div>
   </section>
 
-  <section class="sec sec-s4" aria-labelledby="s4-title">
+  <section class="sec sec-s4" id="s4" aria-labelledby="s4-title">
     <div class="sec-head">
       <span class="sec-badge" aria-hidden="true">4</span>
       <div class="sec-titles">
         <h2 id="s4-title">Connect your keys &amp; first run</h2>
-        <p class="sec-sub">Steps 12–18</p>
+        <p class="sec-sub" id="sub-s4">Steps 12–17</p>
       </div>
     </div>
     <div class="steps">
@@ -1303,7 +1303,28 @@
       if (gnum) { gnum.textContent = (i + 1) + "/" + total; }
     });
     progressBar.setAttribute("aria-valuemax", String(total));
+    updateSubs();
     updateProgress();
+  }
+
+  function updateSubs() {
+    var sub4 = document.getElementById("sub-s4");
+    if (!sub4) { return; }
+    var first = 0, last = 0;
+    inputs.forEach(function (inp) {
+      if (inp.offsetParent === null) { return; }
+      var sec = inp.closest(".sec");
+      if (sec && sec.id === "s4") {
+        var card = inp.closest(".step-card");
+        var num = card ? card.querySelector(".step-num") : null;
+        if (num) {
+          var n = parseInt(num.textContent, 10);
+          if (!first) { first = n; }
+          last = n;
+        }
+      }
+    });
+    if (first && last) { sub4.textContent = "Steps " + first + "–" + last; }
   }
 
   function readOS() {
