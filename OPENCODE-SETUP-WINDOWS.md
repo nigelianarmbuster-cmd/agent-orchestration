@@ -28,7 +28,7 @@ A few things to know:
 
 - The default model is `deepseek/deepseek-v4-pro` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
-- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the explainer, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway.
+- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway.
 
 ## 2. What you'll need before you start
 

@@ -4,8 +4,8 @@ Beginner-friendly setup guides for mirroring an OpenCode agent-orchestration set
 
 **Two entry points, in order:**
 
-1. **`explainer.html` — the "why"** (a beginner's first stop): what the Supervisor agent-orchestration setup is, how the agents work together, and best practices. Live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/explainer.html
-2. **`index.html` — the "how"**: the interactive step-by-step checklist of every user action, with links to every account/key page, a macOS/Windows toggle, and a Full production / Budget plan toggle. Live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/
+1. **`index.html` — the "why"** (a beginner's first stop): what the Supervisor agent-orchestration setup is, how the agents work together, and best practices. Live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/ (the site root)
+2. **`setup.html` — the "how"**: the interactive step-by-step checklist of every user action, with links to every account/key page, a macOS/Windows toggle, and a Full production / Budget plan toggle. Live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/setup.html
 
 The guides below are the detailed source of truth.
 
@@ -17,8 +17,8 @@ https://github.com/nigelianarmbuster-cmd/opencode-config
 
 | Guide | Audience | OS specifics |
 |---|---|---|
-| `explainer.html` | Everyone — the "why": what the setup is and how it works | Both (no OS-specific content) |
-| `index.html` | Everyone — the "how": interactive step-by-step setup checklist | Both (built-in macOS/Windows toggle) |
+| `index.html` | Everyone — the "why": what the setup is and how it works | Both (no OS-specific content) |
+| `setup.html` | Everyone — the "how": interactive step-by-step setup checklist | Both (built-in macOS/Windows toggle) |
 | `OPENCODE-SETUP-MACOS.md` | First-time AI users on macOS | Terminal / bash, `~/.config/opencode` |
 | `OPENCODE-SETUP-WINDOWS.md` | First-time AI users on Windows | PowerShell, `%USERPROFILE%\.config\opencode` |
 
@@ -42,8 +42,8 @@ Users trigger this by asking the supervisor in OpenCode: **"Set up local models 
 - Aug 2026: local models are now chosen per machine by the supervisor agent (machine-capability evaluation), replacing the original machine's fixed model recommendations. Guides, README, and `agents/supervisor.md` all updated.
 - Aug 2026: GitHub Pages enabled on this repo — the explainer is live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/ and auto-updates on every push to `main`.
 - Aug 2026: **Budget mode** added — DeepSeek-only path (fund DeepSeek; optional free Gemini key keeps the screenshot feature). The explainer has a Full production / Budget toggle; both guides document the budget path; the supervisor honors the "Use the budget instructions" prompt and the full production setup stays configured for later upgrades (no re-setup).
-- Aug 2026: **Railway MCP now dormant by default** like all other MCPs; explainer gains a collapsed-by-default "Learn how to customize your OpenCode config" section (dormant MCP catalog with one-line explanations, activation steps + rationale, AI Coding Dictionary link, where to find more MCPs); supervisor.md tells the models the MCPs are dormant and how to activate them.
+- Aug 2026: **Railway MCP now dormant by default** like all other MCPs; the setup checklist gains a collapsed-by-default "Learn how to customize your OpenCode config" section (dormant MCP catalog with one-line explanations, activation steps + rationale, AI Coding Dictionary link, where to find more MCPs); supervisor.md tells the models the MCPs are dormant and how to activate them.
 - Aug 2026: the maintainer's live setup re-enables Railway via the `OPENCODE_CONFIG` env var pointing at a personal override file (`~/.config/opencode-personal.json`, outside the repo) — the repo itself stays at the beginner default.
-- Aug 2026: `explainer.html` added — the "why" primer, positioned as the beginner's first stop; `index.html` remains the "how" setup checklist.
+- Aug 2026: entry points finalized — the "why" primer is now `index.html` at the site root; the "how" checklist moved to `setup.html`; its two CTA links retargeted to the setup page.
 - The `opencode-config` repo is the source of truth for agent files. These guides are prose — update them when the setup changes materially (new providers, renamed agents, changed auth flow).
 - The live source config is tracked as a git repo at `~/.config/opencode` (branch `main`); `node_modules` is gitignored, `package.json`/`package-lock.json` tracked so friends can `npm install` the plugin dependency.
