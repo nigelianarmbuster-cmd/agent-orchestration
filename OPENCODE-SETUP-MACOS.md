@@ -9,7 +9,7 @@ Welcome. This guide walks you through setting up OpenCode on your Mac, step by s
 - **Environment variable (env var)** — a small setting stored on your computer that programs can read, so secrets do not have to be written into files.
 - **Model** — the actual AI "brain" that does the thinking. Different companies make different models; each has a name like `deepseek/deepseek-v4-pro`.
 - **API vs subscription** — a subscription (like ChatGPT Plus or Claude Pro) lets you chat inside a company's own app. API access is a separate pay-as-you-go balance that other programs, like OpenCode, can use. A subscription does not include API access.
-- **Prompt marker (`$`)** — commands sometimes start with a marker that says where to paste them: `$` for Terminal on a Mac, `PS>` for PowerShell on Windows. You never type the marker itself — only the command after it. The setup page's copy buttons leave the marker off automatically.
+- **Prompt marker (`$`)** — commands sometimes start with `$`, which just marks where to paste: open Terminal, paste the command after the `$`, press Return. You never type the `$` itself — only the command after it. The setup page's copy buttons leave the marker off automatically.
 
 ## 1. What you're getting
 
