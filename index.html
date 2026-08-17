@@ -420,6 +420,7 @@
   .mode-full [data-mode="full"] { display: block !important; }
   .mode-budget [data-mode="budget"].pill, .mode-full [data-mode="full"].pill { display: inline-flex !important; }
   .mode-budget .fact-grid [data-mode="budget"] { display: flex !important; }
+  .mode-full .fact-grid [data-mode="full"] { display: flex !important; }
   .mode-full .callout-warn[data-mode="full"] { display: flex !important; }
 
   .os-note {
@@ -608,6 +609,7 @@
       <ul class="fact-grid">
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-v4-pro</code></span></li>
+        <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> 5+ models employed based on their strengths</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
         <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek only — the whole core workflow still runs on it</span></li>
