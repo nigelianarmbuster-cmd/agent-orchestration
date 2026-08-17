@@ -27,7 +27,7 @@ The setup gives you a team of about 43 AI agents, arranged in tiers. The main ag
 A few things to know:
 
 - The default model is `deepseek/deepseek-v4-pro` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
-- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3) — the free tier is enough.
+- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
 - **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. Most are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use) — you can ignore them. One, called "railway", is on by default, but it only does anything if you install the Railway CLI and log in (optional, Step 8). The macos-use one is Mac-only and switched off anyway.
 
 ## 2. What you'll need before you start
