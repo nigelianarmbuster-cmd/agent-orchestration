@@ -23,6 +23,8 @@ Supervisor default agent + ~43 tiered agents: DeepSeek V4 Pro (supervisor, junio
 
 The setup does not impose a fixed set of local models. The original machine's models are not pushed on anyone — most of them are too big for typical machines. Instead, the **supervisor agent evaluates each machine** (RAM, GPU/VRAM, free disk) and pulls the best-fitting Ollama model: small models on modest hardware, larger ones only when the machine can run them comfortably. The sizing table and the OS-specific measurement commands live in the supervisor agent's "Local Model Selection" section (in the `opencode-config` repo, `agents/supervisor.md`).
 
+**One model by default.** The supervisor downloads a single model — the smallest that fits the task — and never "everything that fits": each model is 1–20 GB, and local models are an optional test tier, not the main setup. A second, larger model is pulled only when the user explicitly asks (max two without asking).
+
 Users trigger this by asking the supervisor in OpenCode: **"Set up local models that fit my machine."** The baseline local agent is `local-coder` (qwen2.5-coder:7b, ~4.7 GB) — the supervisor drops to 1.5b/3b models on weak machines and may go up to 14b/30b only on capable ones.
 
 ## Status

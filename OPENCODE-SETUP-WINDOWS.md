@@ -226,7 +226,7 @@ opencode
 Ollama runs AI models on your own PC — free, private, and offline. It is a good way to test the setup before paying for anything. Which model fits your machine depends on its memory and graphics card, so this setup does not assume everyone has the same hardware.
 
 1. Download the Windows installer from https://ollama.com/download and run it.
-2. Let the setup pick the right model for your machine. In the OpenCode chat, ask: **"Set up local models that fit my machine."** The supervisor agent will check your PC's memory, graphics card, and free disk space, then download a model that fits — a small one on modest hardware, a larger one only if your machine can run it comfortably.
+2. Let the setup pick the right model for your machine. In the OpenCode chat, ask: **"Set up local models that fit my machine."** The supervisor agent will check your PC's memory, graphics card, and free disk space, then download a model that fits — a small one on modest hardware, a larger one only if your machine can run it comfortably. It downloads **one model by default** — plenty to try things out. If you later want a bigger model, just ask for it in the chat.
 3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in `/models` automatically. Local models are slower and less capable than the cloud ones — that is the trade-off.
 
 ### Railway add-on (optional)
