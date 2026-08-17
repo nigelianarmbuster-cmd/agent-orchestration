@@ -38,6 +38,7 @@ A few things to know:
 - **Money on prepaid balances**: DeepSeek and Anthropic are pay-as-you-go — you add money before use. Amounts change; verify in the console when you sign up. Google has a free tier.
 - Optional: an xAI account (only if you want Grok models), Ollama (free, no account), a Railway account (only for the Railway add-on).
 - Nothing else — the configuration files are downloaded from a public GitHub page in Step 2. No GitHub account needed.
+- On a budget? Fund DeepSeek only and skip the rest — the supervisor and all junior agents run entirely on DeepSeek. See the "Budget option" block at the top of Step 3.
 
 ## 3. Step 1 — Install OpenCode
 
@@ -122,6 +123,16 @@ npm install
 This installs `@opencode-ai/plugin`, a helper package the config depends on, and creates a `node_modules` folder inside — that is expected. You will not touch this folder again.
 
 ## 5. Step 3 — Create your accounts and add funds
+
+### Budget option — DeepSeek only (skip the rest of this step)
+
+Running on a budget? Fund DeepSeek only. The core of the setup — the supervisor and all the junior agents — runs entirely on DeepSeek, so you get the full day-to-day workflow for the price of one prepaid balance. Two optional extras stay free:
+
+1. **Do steps 6–7 of the checklist** (DeepSeek account + funds + API key) below.
+2. **Optional but recommended:** also grab the free Gemini key (see Google Gemini below, no payment needed — it has a free tier). That keeps the screenshot feature and the Gemini agents working.
+3. **Skip** Anthropic Claude and xAI Grok below. You will not be able to use the mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) or the Grok models until you add their keys later.
+4. After connecting DeepSeek in Step 4, tell OpenCode to run in budget mode by prompting it: **"Use the budget instructions."** The supervisor will stick to junior-tier (DeepSeek) agents and won't try the paid tiers.
+5. **Upgrade later without redoing anything:** connect the extra keys anytime with `/connect` (or add them to your `.env` file) and tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
 
 ### DeepSeek (required)
 

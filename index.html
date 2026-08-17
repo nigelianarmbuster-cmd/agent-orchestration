@@ -322,6 +322,8 @@
 
   .pill-req { color: #c7d2fe; background: rgba(99, 102, 241, .16); border: 1px solid rgba(99, 102, 241, .4); }
   .pill-opt { color: #9fb0c8; background: rgba(255, 255, 255, .05); border: 1px solid rgba(255, 255, 255, .14); }
+  .pill-free { color: #a7f3d0; background: rgba(16, 185, 129, .14); border: 1px solid rgba(16, 185, 129, .4); }
+  .pill-skip { color: #9fb0c8; background: rgba(255, 255, 255, .04); border: 1px dashed rgba(255, 255, 255, .2); }
 
   .gnum { margin-left: auto; font-family: var(--mono); font-size: 11px; color: var(--faint); }
 
@@ -411,6 +413,13 @@
   .os-mac [data-os="mac"].os-inline { display: inline; }
   .os-win [data-os="win"].os-inline { display: inline; }
 
+  /* ---------- Plan mode variants (full / budget) ---------- */
+
+  [data-mode] { display: none; }
+  .mode-budget [data-mode="budget"] { display: block; }
+  .mode-full [data-mode="full"] { display: block; }
+  .mode-budget [data-mode="budget"].pill, .mode-full [data-mode="full"].pill { display: inline-flex; }
+
   .os-note {
     font-size: 12.8px;
     color: #aab8cd;
@@ -464,6 +473,17 @@
   .warn-ic { color: #fbbf24; flex: none; margin-top: 2px; }
   .callout-warn h4 { margin: 0 0 3px; font-size: 13.5px; color: #fcd34d; }
   .callout-warn p { margin: 0; font-size: 12.8px; color: #e8c583; }
+
+  .banner-info {
+    border: 1px solid rgba(139, 92, 246, .35);
+    background: rgba(139, 92, 246, .07);
+    border-radius: 13px;
+    padding: 13px 15px;
+    margin-bottom: 16px;
+  }
+
+  .banner-info h4 { margin: 0 0 3px; font-size: 13.5px; color: #c4b5fd; }
+  .banner-info p { margin: 0; font-size: 12.8px; color: #b9c6da; }
 
   /* ---------- Chat bubbles ---------- */
 
@@ -543,7 +563,7 @@
   }
 </style>
 </head>
-<body class="os-mac">
+<body class="os-mac mode-full">
 
 <header class="site-header">
   <div class="header-inner">
@@ -558,6 +578,10 @@
       <div class="seg" role="group" aria-label="Choose your operating system">
         <button type="button" class="seg-btn" data-osval="mac" aria-pressed="true">macOS</button>
         <button type="button" class="seg-btn" data-osval="win" aria-pressed="false">Windows</button>
+      </div>
+      <div class="seg" role="group" aria-label="Choose your plan">
+        <button type="button" class="seg-btn seg-plan" data-modeval="full" aria-pressed="true">Full production</button>
+        <button type="button" class="seg-btn seg-plan" data-modeval="budget" aria-pressed="false">Budget</button>
       </div>
       <button type="button" class="reset-btn" id="reset-btn" aria-label="Reset all progress">
         <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M3 12a9 9 0 1 0 3-6.7"/><path d="M3 4v5h5"/></svg>
@@ -584,6 +608,7 @@
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-v4-pro</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
+        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek only — the whole core workflow still runs on it</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a Gemini key)</span></li>
       </ul>
     </div>
@@ -784,6 +809,10 @@
         <p class="sec-sub">Steps 6–11</p>
       </div>
     </div>
+    <div class="banner-info" data-mode="budget">
+      <h4>Budget plan</h4>
+      <p>Fund DeepSeek only (steps 6–7). Grab the free Gemini key (steps 10 and 14) to keep the screenshot feature. Skip steps 8–9, 13 (Anthropic) and 11 (xAI). The supervisor and all junior agents run entirely on DeepSeek — the mid/senior agents unlock whenever you add a key later, no re-setup needed.</p>
+    </div>
     <div class="steps">
 
       <article class="step-card">
@@ -846,7 +875,8 @@
             <div class="step-head">
               <span class="step-num" aria-hidden="true">8</span>
               <h3 class="step-title">Anthropic — create an account &amp; buy credits</h3>
-              <span class="pill pill-req">Required</span>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
               <span class="gnum">8/18</span>
             </div>
             <p class="step-desc">Anthropic's Claude powers the mid and senior tiers. Sign up, then buy prepaid usage credits (console: <strong>Billing → Buy credits</strong>). New users get a small free credit; credits expire after one year and are non-refundable.</p>
@@ -858,6 +888,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
+          <p class="note" data-mode="budget">Budget: skip — Anthropic only powers the mid/senior agents. Add the key later with <code>/connect</code> to unlock them; nothing else changes.</p>
         </div>
       </article>
 
@@ -871,7 +902,8 @@
             <div class="step-head">
               <span class="step-num" aria-hidden="true">9</span>
               <h3 class="step-title">Anthropic — create your API key</h3>
-              <span class="pill pill-req">Required</span>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
               <span class="gnum">9/18</span>
             </div>
             <p class="step-desc">Create a key and choose the longest expiration (up to "Never") so you don't have to redo this later.</p>
@@ -883,7 +915,8 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <div class="callout-warn">
+          <p class="note" data-mode="budget">Budget: skip — come back to this whenever you want the mid/senior agents. It's the only setup you'll ever need to redo (a 2-minute task).</p>
+          <div class="callout-warn" data-mode="full">
             <span class="warn-ic" aria-hidden="true"><svg width="17" height="17" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/><path d="M12 9v4"/><path d="M12 17h.01"/></svg></span>
             <div>
               <h4>Do not use the Claude Pro/Max login</h4>
@@ -903,7 +936,8 @@
             <div class="step-head">
               <span class="step-num" aria-hidden="true">10</span>
               <h3 class="step-title">Google — create your Gemini API key</h3>
-              <span class="pill pill-req">Required</span>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
               <span class="gnum">10/18</span>
             </div>
             <p class="step-desc">Needed for the screenshot observer and the Gemini agents. Sign in with any Google account, accept the terms, and click "Create API key". A free tier exists; a paid prepay plan is optional.</p>
@@ -915,6 +949,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
+          <p class="note" data-mode="budget">Budget: this one is free (free tier) — do it anyway; it keeps the screenshot feature and the Gemini agents working.</p>
         </div>
       </article>
 
@@ -951,7 +986,7 @@
       <span class="sec-badge" aria-hidden="true">4</span>
       <div class="sec-titles">
         <h2 id="s4-title">Connect your keys &amp; first run</h2>
-        <p class="sec-sub">Steps 12–17</p>
+        <p class="sec-sub">Steps 12–18</p>
       </div>
     </div>
     <div class="steps">
@@ -992,11 +1027,15 @@
             <div class="step-head">
               <span class="step-num" aria-hidden="true">13</span>
               <h3 class="step-title">Connect Anthropic</h3>
-              <span class="pill pill-req">Required</span>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
               <span class="gnum">13/18</span>
             </div>
             <p class="step-desc">In the same <code>/connect</code> screen, pick Anthropic and choose <strong>"Manually enter API Key"</strong>, then paste. Do not pick the Pro/Max option — see the warning in section 3.</p>
           </div>
+        </div>
+        <div class="step-extras">
+          <p class="note" data-mode="budget">Budget: skip — nothing to connect without an Anthropic key. Add it later with <code>/connect</code> to unlock the mid/senior agents.</p>
         </div>
       </article>
 
@@ -1010,7 +1049,8 @@
             <div class="step-head">
               <span class="step-num" aria-hidden="true">14</span>
               <h3 class="step-title">Create the .env file for Gemini</h3>
-              <span class="pill pill-req">Required</span>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
               <span class="gnum">14/18</span>
             </div>
             <p class="step-desc">OpenCode has no login flow for Gemini — it reads the key from a <code>.env</code> file in the folder where you run OpenCode. Make a project folder, add a file named exactly <code>.env</code>, and put this line inside it:</p>
@@ -1024,6 +1064,7 @@
             <pre><code>GEMINI_API_KEY=PASTE_YOUR_KEY_HERE</code></pre>
           </div>
           <p class="note">Replace <code>PASTE_YOUR_KEY_HERE</code> with your real key — no spaces, no quotes around the key itself. Want Grok too? Add a second line: <code>XAI_API_KEY=PASTE_YOUR_KEY_HERE</code>. OpenCode also accepts <code>GOOGLE_API_KEY</code> or <code>GOOGLE_GENERATIVE_AI_API_KEY</code> instead of <code>GEMINI_API_KEY</code>.</p>
+          <p class="note" data-mode="budget">Budget: still do this — the Gemini key is free (free tier) and keeps the screenshot feature working.</p>
           <div class="cmd os-block" data-os="mac">
             <button type="button" class="copy-btn" aria-label="Copy command">
               <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
@@ -1112,6 +1153,30 @@
         </div>
       </article>
 
+      <article class="step-card" data-mode="budget">
+        <div class="card-top">
+          <label class="check-wrap" for="step-budget">
+            <input type="checkbox" id="step-budget" class="step-check" aria-label="Mark done: Tell OpenCode to use the budget instructions">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">18</span>
+              <h3 class="step-title">Tell OpenCode to use the budget instructions</h3>
+              <span class="pill pill-opt">Budget</span>
+              <span class="gnum">18/18</span>
+            </div>
+            <p class="step-desc">This switches the supervisor into budget mode: it sticks to the junior-tier (DeepSeek) agents and never calls the paid mid/senior tiers. The full production setup stays installed and untouched — upgrade anytime by adding keys and asking to switch back.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <div class="bubble">
+            <p class="who">You, in OpenCode</p>
+            <p class="bubble-text">Use the budget instructions.</p>
+          </div>
+        </div>
+      </article>
+
     </div>
   </section>
 
@@ -1120,7 +1185,7 @@
       <span class="sec-badge" aria-hidden="true">5</span>
       <div class="sec-titles">
         <h2 id="s5-title">Optional extras</h2>
-        <p class="sec-sub">Step 18</p>
+        <p class="sec-sub">No numbered steps</p>
       </div>
     </div>
     <div class="steps">
@@ -1197,7 +1262,49 @@
   var progressCount = document.getElementById("progress-count");
   var progressBar = document.getElementById("progressbar");
   var resetBtn = document.getElementById("reset-btn");
-  var total = inputs.length;
+  var total = 0;
+
+  var MODE_KEY = "aosetup:mode";
+  var planButtons = Array.prototype.slice.call(document.querySelectorAll(".seg-plan"));
+
+  function readMode() {
+    try {
+      return localStorage.getItem(MODE_KEY) === "budget" ? "budget" : "full";
+    } catch (e) {
+      return "full";
+    }
+  }
+
+  function applyMode(mode) {
+    body.classList.toggle("mode-budget", mode === "budget");
+    body.classList.toggle("mode-full", mode === "full");
+    planButtons.forEach(function (btn) {
+      btn.setAttribute("aria-pressed", String(btn.getAttribute("data-modeval") === mode));
+    });
+    renumber();
+  }
+
+  function saveMode(mode) {
+    try { localStorage.setItem(MODE_KEY, mode); } catch (e) { /* ignore */ }
+  }
+
+  function renumber() {
+    var visible = [];
+    inputs.forEach(function (inp) {
+      if (inp.offsetParent !== null) { visible.push(inp); }
+    });
+    total = visible.length;
+    visible.forEach(function (inp, i) {
+      var card = inp.closest(".step-card");
+      if (!card) { return; }
+      var num = card.querySelector(".step-num");
+      var gnum = card.querySelector(".gnum");
+      if (num) { num.textContent = String(i + 1); }
+      if (gnum) { gnum.textContent = (i + 1) + "/" + total; }
+    });
+    progressBar.setAttribute("aria-valuemax", String(total));
+    updateProgress();
+  }
 
   function readOS() {
     try {
@@ -1265,6 +1372,14 @@
     });
   });
 
+  planButtons.forEach(function (btn) {
+    btn.addEventListener("click", function () {
+      var mode = btn.getAttribute("data-modeval");
+      applyMode(mode);
+      saveMode(mode);
+    });
+  });
+
   resetBtn.addEventListener("click", function () {
     if (!window.confirm("Clear all progress? This only affects this browser.")) { return; }
     inputs.forEach(function (inp) {
@@ -1327,6 +1442,7 @@
     });
   });
 
+  applyMode(readMode());
   applyOS(readOS());
   var doneIds = readDone();
   inputs.forEach(function (inp) {
