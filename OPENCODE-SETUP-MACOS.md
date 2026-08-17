@@ -27,7 +27,7 @@ The setup gives you a team of about 43 AI agents, arranged in tiers. The main ag
 A few things to know:
 
 - The default model is `deepseek/deepseek-v4-pro` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
-- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
+- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3) — the free tier is enough.
 - **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. Most are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use) — you can ignore them. One, called "railway", is on by default, but it only does anything if you install the Railway CLI and log in (optional, Step 8). The macos-use one is Mac-only and switched off anyway.
 
 ## 2. What you'll need before you start
@@ -267,6 +267,6 @@ Running on a budget? Fund DeepSeek only. The core of the setup — the superviso
 1. Follow Steps 1–2 as written (install OpenCode and the configuration files).
 2. In Step 3, do only the DeepSeek steps: account, prepaid funds, and API key.
 3. **Optional but recommended:** also grab the free Gemini key (the Google Gemini part of Step 3) — no payment needed, it has a free tier. That keeps the screenshot feature and the Gemini agents working.
-4. Skip the Anthropic and xAI accounts. The mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) and the Grok models stay unavailable until you add their keys later.
+4. Skip the Anthropic and xAI accounts. The mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive — the supervisor won't use them until you add an Anthropic key later; Grok models remain an unused optional extra. (The team table in section 1 describes the full setup — budget mode runs the DeepSeek tier plus whatever keys you have added.)
 5. In Step 4, connect only DeepSeek (and add the `GEMINI_API_KEY=` line to your `.env` file if you took the optional key). Then tell OpenCode to run in budget mode by prompting it: **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
 6. **Upgrade later without redoing anything:** connect the extra keys anytime with `/connect` (or add them to your `.env` file) and tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.

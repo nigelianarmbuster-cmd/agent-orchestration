@@ -605,7 +605,8 @@
   <section class="intro" aria-labelledby="intro-title">
     <div class="intro-card">
       <h2 id="intro-title">What you're building</h2>
-      <p>This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>43 tiered agents</strong> — DeepSeek V4 Pro (supervisor and juniors), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini (research and multimodal), and optional free local models via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a Gemini key.</p>
+      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>43 tiered agents</strong> — DeepSeek V4 Pro (supervisor and juniors), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini (research and multimodal), and optional free local models via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a free Gemini key.</p>
+      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>43 tiered agents</strong>. On the budget plan, DeepSeek V4 Pro powers the supervisor and all the junior agents — the day-to-day workflow. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Gemini agents and the screenshot observer work if you grab the <strong>free</strong> Gemini key, and local models via Ollama are always free.</p>
       <ul class="fact-grid">
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-v4-pro</code></span></li>
@@ -613,7 +614,7 @@
         <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
         <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek only — the whole core workflow still runs on it</span></li>
-        <li><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a Gemini key)</span></li>
+        <li><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a free Gemini key)</span></li>
       </ul>
     </div>
   </section>

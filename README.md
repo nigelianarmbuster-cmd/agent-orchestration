@@ -20,7 +20,7 @@ Both guides cover: install OpenCode → download the config (ZIP or `git clone`)
 
 ## The setup, in one paragraph
 
-Supervisor default agent + ~43 tiered agents: DeepSeek V4 Pro (supervisor, juniors, mules), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini flash/pro (research, multimodal), Ollama (local, free — model chosen per machine, see below). The `observer-bridge.js` plugin handles pasted screenshots by auto-spawning the @observer agent (needs a Gemini key via `GEMINI_API_KEY`). Railway MCP is enabled; all other MCP servers are present but disabled by default (GitHub MCP is documented as an optional add-on).
+Supervisor default agent + ~43 tiered agents: DeepSeek V4 Pro (supervisor, juniors, mules), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini flash/pro (research, multimodal), Ollama (local, free — model chosen per machine, see below). The `observer-bridge.js` plugin handles pasted screenshots by auto-spawning the @observer agent (needs a free Gemini key via `GEMINI_API_KEY`). Railway MCP is enabled; all other MCP servers are present but disabled by default (GitHub MCP is documented as an optional add-on).
 
 ## Local model selection (supervisor-driven)
 
