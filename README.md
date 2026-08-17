@@ -2,7 +2,7 @@
 
 Beginner-friendly setup guides for mirroring an OpenCode agent-orchestration setup (a supervisor that delegates to ~43 tiered AI agents) in your own OpenCode instance. Written for first-time AI users.
 
-**Start with `index.html`** — the interactive step-by-step explainer: a checkbox checklist of every user action, with links to every account/key page and a macOS/Windows toggle. The guides below are the detailed source of truth.
+**Start with the live explainer: https://nigelianarmbuster-cmd.github.io/agent-orchestration/** — the interactive step-by-step checklist of every user action, with links to every account/key page and a macOS/Windows toggle. (`index.html` in this repo is the same page, for local/offline use.) The guides below are the detailed source of truth.
 
 **The configuration files themselves live in a separate public repo:**
 https://github.com/nigelianarmbuster-cmd/opencode-config
@@ -34,5 +34,6 @@ Users trigger this by asking the supervisor in OpenCode: **"Set up local models 
 
 - Guides written Aug 2026. Provider URLs and signup flows verified Aug 2026 against official docs; dollar amounts intentionally not hard-coded ("verify at purchase").
 - Aug 2026: local models are now chosen per machine by the supervisor agent (machine-capability evaluation), replacing the original machine's fixed model recommendations. Guides, README, and `agents/supervisor.md` all updated.
+- Aug 2026: GitHub Pages enabled on this repo — the explainer is live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/ and auto-updates on every push to `main`.
 - The `opencode-config` repo is the source of truth for agent files. These guides are prose — update them when the setup changes materially (new providers, renamed agents, changed auth flow).
 - The live source config is tracked as a git repo at `~/.config/opencode` (branch `main`); `node_modules` is gitignored, `package.json`/`package-lock.json` tracked so friends can `npm install` the plugin dependency.
