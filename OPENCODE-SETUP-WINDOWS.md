@@ -28,7 +28,7 @@ A few things to know:
 
 - The default model is `deepseek/deepseek-v4-pro` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
-- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. Most are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use) — you can ignore them. One, called "railway", is on by default, but it only does anything if you install the Railway CLI and log in (optional, Step 8). The macos-use one is for Macs only, and it is switched off in this config anyway.
+- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the explainer, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway.
 
 ## 2. What you'll need before you start
 
@@ -234,7 +234,7 @@ Ollama runs AI models on your own PC — free, private, and offline. It is a goo
 
 ### Railway add-on (optional)
 
-The config includes an optional Railway tool (it runs `railway mcp`). It is on by default but does nothing unless you install the Railway CLI and run `railway login`. If you do not use Railway, just ignore it.
+The config includes an optional Railway tool (it runs `railway mcp`). It is off by default, like every other add-on tool. To use it: install the Railway CLI, run `railway login`, then enable the server in `opencode.json` (set `"enabled": true` under `mcp.railway`) and restart OpenCode. If you do not use Railway, just ignore it.
 
 ### GitHub integration (optional)
 
@@ -264,7 +264,7 @@ Docker (https://www.docker.com) is a heavy install — only do this if you actua
 | `opencode` is "not recognized" after installing | Close PowerShell completely and open a new window (Windows refreshes its program list only in new windows). Restart the computer if it still fails. |
 | Syntax errors or "unexpected token" | Make sure you are in PowerShell, not Command Prompt, and copy the commands from this guide exactly — including `$` and any quotes. |
 | Pasted screenshots are ignored, or observer errors | The Gemini key is missing. Make sure the project folder's `.env` contains a `GEMINI_API_KEY=` line with your key (Step 4). |
-| Railway errors when OpenCode starts | The Railway add-on is optional. Either install the Railway CLI and run `railway login`, or ignore the message. |
+| Railway errors after you enable it | The Railway add-on is optional. Install the Railway CLI and run `railway login`, or set it back to `"enabled": false` in opencode.json. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
 

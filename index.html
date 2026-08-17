@@ -206,6 +206,7 @@
   .sec-s3 { --accent: #818cf8; }
   .sec-s4 { --accent: #60a5fa; }
   .sec-s5 { --accent: #2dd4bf; }
+  .sec-s6 { --accent: #f472b6; }
 
   .sec-head { display: flex; align-items: center; gap: 13px; margin-bottom: 16px; }
 
@@ -508,6 +509,58 @@
   }
 
   .bubble .bubble-text { margin: 0; font-family: var(--mono); font-size: 13px; color: #ece3fb; }
+
+  /* ---------- Customization details (collapsed by default) ---------- */
+
+  .customize {
+    border: 1px solid rgba(255, 255, 255, .08);
+    border-radius: 14px;
+    background: rgba(255, 255, 255, .02);
+    overflow: hidden;
+  }
+
+  .customize summary {
+    cursor: pointer;
+    list-style: none;
+    display: flex;
+    align-items: center;
+    gap: 11px;
+    padding: 15px 18px;
+    font-family: var(--head);
+    font-size: 15px;
+    font-weight: 600;
+    color: var(--text);
+    -webkit-user-select: none;
+    user-select: none;
+  }
+
+  .customize summary::-webkit-details-marker { display: none; }
+
+  .customize summary::before {
+    content: "";
+    width: 8px;
+    height: 8px;
+    border-right: 2px solid var(--violet);
+    border-bottom: 2px solid var(--violet);
+    transform: rotate(-45deg);
+    transition: transform .18s ease;
+    flex: none;
+    margin-top: -3px;
+  }
+
+  .customize[open] summary::before { transform: rotate(45deg); margin-top: 2px; }
+
+  .customize summary:hover { background: rgba(255, 255, 255, .03); }
+  .customize summary:focus-visible { outline: 2px solid var(--cyan); outline-offset: -2px; }
+
+  .customize-inner { padding: 4px 18px 18px; border-top: 1px solid rgba(255, 255, 255, .06); }
+  .customize-inner h3 { margin: 14px 0 6px; font-family: var(--head); font-size: 14px; color: #d8e0ee; }
+  .customize-inner p { margin: 8px 0 0; font-size: 13.3px; color: #aab8cd; }
+
+  .mcp-table { width: 100%; border-collapse: collapse; font-size: 13px; margin: 12px 0 4px; }
+  .mcp-table th, .mcp-table td { text-align: left; padding: 8px 10px; border-bottom: 1px solid rgba(255, 255, 255, .06); vertical-align: top; }
+  .mcp-table th { color: var(--muted); font-size: 11.5px; text-transform: uppercase; letter-spacing: .06em; }
+  .mcp-table td:first-child { white-space: nowrap; }
 
   /* ---------- Safety / footer ---------- */
 
@@ -1227,6 +1280,65 @@
       </article>
 
     </div>
+  </section>
+
+  <section class="sec sec-s6" aria-labelledby="s6-title">
+    <div class="sec-head">
+      <span class="sec-badge" aria-hidden="true">6</span>
+      <div class="sec-titles">
+        <h2 id="s6-title">Learn how to customize your OpenCode config</h2>
+        <p class="sec-sub">Optional — nothing to do now</p>
+      </div>
+    </div>
+    <details class="customize">
+      <summary>Open the customization guide</summary>
+      <div class="customize-inner">
+        <p>Your setup ships with extra add-on tools called <strong>MCP servers</strong>. All of them are <strong>dormant</strong> — declared in the config but switched off — so they cost nothing and do nothing until you turn one on.</p>
+
+        <h3>1. The dormant tools in your setup</h3>
+        <table class="mcp-table">
+          <thead><tr><th>Tool</th><th>What it does</th></tr></thead>
+          <tbody>
+            <tr><td><code>playwright</code></td><td>Browser automation: screenshots, page inspection, click-through testing. First enable downloads browser binaries (a few hundred MB).</td></tr>
+            <tr><td><code>chrome-devtools</code></td><td>Connects to a real Chrome browser for debugging, console and performance checks.</td></tr>
+            <tr><td><code>elevenlabs</code></td><td>Text-to-speech voice generation. Needs an ElevenLabs account and key.</td></tr>
+            <tr><td><code>yt-dlp</code></td><td>Downloads videos and audio from YouTube and other sites.</td></tr>
+            <tr><td><code>vercel</code></td><td>Manages Vercel deployments. Needs a Vercel token.</td></tr>
+            <tr><td><code>gemini-api-docs</code></td><td>Gives the agents current Gemini API documentation.</td></tr>
+            <tr><td><code>context7</code></td><td>Gives the agents current documentation for libraries and frameworks.</td></tr>
+            <tr><td><code>github</code></td><td>Works with GitHub repositories. Needs Docker and a personal access token — full steps in the macOS/Windows guides.</td></tr>
+            <tr><td><code>macos-use</code></td><td>Controls your Mac's desktop (macOS only; needs a helper binary).</td></tr>
+            <tr><td><code>railway</code></td><td>Deploys apps to Railway. Needs the Railway CLI and <code>railway login</code>.</td></tr>
+          </tbody>
+        </table>
+
+        <h3>2. Why they are off, and how to turn one on</h3>
+        <p>Every enabled MCP server loads at startup and adds tokens to each conversation, and some pull down packages or need their own accounts and keys. The core setup needs none of them, so they ship dormant — switch on exactly what you use.</p>
+        <p>To enable one: open <code>opencode.json</code> in your config folder (<code>~/.config/opencode</code> on macOS, <code>%USERPROFILE%\.config\opencode</code> on Windows), find the tool's name under <code>"mcp"</code>, change <code>"enabled": false</code> to <code>"enabled": true</code>, save, and restart OpenCode. Check it is live with <code>opencode mcp list</code>. Some tools need extra setup (a key, token, or CLI) — noted in the table above.</p>
+
+        <h3>3. New to the vocabulary?</h3>
+        <p>The <strong>AI Coding Dictionary</strong> starts you at MCP and explains the terms as you go.</p>
+        <div class="link-row">
+          <a class="link-pill" href="https://www.aicodingdictionary.com/?term=mcp" target="_blank" rel="noopener">Open the AI Coding Dictionary
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+
+        <h3>4. Where to find other MCPs</h3>
+        <div class="link-row">
+          <a class="link-pill" href="https://opencode.ai/docs/mcp-servers" target="_blank" rel="noopener">OpenCode docs — MCP servers
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <a class="link-pill" href="https://modelcontextprotocol.io" target="_blank" rel="noopener">Model Context Protocol — official site
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+          <a class="link-pill" href="https://mcp.so" target="_blank" rel="noopener">MCP.so — community directory
+            <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+          </a>
+        </div>
+        <p class="note">Hundreds of MCP servers exist. The OpenCode docs show how to add your own; the MCP standard's official site lists examples; community directories collect the rest. Only add the ones you actually need — each one adds weight to every conversation.</p>
+      </div>
+    </details>
   </section>
 
   <section class="safety" aria-labelledby="safety-title">
