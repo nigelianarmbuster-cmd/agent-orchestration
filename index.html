@@ -415,10 +415,12 @@
 
   /* ---------- Plan mode variants (full / budget) ---------- */
 
-  [data-mode] { display: none; }
-  .mode-budget [data-mode="budget"] { display: block; }
-  .mode-full [data-mode="full"] { display: block; }
-  .mode-budget [data-mode="budget"].pill, .mode-full [data-mode="full"].pill { display: inline-flex; }
+  [data-mode] { display: none !important; }
+  .mode-budget [data-mode="budget"] { display: block !important; }
+  .mode-full [data-mode="full"] { display: block !important; }
+  .mode-budget [data-mode="budget"].pill, .mode-full [data-mode="full"].pill { display: inline-flex !important; }
+  .mode-budget .fact-grid [data-mode="budget"] { display: flex !important; }
+  .mode-full .callout-warn[data-mode="full"] { display: flex !important; }
 
   .os-note {
     font-size: 12.8px;
