@@ -2,6 +2,8 @@
 
 Beginner-friendly setup guides for mirroring an OpenCode agent-orchestration setup (a supervisor that delegates to ~43 tiered AI agents) in your own OpenCode instance. Written for first-time AI users.
 
+**Start with `index.html`** — the interactive step-by-step explainer: a checkbox checklist of every user action, with links to every account/key page and a macOS/Windows toggle. The guides below are the detailed source of truth.
+
 **The configuration files themselves live in a separate public repo:**
 https://github.com/nigelianarmbuster-cmd/opencode-config
 (Clone it into `~/.config/opencode` / `%USERPROFILE%\.config\opencode`, then run `npm install`.)
@@ -10,6 +12,7 @@ https://github.com/nigelianarmbuster-cmd/opencode-config
 
 | Guide | Audience | OS specifics |
 |---|---|---|
+| `index.html` | Everyone — interactive step-by-step explainer with checklist | Both (built-in macOS/Windows toggle) |
 | `OPENCODE-SETUP-MACOS.md` | First-time AI users on macOS | Terminal / bash, `~/.config/opencode` |
 | `OPENCODE-SETUP-WINDOWS.md` | First-time AI users on Windows | PowerShell, `%USERPROFILE%\.config\opencode` |
 
