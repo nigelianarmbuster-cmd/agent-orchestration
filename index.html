@@ -1257,7 +1257,7 @@
   var DONE_KEY = "aosetup:done";
   var body = document.body;
   var inputs = Array.prototype.slice.call(document.querySelectorAll(".step-check"));
-  var segButtons = Array.prototype.slice.call(document.querySelectorAll(".seg-btn"));
+  var segButtons = Array.prototype.slice.call(document.querySelectorAll("[data-osval]"));
   var progressFill = document.getElementById("progress-fill");
   var progressCount = document.getElementById("progress-count");
   var progressBar = document.getElementById("progressbar");
@@ -1265,7 +1265,7 @@
   var total = 0;
 
   var MODE_KEY = "aosetup:mode";
-  var planButtons = Array.prototype.slice.call(document.querySelectorAll(".seg-plan"));
+  var planButtons = Array.prototype.slice.call(document.querySelectorAll("[data-modeval]"));
 
   function readMode() {
     try {
