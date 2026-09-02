@@ -13,23 +13,26 @@ Welcome. This guide walks you through setting up OpenCode on Windows, step by st
 
 ## 1. What you're getting
 
-The setup gives you a team of about 43 AI agents, arranged in tiers. The main agent (the "supervisor") plans the work and hands pieces to specialist agents.
+The setup gives you a team of about 44 AI agents, arranged in tiers. The main agent (the "supervisor") plans the work and hands pieces to specialist agents.
 
 | What | Model / provider | What it's for |
 |---|---|---|
 | Main assistant and "supervisor" | deepseek/deepseek-v4-pro (DeepSeek) | The default brain — plans work and delegates |
-| Junior agents | deepseek/deepseek-v4-pro (DeepSeek) | Small, focused tasks |
-| Mid-tier agents | anthropic/claude-sonnet-5 (Anthropic) | Everyday work |
+| Junior agents | deepseek/deepseek-v4-flash (DeepSeek) | Small, focused tasks |
+| Mid-tier agents | anthropic/claude-sonnet-5 (Anthropic) | Everyday work, careful judgment |
+| Mid researcher & planner | google/gemini-3.7-flash (Google) | Web research and structural planning |
 | Senior agents | anthropic/claude-opus-4-8 (Anthropic) | The hardest, most careful work |
-| Gemini agents | google/gemini-2.5-flash and google/gemini-3.1-pro-preview (Google) | Web research, long documents, images |
-| Observer | google/gemini-3.5-flash (Google) | Reads screenshots you paste into the chat |
+| Gemini agents (gemini-worker, gemini-mule) | google/gemini-3.7-flash (Google) | Web research, long documents, images |
+| Observer | google/gemini-3.7-flash (Google) | Reads screenshots you paste into the chat |
 | Local models | Ollama (runs on your PC) | Free and private — optional extra |
 
 A few things to know:
 
 - The default model is `deepseek/deepseek-v4-pro` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
+
+**Why three providers?** This setup deliberately spreads work across DeepSeek, Anthropic, and Google instead of running everything on one model. Each is used where it is genuinely strongest, and spend is spread across all three prepaid balances. DeepSeek is the primary workhorse — the supervisor runs on the faster V4 Pro, while the juniors and mules run on the cheaper V4 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.7 Flash (Google) is used for research, planning, and vision (the Observer), where long-context synthesis shines at low quality risk. Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles that moved to Gemini, because that is where Gemini is genuinely competitive — structural planning and long-context web research carry little quality risk. The Observer reads screenshots, which is a vision task, so it needs a Google/Gemini key — not an Anthropic one.
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
-- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway.
+- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway. Railway is the one to leave off permanently — use the Railway CLI instead (see the Railway section), because enabling the Railway MCP has been known to break the screenshot (Observer) feature.
 
 ## 2. What you'll need before you start
 
@@ -37,7 +40,7 @@ A few things to know:
 - **Node.js** (free) from https://nodejs.org — click the "LTS" button and run the installer. You need it even if you install OpenCode another way, because Step 2 uses it.
 - **Three accounts**: DeepSeek (required), Anthropic (required), Google (required only for the screenshot feature and Gemini agents).
 - **Money on prepaid balances**: DeepSeek and Anthropic are pay-as-you-go — you add money before use. Amounts change; verify in the console when you sign up. Google has a free tier.
-- Optional: an xAI account (only if you want Grok models), Ollama (free, no account), a Railway account (only for the Railway add-on).
+- Optional: an xAI account (only if you want Grok models), Ollama (free, no account), a Railway account (only if you deploy to Railway).
 - Nothing else — the configuration files are downloaded from a public GitHub page in Step 2. No GitHub account needed.
 - On a budget? Fund DeepSeek only — see the [Budget path](#budget-path) section at the end of this guide.
 
@@ -83,7 +86,7 @@ The setup is a folder of configuration files, published at https://github.com/ni
 - `opencode.json`
 - `opencode.jsonc`
 - `AGENTS.md`
-- `agents/` (a folder containing about 43 agent files ending in .md)
+- `agents/` (a folder containing about 44 agent files ending in .md)
 - `observer-bridge.js`
 - `package.json`
 - `package-lock.json`
@@ -141,7 +144,7 @@ DeepSeek powers the main assistant, the supervisor, and all the junior agents.
 
 ### Anthropic Claude (required)
 
-Anthropic's Claude powers the mid-tier and senior agents.
+Anthropic's Claude powers most mid-tier agents (except the researcher and planner, which run on Gemini) and all the senior agents.
 
 1. Go to https://platform.claude.com (the older console.anthropic.com address now redirects there).
 2. Sign up with Google or an email address.
@@ -219,7 +222,7 @@ opencode
 
 - A chat screen opens.
 - Type `/models` — you should see the model list. Pick `deepseek/deepseek-v4-pro`.
-- Type `/agents` — you should see the agent team (about 43 agents).
+- Type `/agents` — you should see the agent team (about 44 agents).
 - Ask anything simple, like "What is 2+2?" — a normal reply means everything is wired up.
 - To leave, press Ctrl+C (twice if it is busy).
 
@@ -233,9 +236,9 @@ Ollama runs AI models on your own PC — free, private, and offline. It is a goo
 2. Let the setup pick the right model for your machine. In the OpenCode chat, ask: **"Set up local models that fit my machine."** The supervisor agent will check your PC's memory, graphics card, and free disk space, then download a model that fits — a small one on modest hardware, a larger one only if your machine can run it comfortably. It downloads **one model by default** — plenty to try things out. If you later want a bigger model, just ask for it in the chat.
 3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in `/models` automatically. Local models are slower and less capable than the cloud ones — that is the trade-off.
 
-### Railway add-on (optional)
+### Railway deployments (CLI)
 
-The config includes an optional Railway tool (it runs `railway mcp`). It is off by default, like every other add-on tool. To use it: install the Railway CLI, run `railway login`, then enable the server in `opencode.json` (set `"enabled": true` under `mcp.railway`) and restart OpenCode. If you do not use Railway, just ignore it.
+Railway deployments work through the Railway CLI — no add-on tool needed. Install the Railway CLI, run `railway login`, then use `railway up` or `railway deploy` from a terminal. The config also contains a Railway MCP server, but leave it switched off: enabling it has been known to break the screenshot (Observer) feature, and the CLI covers the same ground. If you do not use Railway, just ignore it.
 
 ### GitHub integration (optional)
 
@@ -265,7 +268,7 @@ Docker (https://www.docker.com) is a heavy install — only do this if you actua
 | `opencode` is "not recognized" after installing | Close PowerShell completely and open a new window (Windows refreshes its program list only in new windows). Restart the computer if it still fails. |
 | Syntax errors or "unexpected token" | Make sure you are in PowerShell, not Command Prompt, and copy the commands from this guide exactly — including `$` and any quotes. |
 | Pasted screenshots are ignored, or observer errors | The Gemini key is missing. Make sure the project folder's `.env` contains a `GEMINI_API_KEY=` line with your key (Step 4). |
-| Railway errors after you enable it | The Railway add-on is optional. Install the Railway CLI and run `railway login`, or set it back to `"enabled": false` in opencode.json. |
+| Railway errors after you enable it | Use the Railway CLI instead of the MCP (see the Railway section). If OpenCode misbehaves with the Railway MCP on — for example the Observer returns empty screenshot results — set `mcp.railway` back to `"enabled": false` and restart. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
 
@@ -273,11 +276,11 @@ If something is still not right, ask the person who shared this guide — they h
 
 ## Budget path (alternative setup)
 
-Running on a budget? Fund DeepSeek only. The core of the setup — the supervisor and all the junior agents — runs entirely on DeepSeek, so you get the full day-to-day workflow for the price of one prepaid balance. Everything in this guide still applies; you simply complete a smaller subset of Step 3 and Step 4.
+Running on a budget? Fund DeepSeek only. The core of the setup — the supervisor (V4 Pro) and all the junior agents (V4 Flash) — runs entirely on DeepSeek, so you get the full day-to-day workflow for the price of one prepaid balance. Everything in this guide still applies; you simply complete a smaller subset of Step 3 and Step 4. DeepSeek-only is the intended budget minimum; the system is built so a beginner can start there and add Anthropic + Google keys later to unlock the full multi-provider tiers. The full setup spreads spend roughly 64% DeepSeek / 26% Anthropic / 10% Google — a deliberate deterministic choice. It does not use a soft "route more to gemini-worker" lever; this setup prefers structural wiring over prompt-based guidance.
 
 1. Follow Steps 1–2 as written (install OpenCode and the configuration files).
 2. In Step 3, do only the DeepSeek steps: account, prepaid funds, and API key.
 3. **Optional but recommended:** also grab the free Gemini key (the Google Gemini part of Step 3) — no payment needed, it has a free tier. That keeps the screenshot feature and the Gemini agents working.
-4. Skip the Anthropic and xAI accounts. The mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive — the supervisor won't use them until you add an Anthropic key later; Grok models remain an unused optional extra. (The team table in section 1 describes the full setup — budget mode runs the DeepSeek tier plus whatever keys you have added.)
+4. Skip the Anthropic and xAI accounts. The Claude mid-tier and senior agents (Sonnet 5 / Opus 4.8) stay configured but inactive — the supervisor won't use them until you add an Anthropic key later; Grok models remain an unused optional extra. (Without a Gemini key, the Gemini roles — the mid researcher and planner, the gemini-worker, and the Observer — also stay inactive, but the DeepSeek supervisor and junior agents keep running. The team table in section 1 describes the full setup — budget mode runs the DeepSeek tier plus whatever keys you have added.)
 5. In Step 4, connect only DeepSeek (and add the `GEMINI_API_KEY=` line to your `.env` file if you took the optional key). Then tell OpenCode to run in budget mode by prompting it: **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
 6. **Upgrade later without redoing anything:** connect the extra keys anytime with `/connect` (or add them to your `.env` file) and tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.

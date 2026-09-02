@@ -658,12 +658,13 @@
   <section class="intro" aria-labelledby="intro-title">
     <div class="intro-card">
       <h2 id="intro-title">What you're building</h2>
-      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>43 tiered agents</strong> — DeepSeek V4 Pro (supervisor and juniors), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini (research and multimodal), and optional free local models via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a Gemini key.</p>
-      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>43 tiered agents</strong>. On the budget plan, DeepSeek V4 Pro powers the supervisor and all the junior agents — the day-to-day workflow. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Gemini agents and the screenshot observer work if you grab the <strong>free</strong> Gemini key, and local models via Ollama are always free.</p>
+      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong> across three prepaid providers, each used where it is genuinely strongest. <strong>DeepSeek</strong> is the primary workhorse — the supervisor runs on <strong>V4 Pro</strong>, while the junior agents and role-mules run on the cheap, fast <strong>V4 Flash</strong>. <strong>Claude</strong> (Sonnet 5 on the mid tier, Opus 4.8 on the senior tier) acts as the quality gates that review, secure, and fact-check the work. <strong>Gemini 3.7 Flash</strong> handles research, planning, and the multimodal screenshot observer. Optional free local models run via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a Gemini key.</p>
+      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> runs on V4 Pro and delegates to the junior agents, which run on the cheaper <strong>V4 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Gemini agents and the screenshot observer work if you grab the <strong>free</strong> Gemini key, and local models via Ollama are always free.</p>
+      <p data-mode="full">Why three providers instead of one? Each is used for what it does best, and spend is deliberately spread across all three prepaid balances. <strong>DeepSeek</strong> is the affordable workhorse, so it carries the bulk of the volume; <strong>Claude</strong> keeps the quality gates (mid-tier review/security/fact-checking on Sonnet 5) and all senior judgment (Opus 4.8), where its subtle bug-detection, adversarial review, and exact-quote fidelity genuinely win; <strong>Gemini 3.7 Flash</strong> is intro-priced and cost-effective, so it handles long-context research, planning, and vision. Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking switched <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because Gemini 3.7 Flash is genuinely competitive there at low quality risk, and the balance is set structurally in the agent files — a deterministic ~64/26/10 DeepSeek/Anthropic/Google split — rather than by prompt-guessing how to route each task.</p>
       <ul class="fact-grid">
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-v4-pro</code></span></li>
-        <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> 5+ models employed based on their strengths</span></li>
+        <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4 Flash + V4 Pro drive the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.7 Flash researches &amp; sees</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
         <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek only — the whole core workflow still runs on it</span></li>
@@ -821,7 +822,7 @@
           </div>
           <div class="os-note os-block" data-os="mac">In Finder press <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>, type <code>~/.config/opencode</code>, press Return — then drag the seven items from the unzipped folder into it.</div>
           <div class="os-note os-block" data-os="win">Press <kbd>Win</kbd>+<kbd>R</kbd>, paste <code>%USERPROFILE%\.config\opencode</code>, press Enter — then drag the seven items from the unzipped folder into it.</div>
-          <p class="note">Copy these seven items in: <code>opencode.json</code>, <code>opencode.jsonc</code>, <code>AGENTS.md</code>, <code>agents/</code> (the folder of ~43 agent files), <code>observer-bridge.js</code>, <code>package.json</code>, <code>package-lock.json</code>.</p>
+          <p class="note">Copy these seven items in: <code>opencode.json</code>, <code>opencode.jsonc</code>, <code>AGENTS.md</code>, <code>agents/</code> (the folder of ~44 agent files), <code>observer-bridge.js</code>, <code>package.json</code>, <code>package-lock.json</code>.</p>
         </div>
       </article>
 
@@ -1185,7 +1186,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">16/18</span>
             </div>
-            <p class="step-desc">Inside OpenCode, type <code>/models</code> and pick <code>deepseek/deepseek-v4-pro</code> — the default brain for the supervisor and the junior agents.</p>
+            <p class="step-desc">Inside OpenCode, type <code>/models</code> and pick <code>deepseek/deepseek-v4-pro</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. (The junior and mule agents it calls don't use this default: they are wired individually to the cheaper <strong>DeepSeek V4 Flash</strong> in their agent files, so your day-to-day delegation stays low-cost while the supervisor gets the stronger planner model.)</p>
           </div>
         </div>
       </article>
@@ -1203,7 +1204,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">17/18</span>
             </div>
-            <p class="step-desc">Ask the chat something simple. A normal reply means everything is wired up. (Curious? Type <code>/agents</code> — you should see the whole team, about 43 agents.)</p>
+            <p class="step-desc">Ask the chat something simple. A normal reply means everything is wired up. (Curious? Type <code>/agents</code> — you should see the whole team, about 44 agents.)</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1310,7 +1311,7 @@
             <tr><td><code>context7</code></td><td>Gives the agents current documentation for libraries and frameworks.</td></tr>
             <tr><td><code>github</code></td><td>Works with GitHub repositories. Needs Docker and a personal access token — full steps in the macOS/Windows guides.</td></tr>
             <tr><td><code>macos-use</code></td><td>Controls your Mac's desktop (macOS only; needs a helper binary).</td></tr>
-            <tr><td><code>railway</code></td><td>Deploys apps to Railway. Needs the Railway CLI and <code>railway login</code>.</td></tr>
+            <tr><td><code>railway</code></td><td>Deploys apps to Railway via the CLI (<code>railway login</code>, <code>railway up</code>). Keep this one off — enabling it has broken the Gemini Observer.</td></tr>
           </tbody>
         </table>
 

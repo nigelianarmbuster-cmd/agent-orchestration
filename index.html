@@ -471,7 +471,7 @@
     <p class="sub">One agent to plan, delegate, review, and commit. Nine specialists to do the work. A complete AI coding team, orchestrated through a single conversation.</p>
     <div class="stat-row">
       <div class="stat-badge animate-in delay-1">
-        <span class="num">~43</span>
+        <span class="num">~44</span>
         <span class="lbl">Agents</span>
       </div>
       <div class="stat-badge animate-in delay-2">
@@ -603,7 +603,7 @@
   <div class="wrap">
     <div class="eyebrow">The team</div>
     <h2>The 9 Specialised Roles</h2>
-    <p class="lede">Within each tier, subagents share a model but carry different prompts and permission sets. Specialisation comes from the instructions, not the brain — a security auditor and an editor have very different prompts.</p>
+    <p class="lede">Each role carries its own prompts and permission sets. Specialisation comes from the instructions, not the brain — a security auditor and an editor have very different prompts. Models are assigned per tier (see the Tier System), where the mid tier splits researcher and planner onto Gemini.</p>
 
     <div class="card-grid">
       <!-- Architect -->
@@ -733,7 +733,7 @@
   <div class="wrap">
     <div class="eyebrow">Power scaling</div>
     <h2>The Tier System</h2>
-    <p class="lede">All ~43 agents across 4 tiers ship in the repo, alongside a set of Gemini research agents. The Supervisor defaults to the junior tier and escalates only when you explicitly authorise it. Tiers differ only in model — permissions stay the same.</p>
+    <p class="lede">All ~44 agents across 4 tiers ship in the repo, alongside the Gemini research agents and the Observer. The Supervisor defaults to the junior tier and escalates only when you explicitly authorise it. Tiers differ in model and effort policy — permissions stay the same.</p>
 
     <div class="provider-summary">
       <span class="provider-label" id="providerLabel">3 core providers &mdash; xAI optional</span>
@@ -746,14 +746,14 @@
     <div class="tier-grid">
       <div class="tier-card">
         <h4>Junior</h4>
-        <div class="tier-model">DeepSeek V4 Pro</div>
-        <p class="tier-desc">The default workhorse. Handles ~80% of all work. All junior agents (junior-worker, junior-architect, etc.) run here.</p>
+        <div class="tier-model">DeepSeek V4 Flash</div>
+        <p class="tier-desc">The DeepSeek workhorse tier. All nine junior agents (junior-worker, junior-architect, etc.) run on V4 Flash at low effort; the Supervisor itself is the V4 Pro default brain.</p>
         <div class="cost cost-junior">$ &mdash; cheapest</div>
       </div>
       <div class="tier-card mid">
         <h4>Mid</h4>
-        <div class="tier-model">Claude Sonnet 5</div>
-        <p class="tier-desc">Deeper reasoning for complex tasks. Activated by saying &ldquo;use the architect&rdquo; or &ldquo;send this to the worker.&rdquo;</p>
+        <div class="tier-model">Claude Sonnet 5 &middot; researcher/planner on Gemini 3.7 Flash</div>
+        <p class="tier-desc">Deeper reasoning for complex tasks. Seven roles — architect, debugger, editor, quote-auditor, reviewer, security, worker — run on Claude Sonnet 5; the mid <b>researcher</b> and <b>planner</b> run on Gemini 3.7 Flash. Activated by saying &ldquo;use the architect&rdquo; or &ldquo;send this to the worker.&rdquo;</p>
         <div class="cost cost-mid">$$ &mdash; moderate</div>
         <span class="tier-badge badge-inactive">Inactive &mdash; needs Anthropic key</span>
         <span class="tier-badge badge-active">Active</span>
@@ -774,38 +774,45 @@
       </div>
       <div class="tier-card">
         <h4>Gemini</h4>
-        <div class="tier-model">Flash 2.5 / Pro 3.1</div>
-        <p class="tier-desc">Research, long documents, and images. Powers Observer vision and the Gemini agents &mdash; runs alongside the tiers.</p>
+        <div class="tier-model">Gemini 3.7 Flash</div>
+        <p class="tier-desc">Research, long documents, and images, consolidated on Gemini 3.7 Flash. It powers the mid researcher/planner and the Observer — roles where Gemini is genuinely competitive (long-context web synthesis, structural planning, vision) at low quality risk — plus the Gemini agents. Runs alongside the tiers.</p>
         <div class="cost cost-mule">free tier available</div>
       </div>
     </div>
 
     <div class="callout" style="margin-top:18px;">
-      <b>The naming trick:</b> <code>junior-worker</code> = DeepSeek (default). <code>worker</code> (no prefix) = Claude Sonnet (mid). <code>senior-worker</code> = Claude Opus. The Supervisor defaults to junior unless you explicitly say &ldquo;use the architect&rdquo; or invoke with <code>@architect</code>. <b>Mule agents</b> (<code>worker-mule</code>, <code>architect-mule</code>, etc.) are subagent infrastructure — the Supervisor never spawns them directly.
+      <b>The naming trick:</b> <code>junior-worker</code> = DeepSeek V4 Flash (default). <code>worker</code> (no prefix) = Claude Sonnet (mid). <code>senior-worker</code> = Claude Opus. The Supervisor defaults to junior unless you explicitly say &ldquo;use the architect&rdquo; or invoke with <code>@architect</code>. <b>Mule agents</b> (<code>worker-mule</code>, <code>architect-mule</code>, etc.) are subagent infrastructure — the Supervisor never spawns them directly.
+    </div>
+
+    <div class="callout principle" style="margin-top:12px;">
+      <b>Why three providers?</b> DeepSeek is the primary workhorse — the supervisor, all nine juniors, and the role-mules run on it — but it is <em>not</em> everything. Spend is deliberately spread across all three prepaid balances, each used where it is genuinely strongest: DeepSeek for the high-volume workhorse roles, Claude for the quality gates (review, security, quote-auditor, debugger, and all senior work), and Gemini for research and vision. That lands on a roughly <b>64 / 26 / 10</b> DeepSeek / Anthropic / Google split — a deterministic optimum, not a soft heuristic. No &ldquo;route more to gemini-worker&rdquo; behavioural lever was added; structural wiring is preferred to prompt-guidance routing.
+    </div>
+    <div class="callout principle" style="margin-top:12px;">
+      <b>Effort is tiered by policy:</b> juniors run <b>low</b> effort with thinking on, mid and senior run <b>high</b> effort, and mules run with <b>thinking off</b> at low cost. This replaced the old uniform max-effort setting — and stopped mules silently burning expensive high-effort reasoning on cheap leaf work.
     </div>
 
     <div class="callout callout-budget" style="margin-top:12px;">
-      <b>Budget mode:</b> DeepSeek only — the junior tier plus 9 DeepSeek mules. Junior handles ~80% of routine work, and a few dollars of credit lasts weeks. Fund DeepSeek, and add the optional free Gemini key to keep screenshots working.
+      <b>Budget mode:</b> DeepSeek only — the junior tier plus 9 DeepSeek mules. The junior tier handles the bulk of routine work, and a few dollars of credit lasts weeks. Fund DeepSeek, and add the optional free Gemini key to keep screenshots working.
     </div>
     <div class="callout callout-full" style="margin-top:12px;">
-      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5, senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
+      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5 (researcher/planner on Gemini 3.7 Flash), senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
     </div>
 
     <div class="divider-dot"><span></span></div>
 
     <h3 style="font-size:1.1rem;margin-bottom:10px;">The 12 Mule-Tier Agents</h3>
-    <p style="color:var(--ink-dim);font-size:.9rem;margin-bottom:14px;">Subagent infrastructure — safe leaf workers that guarantee work terminates. Up to 4 per subagent task.</p>
+    <p style="color:var(--ink-dim);font-size:.9rem;margin-bottom:14px;">Subagent infrastructure — safe leaf workers that guarantee work terminates. Up to 4 per subagent task. Mules run thinking off, so leaf work stays cheap.</p>
     <div class="mule-grid">
-      <div class="mule-chip"><code>worker-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>architect-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>reviewer-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>debugger-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>security-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>planner-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>researcher-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>editor-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip"><code>quote-auditor-mule</code><span class="mmodel">DeepSeek V4 Pro</span></div>
-      <div class="mule-chip needs-key"><code>gemini-mule</code><span class="mmodel">Gemini 2.5 Flash</span><span class="keymark">needs key</span></div>
+      <div class="mule-chip"><code>worker-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>architect-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>reviewer-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>debugger-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>security-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>planner-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>researcher-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>editor-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>quote-auditor-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip needs-key"><code>gemini-mule</code><span class="mmodel">Gemini 3.7 Flash</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>grok-mule</code><span class="mmodel">Grok 4.3</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>claude-mule</code><span class="mmodel">Claude Sonnet 5</span><span class="keymark">needs key</span></div>
     </div>
@@ -936,14 +943,14 @@
   <div class="wrap">
     <div class="eyebrow">Visual tools</div>
     <h2>Visual Verification &amp; Observer</h2>
-    <p class="lede">The Supervisor is text-only and cannot see images. Visual tools bridge the gap — Observer ships ready once a Google key is added; the browser tools are switched off in the default config and flipped on when needed.</p>
+    <p class="lede">The Supervisor is text-only and cannot see images. Visual tools bridge the gap — Observer ships ready once a Google key is added, because it is a Gemini <em>vision</em> agent that activates on a Google key, not an Anthropic one; the browser tools are switched off in the default config and flipped on when needed.</p>
 
     <table class="styled-table" style="margin-bottom:16px;">
       <thead>
         <tr><th>Tool</th><th>Powered by</th><th>What it does</th></tr>
       </thead>
       <tbody>
-        <tr class="tool-observer"><td><b>Observer</b> <span class="tool-badge badge-inactive">Inactive &mdash; needs Google (Gemini) key</span><span class="tool-badge badge-active">Active</span></td><td>Gemini 3.5 Flash</td><td>Reads screenshots, mockups, error images — returns structured text analysis. 7 modes: Quick State, Error Extraction, UI Comparison, Charts, Issue Location, Page Restoration, Text Extraction.</td></tr>
+        <tr class="tool-observer"><td><b>Observer</b> <span class="tool-badge badge-inactive">Inactive &mdash; needs Google (Gemini) key</span><span class="tool-badge badge-active">Active</span></td><td>Gemini 3.7 Flash</td><td>Reads screenshots, mockups, error images — returns structured text analysis. 7 modes: Quick State, Error Extraction, UI Comparison, Charts, Issue Location, Page Restoration, Text Extraction.</td></tr>
         <tr><td><b>Playwright</b> <span class="tool-badge badge-optional">Optional</span></td><td>Browser automation</td><td>Captures browser screenshots, DOM snapshots, console logs. Switched off in the default config — enable when you want browser-driven verification.</td></tr>
         <tr><td><b>macos-use</b> <span class="tool-badge badge-optional">Optional</span></td><td>macOS desktop control</td><td>Captures native macOS app UI state. Switched off in config; macOS only, requires Accessibility permission.</td></tr>
       </tbody>
@@ -973,7 +980,7 @@
     </div>
 
     <div class="callout" style="margin-top:12px;">
-      <b>Customizing: add-on tools.</b> These browser tools are <b>MCP servers</b> — add-ons that ship dormant (declared in the config but switched off), along with eight others like Railway and GitHub. Enable one by flipping <code>"enabled": true</code> in the config, then restart. New to the term? Start at the <a href="https://www.aicodingdictionary.com/?term=mcp" target="_blank" rel="noopener">AI Coding Dictionary</a>, and see the <a href="https://nigelianarmbuster-cmd.github.io/agent-orchestration/" target="_blank" rel="noopener">setup guide&rsquo;s customization section</a> for the full catalog.
+      <b>Customizing: add-on tools.</b> These browser tools are <b>MCP servers</b> — add-ons that ship dormant (declared in the config but switched off), along with others like GitHub. Enable one by flipping <code>"enabled": true</code> in the config, then restart. <b>Railway note:</b> Railway deployments work through the <b>Railway CLI</b> instead (<code>railway login</code>, <code>railway up</code>) — the Railway MCP server stays off, keeping the agent tool list lean and the Observer working. New to the term? Start at the <a href="https://www.aicodingdictionary.com/?term=mcp" target="_blank" rel="noopener">AI Coding Dictionary</a>, and see the <a href="https://nigelianarmbuster-cmd.github.io/agent-orchestration/" target="_blank" rel="noopener">setup guide&rsquo;s customization section</a> for the full catalog.
     </div>
   </div>
 </section>

@@ -1,6 +1,6 @@
 # Agent Orchestration
 
-Beginner-friendly setup guides for mirroring an OpenCode agent-orchestration setup (a supervisor that delegates to ~43 tiered AI agents) in your own OpenCode instance. Written for first-time AI users.
+Beginner-friendly setup guides for mirroring an OpenCode agent-orchestration setup (a supervisor that delegates to ~44 tiered AI agents) in your own OpenCode instance. Written for first-time AI users.
 
 **Two entry points, in order:**
 
@@ -22,11 +22,11 @@ https://github.com/nigelianarmbuster-cmd/opencode-config
 | `OPENCODE-SETUP-MACOS.md` | First-time AI users on macOS | Terminal / bash, `~/.config/opencode` |
 | `OPENCODE-SETUP-WINDOWS.md` | First-time AI users on Windows | PowerShell, `%USERPROFILE%\.config\opencode` |
 
-Both guides cover: install OpenCode → download the config (ZIP or `git clone`) → create provider accounts (DeepSeek, Anthropic, Google Gemini) → add prepaid funds → connect API keys (`/connect` + `.env`) → first-run test → optional extras (Ollama local models, Railway MCP, GitHub MCP) → costs and safety → troubleshooting.
+Both guides cover: install OpenCode → download the config (ZIP or `git clone`) → create provider accounts (DeepSeek, Anthropic, Google Gemini) → add prepaid funds → connect API keys (`/connect` + `.env`) → first-run test → optional extras (Ollama local models, Railway via CLI, GitHub MCP) → costs and safety → troubleshooting.
 
 ## The setup, in one paragraph
 
-Supervisor default agent + ~43 tiered agents: DeepSeek V4 Pro (supervisor, juniors, mules), Claude Sonnet 5 (mid tier), Claude Opus 4.8 (senior tier), Gemini flash/pro (research, multimodal), Ollama (local, free — model chosen per machine, see below). The `observer-bridge.js` plugin handles pasted screenshots by auto-spawning the @observer agent (needs a Gemini key via `GEMINI_API_KEY`). All MCP servers (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) are present but **disabled by default** — dormant by design, enabled per-user. GitHub and Railway are documented as optional add-ons in the guides; the explainer's "Learn how to customize your OpenCode config" section catalogs the rest, explains activation, and links a term dictionary.
+Supervisor default agent + ~44 tiered agents across three providers: DeepSeek (supervisor on V4 Pro, juniors + role-mules on V4 Flash — the workhorse), Claude (mid-tier + senior agents on Sonnet 5 / Opus 4.8 — quality gates), and Gemini 3.7 Flash (mid researcher/planner, observer, gemini-worker, gemini-mule — research, planning, and vision), plus Ollama (local, free — model chosen per machine, see below). Effort is tiered by policy: juniors low, mid/senior high, mules thinking-off. The `observer-bridge.js` plugin handles pasted screenshots by auto-spawning the @observer agent (needs a Gemini key via `GEMINI_API_KEY`). All MCP servers (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) are present but **disabled by default** — dormant by design, enabled per-user. GitHub is documented as an optional add-on in the guides; Railway deployments use the Railway CLI directly — the Railway MCP server stays off because enabling it has been found to break the Gemini Observer; the explainer's "Learn how to customize your OpenCode config" section catalogs the rest, explains activation, and links a term dictionary.
 
 ## Local model selection (supervisor-driven)
 
@@ -43,7 +43,8 @@ Users trigger this by asking the supervisor in OpenCode: **"Set up local models 
 - Aug 2026: GitHub Pages enabled on this repo — the explainer is live at https://nigelianarmbuster-cmd.github.io/agent-orchestration/ and auto-updates on every push to `main`.
 - Aug 2026: **Budget mode** added — DeepSeek-only path (fund DeepSeek; optional free Gemini key keeps the screenshot feature). The explainer has a Full production / Budget toggle; both guides document the budget path; the supervisor honors the "Use the budget instructions" prompt and the full production setup stays configured for later upgrades (no re-setup).
 - Aug 2026: **Railway MCP now dormant by default** like all other MCPs; the setup checklist gains a collapsed-by-default "Learn how to customize your OpenCode config" section (dormant MCP catalog with one-line explanations, activation steps + rationale, AI Coding Dictionary link, where to find more MCPs); supervisor.md tells the models the MCPs are dormant and how to activate them.
-- Aug 2026: the maintainer's live setup re-enables Railway via the `OPENCODE_CONFIG` env var pointing at a personal override file (`~/.config/opencode-personal.json`, outside the repo) — the repo itself stays at the beginner default.
+- Aug 2026: the maintainer's live setup briefly re-enabled Railway via the `OPENCODE_CONFIG` env var pointing at a personal override file (`~/.config/opencode-personal.json`, outside the repo) — this was later reverted (see Railway retirement below); the repo itself stays at the beginner default.
 - Aug 2026: entry points finalized — the "why" primer is now `index.html` at the site root; the "how" checklist moved to `setup.html`; its two CTA links retargeted to the setup page.
 - The `opencode-config` repo is the source of truth for agent files. These guides are prose — update them when the setup changes materially (new providers, renamed agents, changed auth flow).
 - The live source config is tracked as a git repo at `~/.config/opencode` (branch `main`); `node_modules` is gitignored, `package.json`/`package-lock.json` tracked so friends can `npm install` the plugin dependency.
+- Aug 2026: **Railway MCP retired from the live setup** — enabling it was found to break the Gemini Observer (pasted screenshots returned empty results). Railway now uses the Railway CLI (`railway login`, `railway up`) with no MCP server; the guides document Railway as CLI-first.
