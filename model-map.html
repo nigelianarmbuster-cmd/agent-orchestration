@@ -1,0 +1,198 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Agent Orchestration — Model Map</title>
+<style>
+  :root {
+    --bg: #0e1116;
+    --panel: #171b22;
+    --border: #2a313c;
+    --text: #e6e9ef;
+    --muted: #8b94a3;
+    --accent: #c4a35a;
+    --on: #3fb950;
+    --off: #f85149;
+    --mid: #d29922;
+  }
+  * { box-sizing: border-box; }
+  body {
+    margin: 0;
+    background: var(--bg);
+    color: var(--text);
+    font-family: -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, Helvetica, Arial, sans-serif;
+    line-height: 1.5;
+    padding: 2rem 1.5rem 4rem;
+  }
+  .wrap { max-width: 1080px; margin: 0 auto; }
+  h1 { font-size: 1.9rem; margin: 0 0 .25rem; font-weight: 700; letter-spacing: -.02em; }
+  .subtitle { color: var(--muted); margin: 0 0 1.75rem; font-size: 1.05rem; }
+  h2 { font-size: 1.15rem; margin: 2.25rem 0 .75rem; padding-bottom: .5rem; border-bottom: 1px solid var(--border); letter-spacing: -.01em; }
+  .meta { color: var(--muted); font-size: .8rem; margin-bottom: 2rem; }
+  table { width: 100%; border-collapse: collapse; background: var(--panel); border: 1px solid var(--border); border-radius: 10px; overflow: hidden; font-size: .92rem; }
+  th, td { padding: .55rem .7rem; text-align: left; vertical-align: top; }
+  thead th { background: #1d232c; font-weight: 600; font-size: .78rem; text-transform: uppercase; letter-spacing: .04em; color: var(--muted); border-bottom: 1px solid var(--border); }
+  tbody tr { border-top: 1px solid var(--border); }
+  tbody tr:first-child { border-top: none; }
+  code { font-family: "SF Mono", "Cascadia Code", Consolas, monospace; font-size: .85em; background: #0a0d12; padding: .1rem .35rem; border-radius: 4px; color: #cdd6e4; }
+  .tag { display: inline-block; font-size: .72rem; padding: .12rem .5rem; border-radius: 999px; font-weight: 600; white-space: nowrap; }
+  .tag.deepseek { background: rgba(77,124,254,.15); color: #8faeff; }
+  .tag.claude { background: rgba(217,119,87,.15); color: #f0a183; }
+  .tag.gemini { background: rgba(52,168,83,.15); color: #7ee08a; }
+  .tag.local { background: rgba(154,165,177,.15); color: #c3ccd9; }
+  .eff { font-weight: 600; }
+  .eff.max { color: #b98a2e; }
+  .eff.high { color: #e0b14f; }
+  .eff.med { color: #d6a03a; }
+  .eff.low { color: #7aa2ff; }
+  .think.on { color: var(--on); font-weight: 600; }
+  .think.off { color: var(--off); font-weight: 600; }
+  .think.lvl { color: var(--mid); font-weight: 600; }
+  .muted { color: var(--muted); }
+  .note { background: var(--panel); border: 1px solid var(--border); border-left: 3px solid var(--accent); border-radius: 8px; padding: 1rem 1.15rem; font-size: .88rem; }
+  .note p { margin: .4rem 0; }
+  .note ul { margin: .4rem 0; padding-left: 1.2rem; }
+  .legend { display: flex; flex-wrap: wrap; gap: .5rem 1.25rem; margin: .5rem 0 1rem; }
+  .legend .item { font-size: .85rem; color: var(--muted); }
+  footer { margin-top: 2.5rem; color: var(--muted); font-size: .78rem; border-top: 1px solid var(--border); padding-top: 1rem; }
+</style>
+</head>
+<body>
+<div class="wrap">
+
+  <h1>Agent Orchestration — Model Map</h1>
+  <p class="subtitle">Which model powers each role and agent tier — with effort and thinking levels.</p>
+  <div class="meta">Generated from the live config (<code>opencode.json</code> + <code>agents/*.md</code>) · Last updated: <strong>September 3, 2026</strong></div>
+
+  <div class="legend">
+    <span class="item"><span class="tag deepseek">DEEPSEEK</span> workhorse</span>
+    <span class="item"><span class="tag claude">CLAUDE</span> quality gates</span>
+    <span class="item"><span class="tag gemini">GEMINI</span> research &amp; vision</span>
+    <span class="item"><span class="tag local">LOCAL</span> Ollama</span>
+  </div>
+
+  <h2>Models at a glance</h2>
+  <table>
+    <thead><tr><th>Model</th><th>Provider</th><th>What it powers</th></tr></thead>
+    <tbody>
+      <tr><td><span class="tag deepseek">DS</span> DeepSeek V4 Pro</td><td>DeepSeek</td><td>Supervisor (primary orchestrator); accountability coach (local-only)</td></tr>
+      <tr><td><span class="tag deepseek">DS</span> DeepSeek V4 Flash</td><td>DeepSeek</td><td>Junior tier (all 9 roles) + role-mules (9); optional manual supervisor</td></tr>
+      <tr><td><span class="tag claude">CL</span> Claude Sonnet 5</td><td>Anthropic</td><td>Mid tier (7 roles) + claude-mule</td></tr>
+      <tr><td><span class="tag claude">CL</span> Claude Opus 4.8</td><td>Anthropic</td><td>Senior tier (all 9 roles)</td></tr>
+      <tr><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td>Google</td><td>Mid researcher &amp; planner, gemini-worker, gemini-mule, Observer</td></tr>
+      <tr><td><span class="tag local">LOC</span> Qwen 2.5 Coder 7B</td><td>Ollama (local)</td><td>local-coder</td></tr>
+      <tr><td><span class="tag local">LOC</span> DeepSeek R1 32B</td><td>Ollama (local)</td><td>local-reasoner</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Supervisor</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>supervisor</code></td><td>orchestrator</td><td><span class="tag deepseek">DS</span> DeepSeek V4 Pro</td><td class="eff high">high</td><td class="think on">on</td></tr>
+      <tr><td><code>accountability</code> <span class="muted">(local-only)</span></td><td>accountability coach</td><td><span class="tag deepseek">DS</span> DeepSeek V4 Flash</td><td class="eff low">low</td><td class="think on">on</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Senior tier — Claude Opus 4.8</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>senior-architect</code></td><td>architect</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-debugger</code></td><td>debugger</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-planner</code></td><td>planner</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-researcher</code></td><td>researcher</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-reviewer</code></td><td>reviewer</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-security</code></td><td>security</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+      <tr><td><code>senior-worker</code></td><td>worker</td><td><span class="tag claude">CL</span> Opus 4.8</td><td class="eff high">high</td><td class="think lvl">adaptive: high</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Mid tier — Claude Sonnet 5 &amp; Gemini 3.7 Flash</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>mid-architect</code></td><td>architect</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-debugger</code></td><td>debugger</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-editor</code></td><td>editor</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-reviewer</code></td><td>reviewer</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-security</code></td><td>security</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-worker</code></td><td>worker</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
+      <tr><td><code>mid-researcher</code></td><td>researcher</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
+      <tr><td><code>mid-planner</code></td><td>planner</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Junior tier — DeepSeek V4 Flash</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>junior-architect</code></td><td>architect</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-debugger</code></td><td>debugger</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-editor</code></td><td>editor</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-planner</code></td><td>planner</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-quote-auditor</code></td><td>quote-auditor</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-researcher</code></td><td>researcher</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-reviewer</code></td><td>reviewer</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-security</code></td><td>security</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>junior-worker</code></td><td>worker</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Mule tier — leaf workers</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>architect-mule</code></td><td>architect (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>debugger-mule</code></td><td>debugger (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>editor-mule</code></td><td>editor (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>planner-mule</code></td><td>planner (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>quote-auditor-mule</code></td><td>quote-auditor (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>researcher-mule</code></td><td>researcher (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>reviewer-mule</code></td><td>reviewer (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>security-mule</code></td><td>security (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>worker-mule</code></td><td>worker (leaf)</td><td><span class="tag deepseek">DS</span> V4 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>claude-mule</code></td><td>general (leaf)</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff low">low</td><td class="think off">off</td></tr>
+      <tr><td><code>gemini-mule</code></td><td>general (leaf)</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think lvl">minimal</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Gemini &amp; special</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>gemini-worker</code></td><td>generalist</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
+      <tr><td><code>observer</code></td><td>vision</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Local (Ollama)</h2>
+  <table>
+    <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
+    <tbody>
+      <tr><td><code>local-coder</code></td><td>coding</td><td><span class="tag local">LOC</span> Qwen 2.5 Coder 7B</td><td class="muted">n/a</td><td class="muted">n/a</td></tr>
+      <tr><td><code>local-reasoner</code></td><td>reasoning</td><td><span class="tag local">LOC</span> DeepSeek R1 32B</td><td class="muted">n/a</td><td class="muted">n/a</td></tr>
+    </tbody>
+  </table>
+
+  <h2>Notes on effort &amp; thinking</h2>
+  <div class="note">
+    <p>Effort and thinking are controlled differently per provider:</p>
+    <ul>
+      <li><strong>DeepSeek</strong> — a <code>thinking</code> toggle (<code>on</code>/<code>off</code>) plus <code>reasoningEffort</code> (<code>low</code>/<code>medium</code>/<code>high</code>/<code>max</code>). Supervisor uses <code>reasoningEffort: high</code>; juniors/mules use <code>low</code> + thinking off.</li>
+      <li><strong>Anthropic (Claude)</strong> — no simple on/off. Modern models (Sonnet 5, Opus 4.8) use <em>adaptive thinking</em>: Anthropic dynamically budgets thinking tokens against an <em>effort</em> level (<code>low</code>/<code>medium</code>/<code>high</code>/<code>xhigh</code>/<code>max</code>). Mid tier runs <code>variant: medium</code> (adaptive medium); senior runs <code>variant: high</code>. <code>claude-mule</code> disables thinking entirely (<code>thinking: { type: disabled }</code>) at <code>effort: low</code>.</li>
+      <li><strong>Gemini</strong> — uses <code>thinkingLevel</code> (<code>minimal</code>/<code>low</code>/<code>medium</code>/<code>high</code>), not a token budget. Researcher/planner run <code>variant: high</code> (thinking level high); <code>gemini-mule</code> sets <code>thinkingLevel: minimal</code>.</li>
+    </ul>
+    <p><strong>Global default (manual DeepSeek V4 Flash selection):</strong> when you manually pick V4 Flash as the supervisor, it lands on <code>reasoningEffort: max</code> with thinking <strong>on</strong> — overridable manually. Juniors and mules pin themselves to <code>low</code> + thinking <strong>off</strong> at the agent level, which overrides the global.</p>
+    <p><strong>No Claude Haiku tier:</strong> the high-volume cheap work runs on <strong>DeepSeek V4 Flash</strong> (juniors + mules), which is cheaper than Haiku. Claude is reserved for the quality gates (Sonnet 5 mid, Opus 4.8 senior) — there is no "cheap Claude" tier in this wiring.</p>
+    <p><strong>Cost rationale:</strong> DeepSeek V4 Flash is the high-volume workhorse, so juniors/mules run cheap (low effort, no thinking). Claude carries the quality gates (review, security, quote-auditor, debugger) at adaptive effort medium. Gemini 3.7 Flash handles research, planning, and vision. Senior Claude Opus 4.8 is the highest-stakes tier (adaptive high), used sparingly.</p>
+  </div>
+
+  <footer>
+    Source of truth: <code>opencode.json</code> and <code>agents/*.md</code> in the <code>opencode-config</code> repository. Draft for review — intended to be pushed to, and linked from, the <code>opencode-config</code> and <code>agent-orchestration</code> repos.
+  </footer>
+
+</div>
+</body>
+</html>
