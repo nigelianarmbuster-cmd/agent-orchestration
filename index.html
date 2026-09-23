@@ -747,8 +747,8 @@
     <div class="tier-grid">
       <div class="tier-card">
         <h4>Junior</h4>
-        <div class="tier-model">DeepSeek V4 Flash</div>
-        <p class="tier-desc">The DeepSeek workhorse tier. All nine junior agents (junior-worker, junior-architect, etc.) run on V4 Flash at low effort; the Supervisor itself is the V4 Pro default brain.</p>
+        <div class="tier-model">DeepSeek V4.1 Flash</div>
+        <p class="tier-desc">The DeepSeek workhorse tier. All nine junior agents (junior-worker, junior-architect, etc.) run on V4.1 Flash at low effort; the Supervisor itself is the V4.1 Flash default brain.</p>
         <div class="cost cost-junior">$ &mdash; cheapest</div>
       </div>
       <div class="tier-card mid">
@@ -782,7 +782,7 @@
     </div>
 
     <div class="callout" style="margin-top:18px;">
-      <b>The naming trick:</b> <code>junior-worker</code> = DeepSeek V4 Flash (default). <code>worker</code> (no prefix) = Claude Sonnet (mid). <code>senior-worker</code> = Claude Opus. The Supervisor defaults to junior unless you explicitly say &ldquo;use the architect&rdquo; or invoke with <code>@architect</code>. <b>Mule agents</b> (<code>worker-mule</code>, <code>architect-mule</code>, etc.) are subagent infrastructure — the Supervisor never spawns them directly.
+      <b>The naming trick:</b> <code>junior-worker</code> = DeepSeek V4.1 Flash (default). <code>worker</code> (no prefix) = Claude Sonnet (mid). <code>senior-worker</code> = Claude Opus. The Supervisor defaults to junior unless you explicitly say &ldquo;use the architect&rdquo; or invoke with <code>@architect</code>. <b>Mule agents</b> (<code>worker-mule</code>, <code>architect-mule</code>, etc.) are subagent infrastructure — the Supervisor never spawns them directly.
     </div>
 
     <div class="callout principle" style="margin-top:12px;">
@@ -804,15 +804,15 @@
     <h3 style="font-size:1.1rem;margin-bottom:10px;">The 12 Mule-Tier Agents</h3>
     <p style="color:var(--ink-dim);font-size:.9rem;margin-bottom:14px;">Subagent infrastructure — safe leaf workers that guarantee work terminates. Up to 4 per subagent task. Mules run thinking off, so leaf work stays cheap.</p>
     <div class="mule-grid">
-      <div class="mule-chip"><code>worker-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>architect-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>reviewer-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>debugger-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>security-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>planner-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>researcher-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>editor-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
-      <div class="mule-chip"><code>quote-auditor-mule</code><span class="mmodel">DeepSeek V4 Flash</span></div>
+      <div class="mule-chip"><code>worker-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>architect-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>reviewer-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>debugger-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>security-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>planner-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>researcher-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>editor-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
+      <div class="mule-chip"><code>quote-auditor-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
       <div class="mule-chip needs-key"><code>gemini-mule</code><span class="mmodel">Gemini 3.7 Flash</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>grok-mule</code><span class="mmodel">Grok 4.3</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>claude-mule</code><span class="mmodel">Claude Sonnet 5</span><span class="keymark">needs key</span></div>
