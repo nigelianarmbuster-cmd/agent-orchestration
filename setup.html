@@ -663,7 +663,7 @@
       <p data-mode="full">Why three providers instead of one? Each is used for what it does best, and spend is deliberately spread across all three prepaid balances. <strong>DeepSeek</strong> is the affordable workhorse, so it carries the bulk of the volume; <strong>Claude</strong> keeps the quality gates (mid-tier review/security/fact-checking on Sonnet 5) and all senior judgment (Opus 4.8), where its subtle bug-detection, adversarial review, and exact-quote fidelity genuinely win; <strong>Gemini 3.7 Flash</strong> is intro-priced and cost-effective, so it handles long-context research, planning, and vision. Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking switched <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because Gemini 3.7 Flash is genuinely competitive there at low quality risk, and the balance is set structurally in the agent files — a deterministic ~64/26/10 DeepSeek/Anthropic/Google split — rather than by prompt-guessing how to route each task.</p>
       <ul class="fact-grid">
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
-        <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-v4.1-flash</code></span></li>
+        <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-flash</code></span></li>
         <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4.1 Flash drives the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.7 Flash researches &amp; sees</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
@@ -1186,7 +1186,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">16/18</span>
             </div>
-            <p class="step-desc">Inside OpenCode, type <code>/models</code> and pick <code>deepseek/deepseek-v4.1-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. (The junior and mule agents it calls don't use this default: they are wired individually to <strong>DeepSeek V4.1 Flash</strong> in their agent files, so your day-to-day delegation stays low-cost while the supervisor runs at high effort.)</p>
+            <p class="step-desc">Inside OpenCode, type <code>/models</code> and pick <code>deepseek/deepseek-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. (The junior and mule agents it calls don't use this default: they are wired individually to <strong>DeepSeek V4.1 Flash</strong> in their agent files, so your day-to-day delegation stays low-cost while the supervisor runs at high effort.)</p>
           </div>
         </div>
       </article>

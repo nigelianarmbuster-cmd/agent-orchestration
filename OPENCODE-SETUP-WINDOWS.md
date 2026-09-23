@@ -7,7 +7,7 @@ Welcome. This guide walks you through setting up OpenCode on Windows, step by st
 - **PowerShell** — a built-in Windows app where you type text commands instead of clicking buttons. To open it: press the Windows key, type "PowerShell", press Enter. (The newer "Terminal" app also works — it runs PowerShell inside.)
 - **API key** — a secret password that lets a program use your account (and spend your balance). Treat it like a password.
 - **Environment variable (env var)** — a small setting stored on your computer that programs can read, so secrets do not have to be written into files.
-- **Model** — the actual AI "brain" that does the thinking. Different companies make different models; each has a name like `deepseek/deepseek-v4.1-flash`.
+- **Model** — the actual AI "brain" that does the thinking. Different companies make different models; each has a name like `deepseek/deepseek-flash`.
 - **API vs subscription** — a subscription (like ChatGPT Plus or Claude Pro) lets you chat inside a company's own app. API access is a separate pay-as-you-go balance that other programs, like OpenCode, can use. A subscription does not include API access.
 - **Prompt marker (`PS>`)** — commands sometimes start with `PS>`, which just marks where to paste: open PowerShell, paste the command after `PS>`, press Enter. You never type the `PS>` itself — only the command after it. The setup page's copy buttons leave the marker off automatically.
 
@@ -17,8 +17,8 @@ The setup gives you a team of about 44 AI agents, arranged in tiers. The main ag
 
 | What | Model / provider | What it's for |
 |---|---|---|
-| Main assistant and "supervisor" | deepseek/deepseek-v4.1-flash (DeepSeek) | The default brain — plans work and delegates |
-| Junior agents | deepseek/deepseek-v4.1-flash (DeepSeek) | Small, focused tasks |
+| Main assistant and "supervisor" | deepseek/deepseek-flash (DeepSeek) | The default brain — plans work and delegates |
+| Junior agents | deepseek/deepseek-flash (DeepSeek) | Small, focused tasks |
 | Mid-tier agents | anthropic/claude-sonnet-5 (Anthropic) | Everyday work, careful judgment |
 | Mid researcher & planner | google/gemini-3.7-flash (Google) | Web research and structural planning |
 | Senior agents | anthropic/claude-opus-4-8 (Anthropic) | The hardest, most careful work |
@@ -28,7 +28,7 @@ The setup gives you a team of about 44 AI agents, arranged in tiers. The main ag
 
 A few things to know:
 
-- The default model is `deepseek/deepseek-v4.1-flash` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
+- The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
 
 **Why three providers?** This setup deliberately spreads work across DeepSeek, Anthropic, and Google instead of running everything on one model. Each is used where it is genuinely strongest, and spend is spread across all three prepaid balances. DeepSeek is the primary workhorse — the supervisor, juniors, and mules run on V4.1 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.7 Flash (Google) is used for research, planning, and vision (the Observer), where long-context synthesis shines at low quality risk. Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles that moved to Gemini, because that is where Gemini is genuinely competitive — structural planning and long-context web research carry little quality risk. The Observer reads screenshots, which is a vision task, so it needs a Google/Gemini key — not an Anthropic one.
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
@@ -221,7 +221,7 @@ opencode
 `mkdir` works in PowerShell, and `$HOME` means your user folder (the same as `%USERPROFILE%`). If you already created the folder in Step 4, the first line just prints that it exists — harmless.
 
 - A chat screen opens.
-- Type `/models` — you should see the model list. Pick `deepseek/deepseek-v4.1-flash`.
+- Type `/models` — you should see the model list. Pick `deepseek/deepseek-flash`.
 - Type `/agents` — you should see the agent team (about 44 agents).
 - Ask anything simple, like "What is 2+2?" — a normal reply means everything is wired up.
 - To leave, press Ctrl+C (twice if it is busy).
