@@ -44,11 +44,13 @@ A few things to know:
 ## 2. What you'll need before you start
 
 - Your Mac and about 30–45 minutes.
-- **OpenCode 1.19.5** — installed in Step 8 as a normal Mac app. You do **not** need Node.js.
+- **OpenCode 1.19.5** — installed in Step 8 as a normal Mac app.
 - **Four accounts**: GitHub (free), DeepSeek (required), Anthropic (required on the Full plan), Google (required on the Full plan). Optional: xAI (only if you want Grok models — it is entirely optional and separate, and the Grok agent only exists if you add that key) and Ollama (free, no account).
 - **Money on prepaid balances**: DeepSeek, Anthropic and Google are all pay-as-you-go — you add money before use, and the balance must be funded before the agents will work. Amounts and minimums change; verify in each console when you sign up. The only exception is the Budget plan's Gemini free tier, and only for the Observer.
 - Nothing else — the configuration files are downloaded from a public GitHub page in Step 15. You do not need a GitHub account for that (the repository is public); the account is for keeping your own projects later.
 - On a budget? Fund DeepSeek and take the free Gemini key for screenshots — see the [Budget path](#budget-path) section at the end of this guide.
+
+> **Caution:** API keys are secret. Never post one in a chat, an issue, or a screenshot — paste it only into **Settings → Providers** inside the app.
 
 ## 3. Step 1 — Create a GitHub account
 
@@ -113,8 +115,6 @@ These are direct links to that one version. Do **not** use https://opencode.ai/d
 2. A window opens with the OpenCode icon and an **Applications** folder. Drag **OpenCode** onto the **Applications** folder, then close the window.
 3. Open **Applications** and double-click **OpenCode**. macOS may say it cannot check the app for malicious software, or that it is from an unidentified developer. If so, click **Done**, then **right-click** (or Control-click) the OpenCode icon → **Open** → **Open** again in the dialog that appears. If the button is not offered, open **System Settings → Privacy & Security** and click **Open Anyway** next to the OpenCode message.
 
-No Node.js and no command line are needed — it is a self-contained app.
-
 > **Later, the app may offer an OpenCode 2 update.** The app updates itself automatically. Decline any update that says it moves OpenCode to version 2 — these config files are only built for 1.19.5.
 
 ## 11. Step 9 — Open the app
@@ -141,7 +141,7 @@ In **Settings → Providers**, choose **Anthropic**, paste an API key, and save.
 
 ## 14. Step 12 — Add your Google key
 
-In **Settings → Providers**, choose **Google**, paste the key, and save. It goes in the same way as the others — there is no file to edit.
+In **Settings → Providers**, choose **Google**, paste the key from Step 6, and save.
 
 This is what powers pasted screenshots (the Observer) and the Gemini agents.
 
@@ -157,10 +157,11 @@ Open the **model picker** in the message box, search for `deepseek`, and choose 
 
 - If `deepseek/deepseek-flash` is not listed, DeepSeek has no key saved — redo Step 10.
 - After Step 15 the config sets that same default, so nothing changes — this was not a temporary setting.
+- **No restart needed** — a key you saved shows its models in the picker straight away. The restart in Step 17 is only to load the config file.
 
 ## 17. Step 15 — Ask OpenCode to install the config
 
-OpenCode can fetch and install its own configuration. You do not copy files or run setup commands — you paste one message into the chat box and let the agent do the work.
+OpenCode can fetch and install its own configuration. You paste one message into the chat box and let the agent do the work.
 
 Paste this exactly, then press Enter:
 
@@ -169,7 +170,7 @@ Paste this exactly, then press Enter:
 On your Mac the folder it writes to is `~/.config/opencode` (that is `/Users/<your-name>/.config/opencode`). A few things to know while it runs:
 
 - OpenCode runs the commands on your computer itself. Any permission requests appear as dialogs in the app.
-- If a dialog asks for permission to work outside your project folder, allow it **only** if it names `~/.config/opencode`. If it names any other folder, choose **no** and stop the run.
+- If a dialog asks for permission to work outside your project folder, review it carefully before you approve.
 - You can stop the run from the app at any time if anything looks wrong.
 - It may need `git` — which comes with the Xcode command-line tools. If the app offers to install them, allow it only if the prompt names `git`.
 
@@ -177,7 +178,7 @@ If it does not seem to be working, ask the app to try again — or ask the perso
 
 ## 18. Step 16 — Answer its questions and let it finish
 
-While the config installs, the agent may ask you questions in the chat box (for example, which folder to use, or whether to install `git`). Answer them, and approve only what it names — `~/.config/opencode`, or `git` if it asks for the Xcode command-line tools. Then wait for it to say it is done. Do not close the app while it is working, or it may stop halfway.
+While the config installs, the agent may ask you questions in the chat box (for example, which folder to use, or whether to install `git`). Answer them, and read each permission request before you approve it. **If you are not sure what a request means, choose no and ask the agent to explain it in plain English before allowing anything.** Then wait for it to say it is done. Do not close the app while it is working, or it may stop halfway.
 
 ## 19. Step 17 — Restart the app
 
@@ -200,6 +201,8 @@ Ask something simple. A normal answer means everything is wired up. In the chat 
 **Verify:** a normal answer comes back.
 
 An error here means the model is not connected — redo Step 10 (add DeepSeek), then Step 17 (restart the app).
+
+A saved key can still fail if the account is not funded — check the provider's console that billing is set up and the balance is topped up. This is the most common cause of a first-attempt error.
 
 ## 22. Optional extras
 
@@ -248,7 +251,7 @@ To enable one: open `~/.config/opencode/opencode.json` in a text editor, find th
 |---|---|
 | The app will not open, or macOS says it is from an "unidentified developer" | Click **Done**, then **right-click** (or Control-click) the OpenCode icon in Applications → **Open** → **Open**. If the button is not offered, go to **System Settings → Privacy & Security** and click **Open Anyway** next to the OpenCode message. |
 | A key does not stick in Settings → Providers | Make sure you copied the whole key, with no spaces or line breaks, and paste it directly into the key field — never retype it. Save, then check the provider shows its key. A key that was deleted or revoked in the provider's console will not work either; make a new one. |
-| A model is missing from the model picker | Its provider's key is missing or not saved. Open **Settings → Providers** and re-add that key (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google, Step 13 for xAI). |
+| A model is missing from the model picker | Its provider's key is missing or not saved. Re-add the key in **Settings → Providers** (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google, Step 13 for xAI) and save it again — the models appear as soon as the key is saved. |
 | The app offers to update to OpenCode 2 | Decline it. These config files are built for 1.19.5 only; an OpenCode 2 update can break the setup. Keep the 1.19.5 app from Step 8. |
 | "model not found" or a model error | Usually a key or funding problem. Check the provider shows a key in **Settings → Providers**, then pick the model again in the model picker. A funded balance is required — an empty balance fails the same way as a missing key. |
 | The supervisor is missing from the agent picker | The config did not load. Redo Step 15 (ask OpenCode to install the config), finish it (Step 16), and restart the app (Step 17). The agent picker should then show `supervisor`. |

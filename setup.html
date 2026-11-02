@@ -696,6 +696,10 @@
         <p class="sec-sub">Steps 1–7</p>
       </div>
     </div>
+    <div class="callout-warn">
+      <svg class="warn-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+      <div><h4>API keys are secret</h4><p>Never post an API key in a chat, an issue, or a screenshot. Paste it only into <strong>Settings → Providers</strong> (step 10 onwards).</p></div>
+    </div>
     <div class="steps">
 
       <article class="step-card">
@@ -931,21 +935,16 @@
             <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-x64.exe" target="_blank" rel="noopener" data-os="win">Download for Windows (64-bit)
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
-            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-arm64.exe" target="_blank" rel="noopener" data-os="win">Download for ARM
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </a>
           </div>
           <p class="note os-block" data-os="mac">First check which kind of Mac you have: click the Apple menu → <strong>About This Mac</strong> → look at <strong>Chip</strong>. If it says <strong>Apple M…</strong> (for example "Apple M2"), download the Apple Silicon file. If it says <strong>Intel</strong>, download the Intel file.</p>
-          <p class="note os-block" data-os="win">Most PCs use the 64-bit link; use the ARM link only if you know your PC has an ARM processor.</p>
           <ol class="step-list">
             <li class="os-block" data-os="mac">Your Mac downloads a <code>.dmg</code> file — open it when it finishes.</li>
             <li class="os-block" data-os="mac">A window opens with the OpenCode icon and an <strong>Applications</strong> folder. Drag <strong>OpenCode</strong> onto the <strong>Applications</strong> folder, then close the window.</li>
             <li class="os-block" data-os="mac">Open <strong>Applications</strong> and double-click <strong>OpenCode</strong>. macOS may say it cannot check the app for malicious software, or that it is from an unidentified developer. If so, click <strong>Done</strong>, then <strong>right-click</strong> (or Control-click) the OpenCode icon → <strong>Open</strong> → <strong>Open</strong> again in the dialog that appears. If the button is not offered, open <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong> next to the OpenCode message.</li>
-            <li class="os-block" data-os="win">Open your Downloads folder and double-click <code>opencode-desktop-win-x64.exe</code> (or the ARM file, if you chose that one).</li>
+            <li class="os-block" data-os="win">Open your Downloads folder and double-click <code>opencode-desktop-win-x64.exe</code>.</li>
             <li class="os-block" data-os="win">If Windows shows a blue <strong>"Windows protected your PC"</strong> screen, click <strong>More info</strong>, then <strong>Run anyway</strong>. Windows shows this for any program it has not seen before.</li>
             <li class="os-block" data-os="win">Let the installer run and finish. It installs for your user account and adds an OpenCode entry to the Start menu.</li>
           </ol>
-          <p class="note"><strong>No Node.js and no command line needed</strong> — it is a self-contained app.</p>
           <p class="note"><strong>Why this download and not the download page?</strong> The download page at opencode.ai/download currently serves <strong>OpenCode 2</strong> (2.2.5), which these config files are not built for. These links are the pinned OpenCode 1.19.5 app.</p>
           <div class="callout-warn">
             <svg class="warn-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
@@ -1039,7 +1038,7 @@
               <span class="pill pill-free" data-mode="budget">Recommended (Budget only)</span>
               <span class="gnum">12/20</span>
             </div>
-            <p class="step-desc">In <strong>Settings → Providers</strong>, choose <strong>Google</strong>, paste the key from step 6, and save. This replaces the old way of setting an environment variable: the key goes in like the others, and there is no file to create or edit.</p>
+            <p class="step-desc">In <strong>Settings → Providers</strong>, choose <strong>Google</strong>, paste the key from step 6, and save.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1090,6 +1089,7 @@
         <div class="step-extras">
           <p class="note">If <code>deepseek/deepseek-flash</code> isn't listed, DeepSeek has no key saved — redo step 10.</p>
           <p class="note">After step 17 the config sets that same default, so nothing changes — this was not a temporary setting.</p>
+          <p class="note"><strong>No restart needed</strong> — a key you saved shows its models in the picker straight away. The restart in step 17 is only to load the config file.</p>
         </div>
       </article>
 
@@ -1106,7 +1106,7 @@
     </div>
     <div class="banner-info">
       <h4>You paste one message and watch</h4>
-      <p>OpenCode can fetch and install its own configuration. You don't copy files or run setup commands — you paste one message into the chat box and let the agent do the work.</p>
+      <p>OpenCode can fetch and install its own configuration. You paste one message into the chat box and let the agent do the work.</p>
     </div>
     <div class="steps">
 
@@ -1123,7 +1123,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">15/20</span>
             </div>
-            <p class="step-desc">You don't copy files, extract ZIPs, or run setup commands. Paste <strong>one message</strong> into OpenCode's message box and let the agent do the work. It downloads the configuration, puts it in the right folder, and sets everything up.</p>
+            <p class="step-desc">Paste <strong>one message</strong> into OpenCode's message box and let the agent do the work. It downloads the configuration, puts it in the right folder, and sets everything up.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1135,7 +1135,7 @@
           <p class="note os-block" data-os="win">On Windows the folder it writes to is <code>%USERPROFILE%\.config\opencode</code> — that is <code>C:\Users\&lt;you&gt;\.config\opencode</code>. A few things to know while it runs:</p>
           <ul class="step-list">
             <li>OpenCode runs the commands on your computer itself, and does not ask before each one.</li>
-            <li>Any permission requests appear as <strong>dialogs in the app</strong>. If a dialog asks for permission to work outside your project folder, allow it <strong>only</strong> if it names the config folder above. <strong>Approving:</strong> if the dialog names that config folder, choose <strong>allow</strong>; if it names any other folder, choose <strong>no</strong> and stop.</li>
+            <li>Any permission requests appear as <strong>dialogs in the app</strong>. If a dialog asks for permission to work outside your project folder, review it carefully before you approve.</li>
             <li>It may need <code>git</code> — <span class="os-inline" data-os="mac">which comes with the Xcode command-line tools</span><span class="os-inline" data-os="win">if the app asks to install something, read the dialog first</span>. Allow it only if the dialog names <code>git</code>.</li>
             <li class="os-block" data-os="win"><strong>Windows Defender Firewall or SmartScreen</strong> may pop up; Windows does this for any program it has not seen before.</li>
             <li><strong>Stop the run from the app</strong> — use the stop button in the app while it is working — if anything looks wrong.</li>
@@ -1163,7 +1163,7 @@
         <div class="step-extras">
           <ul class="step-list">
             <li>Answer its questions in the message box.</li>
-            <li>Approve only what it names: the config folder (<span class="os-inline" data-os="mac"><code>~/.config/opencode</code></span><span class="os-inline" data-os="win"><code>%USERPROFILE%\.config\opencode</code></span>), or installing <code>git</code>. If a dialog names anything else, choose <strong>no</strong>.</li>
+            <li>Read each permission request before you approve it. If you are not sure what a request means, choose <strong>no</strong> and ask the agent to explain it in plain English before you allow anything.</li>
             <li>Wait for it to say it is done. <strong>Do not close the app while it is working</strong>, or it may stop halfway.</li>
           </ul>
           <p class="note"><strong>Verify:</strong> the agent tells you the configuration is installed.</p>
@@ -1221,7 +1221,7 @@
           </div>
         </div>
         <div class="step-extras">
-          <p class="note"><strong>Verify:</strong> every provider you set up has its models listed. If a provider's models are missing, re-add that key in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google), then restart the app.</p>
+          <p class="note"><strong>Verify:</strong> every provider you set up has its models listed. If a provider's models are missing, re-add that key in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google) and save it again — the models appear in the picker as soon as the key is saved.</p>
         </div>
       </article>
 
@@ -1247,7 +1247,8 @@
             <p class="bubble-text">What is 2+2?</p>
           </div>
           <p class="note"><strong>Verify:</strong> a normal answer comes back.</p>
-          <p class="note">An error here means the model isn't connected — redo step 10 (add the DeepSeek key), then restart the app (step 17). To leave OpenCode, close the app or start a new chat.</p>
+          <p class="note">An error here means the model isn't connected — redo step 10 (re-add the DeepSeek key in <strong>Settings → Providers</strong> and save it again); the models appear in the picker as soon as the key is saved. To leave OpenCode, close the app or start a new chat.</p>
+          <p class="note">A saved key can still fail if the account is not funded — check the provider's console that billing is set up and the balance is topped up. This is the most common cause of a first-attempt error.</p>
         </div>
       </article>
 
@@ -1403,7 +1404,7 @@
           <span class="os-block" data-os="win">If Windows showed <strong>"Windows protected your PC"</strong>, open the downloaded <code>opencode-desktop-win-x64.exe</code> again, click <strong>More info</strong>, then <strong>Run anyway</strong>. If it still will not install, restart the computer and run the installer again.</span>
         </li>
         <li><strong>A provider key does not stick in Settings → Providers.</strong> Re-copy the key from your password manager — a missing character or a trailing space is the usual cause — and save it again. Make sure the key belongs to the provider you selected: an Anthropic key in the Google entry will not work, and a key that was deleted or revoked in the provider's console will not work either.</li>
-        <li><strong>A model is missing from the picker.</strong> The key for that provider is missing or wrong. Re-add it in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google, step 13 for xAI), then restart the app.</li>
+        <li><strong>A model is missing from the picker.</strong> The key for that provider is missing or wrong. Re-add it in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google, step 13 for xAI) and save it again — the models appear in the picker as soon as the key is saved.</li>
         <li><strong>The app offers an OpenCode 2 update.</strong> <strong>Decline it.</strong> These config files are built for OpenCode 1.19.5 only, and OpenCode 2 is not compatible. Keep using the installed app and dismiss the update prompt.</li>
         <li><strong>"model not found", or an agent errors on every reply.</strong> That is almost always a key or funding problem. Open <strong>Settings → Providers</strong> and check the provider's key is there, then pick the model again in the model picker. Check the provider console shows a funded balance — an empty balance fails exactly like a missing key.</li>
         <li><strong>No supervisor, or the agent team is missing.</strong> The config did not load. Redo step 15 (ask OpenCode to install the config), answer any questions it asks (step 16), and restart the app (step 17). The agent picker should then list <code>supervisor</code>.</li>

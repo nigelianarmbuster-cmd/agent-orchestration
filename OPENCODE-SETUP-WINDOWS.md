@@ -50,6 +50,8 @@ A few things to know:
 
 **Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic or Gemini (full setup) account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan, below.
 
+> **Caution:** API keys are secret. Never post one in a chat, an issue, or a screenshot — paste it only into **Settings → Providers** inside the app.
+
 ## 3. Step 1 — Create a GitHub account
 
 Free, and it takes a minute. You do **not** need it to download anything on this page. It is where you keep your own projects later, and some optional add-ons use it.
@@ -113,9 +115,6 @@ Everything up to here happens in the browser. Everything after it happens in the
 This setup is built for **OpenCode 1.19.5**, so download exactly this file:
 
 - **[Download OpenCode 1.19.5 for Windows (64-bit)](https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-x64.exe)**
-- [Download for Windows on an ARM chip](https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-arm64.exe)
-
-Most PCs use the 64-bit link; use the ARM link only if you know your PC has an ARM processor.
 
 Then:
 
@@ -151,7 +150,7 @@ In **Settings → Providers**, choose **Anthropic**, paste the key from Step 5, 
 
 ## 14. Step 12 — Add your Google (Gemini) key
 
-In **Settings → Providers**, choose **Google**, paste the key from Step 6, and save. This replaces the old way of setting an environment variable: the key goes in the same way as the others, and there is no file to create or edit.
+In **Settings → Providers**, choose **Google**, paste the key from Step 6, and save.
 
 **Verify:** Google shows as connected in Settings → Providers.
 
@@ -167,9 +166,11 @@ Open the **model picker** in the message box, search for `deepseek`, and choose 
 
 Do this now: it is what makes your *first* messages work, because the config that sets the default has not been installed yet. If `deepseek/deepseek-flash` is not in the list, DeepSeek is not connected — redo Step 10.
 
+**No restart needed** — a key you saved shows its models in the picker straight away. The restart in Step 17 is only to load the config file.
+
 ## 17. Step 15 — Ask OpenCode to install the config
 
-You do not copy files, extract ZIPs, or run setup commands. You paste **one message** into OpenCode's message box and let the agent do the work.
+You paste **one message** into OpenCode's message box and let the agent do the work.
 
 Paste this into OpenCode's message box and press Enter:
 
@@ -178,7 +179,7 @@ Paste this into OpenCode's message box and press Enter:
 How it behaves:
 
 - OpenCode runs a few commands on your computer itself, and does not ask before each one. It writes to `%USERPROFILE%\.config\opencode`, which is `C:\Users\<you>\.config\opencode` — the same folder written as `%USERPROFILE%\.config\opencode`.
-- It may ask **once** for permission to work outside your project folder. The prompt appears as an app dialog. **Approving:** if the dialog names that config folder, choose **allow**; if it names any other folder, choose **no** and stop.
+- It may ask **once** for permission to work outside your project folder. The prompt appears as an app dialog. If a dialog asks for permission to work outside your project folder, review it carefully before you approve.
 - It may need `git`. If it asks to install something, read the dialog first and allow it only if it names `git`.
 - **Windows Defender Firewall or SmartScreen** may pop up; Windows does this for any program it has not seen before.
 - **Stop the run from the app** if anything looks wrong — use the stop button in the app while it is working.
@@ -189,7 +190,7 @@ How it behaves:
 While the config installs, the agent may ask you questions or ask to install `git`.
 
 - Answer its questions in the message box.
-- Approve only what it names: the config folder (`%USERPROFILE%\.config\opencode`), or installing `git`. If a dialog names anything else, choose **no**.
+- Read each permission request before you approve it. **If you are not sure what a request means, choose no and ask the agent to explain it in plain English before allowing anything.**
 - Wait for it to say it is done. Do not close the app while it is working.
 
 **Verify:** the agent tells you the configuration is installed.
@@ -215,6 +216,8 @@ Ask something simple in the message box:
 **Verify:** a normal answer comes back, which means everything is wired up.
 
 An error here means the model is not connected — redo Step 10 (add the DeepSeek key), then restart the app (Step 17). To leave OpenCode, close the app or start a new chat.
+
+A saved key can still fail if the account is not funded — check the provider's console that billing is set up and the balance is topped up. This is the most common cause of a first-attempt error.
 
 If you are on the Budget plan, tell the supervisor: **"Use the budget instructions."** This switches it into budget mode: it sticks to the junior-tier (DeepSeek) agents and never calls the paid mid/senior tiers. The full production setup stays installed and untouched.
 
@@ -265,7 +268,7 @@ To enable one: open `opencode.json` in your config folder (`%USERPROFILE%\.confi
 | "model not found" or a model error | Usually a key or funding problem. Open **Settings → Providers** and check that the provider's key is there, then open the model picker to confirm the model is listed. Check the provider's console that your prepaid balance is funded. |
 | The app will not open, or SmartScreen blocked the installer | If Windows showed **"Windows protected your PC"**, open the downloaded `opencode-desktop-win-x64.exe` again, click **More info**, then **Run anyway**. If it still will not install, restart the computer and run the installer again. |
 | A provider key does not stick in Settings → Providers | Re-copy the key from your password manager — a missing character or a trailing space is the usual cause — and save it again. Make sure the key belongs to the provider you selected: an Anthropic key in the Google entry will not work. |
-| A model is missing from the picker | The key for that provider is missing or wrong. Re-add it in **Settings → Providers** (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google), then restart the app. |
+| A model is missing from the picker | The key for that provider is missing or wrong. Re-add the key in **Settings → Providers** (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google) and save it again — the models appear as soon as the key is saved. |
 | The app offers an OpenCode 2 update | **Decline it.** These config files are built for OpenCode 1.19.5, and OpenCode 2 is not compatible. Keep using the installed app and dismiss the update prompt. |
 | Screenshots return nothing, or the Observer stays silent | The Gemini key is not reaching OpenCode. Open **Settings → Providers** and confirm the **Google** key is filled in; if it is missing, re-add it (Step 12). Also check no stale Google/Gemini environment variable is set — an environment variable overrides the saved key, so an old one makes every Gemini call fail with "API key not valid". Check with `Get-ChildItem Env: \| Where-Object Name -match 'GOOGLE\|GEMINI'`. If anything appears, remove it with `[Environment]::SetEnvironmentVariable('NAME', $null, 'User')`, then restart the app. |
 | Gemini agents fail or behave oddly in the Budget plan | In Budget the free tier is for pasted screenshots only; add billing to the Google key before using the Gemini researcher or planner. |
