@@ -411,8 +411,13 @@
   [data-os] { display: none; }
   .os-mac [data-os="mac"].os-block { display: block; }
   .os-win [data-os="win"].os-block { display: block; }
+  .os-mac li[data-os="mac"].os-block { display: list-item; }
+  .os-win li[data-os="win"].os-block { display: list-item; }
   .os-mac [data-os="mac"].os-inline { display: inline; }
   .os-win [data-os="win"].os-inline { display: inline; }
+  .link-pill[data-os] { display: none; }
+  .os-mac .link-pill[data-os="mac"],
+  .os-win .link-pill[data-os="win"] { display: inline-flex; }
 
   /* ---------- Plan mode variants (full / budget) ---------- */
 
@@ -437,6 +442,14 @@
   .note { font-size: 12.5px; color: var(--muted); margin: 8px 0 0; }
   .note + .note { margin-top: 5px; }
   .note strong { color: #c2cddf; font-weight: 600; }
+
+  .step-list { margin: 8px 0 0; padding-left: 20px; font-size: 12.8px; color: #aab8cd; }
+  .step-list li { margin: 6px 0 0; }
+  .step-list li + li { margin-top: 6px; }
+  .step-list strong { color: #c2cddf; font-weight: 600; }
+
+  .inline-link { color: #c7d2fe; text-decoration: none; border-bottom: 1px solid rgba(99, 102, 241, .35); }
+  .inline-link:hover { color: #fff; border-bottom-color: rgba(99, 102, 241, .8); }
 
   /* ---------- Links ---------- */
 
@@ -662,7 +675,7 @@
       <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Fund DeepSeek before you start. The <strong>only</strong> free-tier allowance on this page is the Gemini key, and in Budget it is for the Observer (pasted screenshots) only — not for the Gemini researcher/planner agents. Local models via Ollama are free.</p>
       <p data-mode="full">Why three providers instead of one? Each is used for what it does best, and spend is deliberately spread across all three prepaid balances. <strong>DeepSeek</strong> is the affordable workhorse, so it carries the bulk of the volume; <strong>Claude</strong> keeps the quality gates (mid-tier review/security/fact-checking on Sonnet 5) and all senior judgment (Opus 4.8), where its subtle bug-detection, adversarial review, and exact-quote fidelity genuinely win; <strong>Gemini 3.8 Flash</strong> is intro-priced and cost-effective, so it handles long-context research, planning, and vision. Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking switched <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because Gemini 3.8 Flash is genuinely competitive there at low quality risk, and the balance is set structurally in the agent files — a deterministic ~64/26/10 DeepSeek/Anthropic/Google split — rather than by prompt-guessing how to route each task.</p>
       <ul class="fact-grid">
-        <li><span class="dot" aria-hidden="true"></span><span>You paste <strong>two commands</strong> (install, then start) — OpenCode does the rest</span></li>
+        <li><span class="dot" aria-hidden="true"></span><span>You download <strong>one app</strong> and open it — no command line, then OpenCode does the rest</span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-flash</code></span></li>
         <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4.1 Flash drives the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.8 Flash researches &amp; sees</span></li>
@@ -784,7 +797,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p class="note" data-mode="budget">Budget: skip — Anthropic only powers the mid/senior agents. Add the key later with <code>/connect</code> to unlock them; nothing else changes.</p>
+          <p class="note" data-mode="budget">Budget: skip — Anthropic only powers the mid/senior agents. Add the key later in <strong>Settings → Providers</strong> to unlock them; nothing else changes.</p>
         </div>
       </article>
 
@@ -881,156 +894,156 @@
     <div class="sec-head">
       <span class="sec-badge" aria-hidden="true">2</span>
       <div class="sec-titles">
-        <h2 id="s2-title">Install OpenCode &amp; connect your keys</h2>
+        <h2 id="s2-title">Install the OpenCode app &amp; add your keys</h2>
         <p class="sec-sub">Steps 8–14</p>
       </div>
     </div>
     <div class="banner-info">
-      <h4>Two terminal pastes, then plain typing</h4>
-      <p>You only paste into a terminal <strong>twice</strong> — once to install OpenCode (step 8) and once to start it (step 9). Everything after that is typed into OpenCode's chat box.</p>
+      <h4>One download, then plain clicking</h4>
+      <p>You download OpenCode <strong>once</strong> and open it like any other app (step 8). Everything after that happens in OpenCode's own windows — adding keys is a paste in Settings, and the rest is typing in the chat box.</p>
     </div>
     <div class="steps">
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-8">
-            <input type="checkbox" id="step-8" class="step-check" aria-label="Mark done: Install OpenCode">
+            <input type="checkbox" id="step-8" class="step-check" aria-label="Mark done: Download the OpenCode app">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">8</span>
-              <h3 class="step-title">Install OpenCode</h3>
+              <h3 class="step-title">Download the OpenCode app</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">8/20</span>
             </div>
-            <p class="step-desc">Paste one command into your terminal. This setup is built for <strong>OpenCode 1.19.5</strong>, so use the command below for your computer.</p>
+            <p class="step-desc">This setup is built for <strong>OpenCode 1.19.5</strong>, so download exactly this file. It installs like any other app.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="os-note os-block" data-os="mac"><strong>New to command lines?</strong> The <code>$</code> at the start of a command tells you to paste it into Terminal. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Return. To open Terminal, press <kbd>Command</kbd>+<kbd>Space</kbd>, type <strong>Terminal</strong>, and press Return. This applies to every command block on this page.</p>
-          <p class="os-note os-block" data-os="win"><strong>New to command lines?</strong> The <code>PS&gt;</code> at the start of a command tells you to paste it into PowerShell. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Enter. To open PowerShell, press <kbd>Win</kbd>, type <strong>PowerShell</strong>, and press Enter. This applies to every command block on this page.</p>
-          <div class="cmd os-block" data-os="mac">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">$</span> curl -fsSL https://opencode.ai/install | bash</code></pre>
-          </div>
-          <div class="cmd os-block" data-os="win">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">PS&gt;</span> winget install --id SST.opencode -e</code></pre>
-          </div>
-          <p class="note">Then check it worked. You should see <code>1.19.5</code>.</p>
-          <div class="cmd">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode --version</code></pre>
-          </div>
-          <p class="note">Close your terminal and open a new window afterwards — that's how it finds the new command.</p>
-          <p class="note os-block" data-os="win">If Windows says <code>winget</code> is not recognised, install <strong>App Installer</strong> from the Microsoft Store, then run the command again.</p>
-          <p class="note">Do <strong>not</strong> use <code>brew install opencode</code> or the download button on opencode.ai — both now install OpenCode 2, which these config files are not built for. OpenCode 1's installer refuses version 2 on purpose.</p>
-          <p class="note"><strong>Node.js is not needed.</strong> The installer is self-contained — just that one paste.</p>
           <div class="link-row">
-            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/tag/v1.19.5" target="_blank" rel="noopener">OpenCode 1.19.5 release page
+            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-mac-arm64.dmg" target="_blank" rel="noopener" data-os="mac">Download for Apple Silicon
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-mac-x64.dmg" target="_blank" rel="noopener" data-os="mac">Download for Intel
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-x64.exe" target="_blank" rel="noopener" data-os="win">Download for Windows (64-bit)
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-arm64.exe" target="_blank" rel="noopener" data-os="win">Download for ARM
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
+          <p class="note os-block" data-os="mac">First check which kind of Mac you have: click the Apple menu → <strong>About This Mac</strong> → look at <strong>Chip</strong>. If it says <strong>Apple M…</strong> (for example "Apple M2"), download the Apple Silicon file. If it says <strong>Intel</strong>, download the Intel file.</p>
+          <p class="note os-block" data-os="win">Most PCs use the 64-bit link; use the ARM link only if you know your PC has an ARM processor.</p>
+          <ol class="step-list">
+            <li class="os-block" data-os="mac">Your Mac downloads a <code>.dmg</code> file — open it when it finishes.</li>
+            <li class="os-block" data-os="mac">A window opens with the OpenCode icon and an <strong>Applications</strong> folder. Drag <strong>OpenCode</strong> onto the <strong>Applications</strong> folder, then close the window.</li>
+            <li class="os-block" data-os="mac">Open <strong>Applications</strong> and double-click <strong>OpenCode</strong>. macOS may say it cannot check the app for malicious software, or that it is from an unidentified developer. If so, click <strong>Done</strong>, then <strong>right-click</strong> (or Control-click) the OpenCode icon → <strong>Open</strong> → <strong>Open</strong> again in the dialog that appears. If the button is not offered, open <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong> next to the OpenCode message.</li>
+            <li class="os-block" data-os="win">Open your Downloads folder and double-click <code>opencode-desktop-win-x64.exe</code> (or the ARM file, if you chose that one).</li>
+            <li class="os-block" data-os="win">If Windows shows a blue <strong>"Windows protected your PC"</strong> screen, click <strong>More info</strong>, then <strong>Run anyway</strong>. Windows shows this for any program it has not seen before.</li>
+            <li class="os-block" data-os="win">Let the installer run and finish. It installs for your user account and adds an OpenCode entry to the Start menu.</li>
+          </ol>
+          <p class="note"><strong>No Node.js and no command line needed</strong> — it is a self-contained app.</p>
+          <p class="note"><strong>Why this download and not the download page?</strong> The download page at opencode.ai/download currently serves <strong>OpenCode 2</strong> (2.2.5), which these config files are not built for. These links are the pinned OpenCode 1.19.5 app.</p>
+          <div class="callout-warn">
+            <svg class="warn-ic" width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M12 9v4"/><path d="M12 17h.01"/><path d="M10.3 3.9 1.8 18a2 2 0 0 0 1.7 3h17a2 2 0 0 0 1.7-3L13.7 3.9a2 2 0 0 0-3.4 0z"/></svg>
+            <div>
+              <h4>Later, the app may offer an OpenCode 2 update</h4>
+              <p>The app updates itself automatically. <strong>Decline</strong> any update that says it moves OpenCode to version 2 — these config files are only built for 1.19.5.</p>
+            </div>
+          </div>
+          <p class="note">Release page for reference: <a class="inline-link" href="https://github.com/anomalyco/opencode/releases/tag/v1.19.5" target="_blank" rel="noopener">OpenCode 1.19.5</a>.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-9">
-            <input type="checkbox" id="step-9" class="step-check" aria-label="Mark done: Start OpenCode">
+            <input type="checkbox" id="step-9" class="step-check" aria-label="Mark done: Open the app">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">9</span>
-              <h3 class="step-title">Start OpenCode</h3>
+              <h3 class="step-title">Open the app</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">9/20</span>
             </div>
-            <p class="step-desc">Paste this into the same terminal. OpenCode opens its own chat screen.</p>
+            <p class="step-desc"><span class="os-inline" data-os="mac">Open <strong>Launchpad</strong>, or <strong>Applications</strong> in Finder, and click <strong>OpenCode</strong>.</span><span class="os-inline" data-os="win">Press the Windows key, type <strong>"OpenCode"</strong>, and click the OpenCode entry in the Start menu (or double-click the desktop shortcut if the installer made one).</span></p>
           </div>
         </div>
         <div class="step-extras">
-          <div class="cmd">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode</code></pre>
-          </div>
-          <p class="note"><strong>Verify:</strong> OpenCode's chat screen appears. That was the last terminal paste on this page.</p>
-          <p class="note">From now on you type in OpenCode's chat box, not the terminal. Commands that start with <code>/</code> are typed there too.</p>
+          <p class="note">OpenCode opens its home screen. <strong>From here on you work inside the app</strong> — every step below is a click, a key, or a chat message.</p>
+          <p class="note"><strong>Verify:</strong> OpenCode's home screen appears.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-10">
-            <input type="checkbox" id="step-10" class="step-check" aria-label="Mark done: Connect DeepSeek">
+            <input type="checkbox" id="step-10" class="step-check" aria-label="Mark done: Add your DeepSeek key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">10</span>
-              <h3 class="step-title">Connect DeepSeek</h3>
+              <h3 class="step-title">Add your DeepSeek key</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">10/20</span>
             </div>
-            <p class="step-desc">In OpenCode's chat box, type <code>/connect</code>, choose <strong>DeepSeek</strong>, choose <strong>API key</strong>, paste your key, and press Enter.</p>
+            <p class="step-desc">In the app, open <strong>Settings → Providers</strong>, choose <strong>DeepSeek</strong>, paste the key from step 3 into its key field, and save.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note">OpenCode remembers keys itself — you will never edit a file to add one.</p>
-          <p class="note"><strong>Verify:</strong> OpenCode lists DeepSeek as connected. (All your keys are re-checked in step 18.)</p>
+          <p class="note">OpenCode stores the keys itself, in its own credential store. You will never edit a file to add or change a key.</p>
+          <p class="note"><strong>Verify:</strong> DeepSeek shows as connected in <strong>Settings → Providers</strong>, with its key filled in. (You re-check the models they unlock in step 18.)</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-11">
-            <input type="checkbox" id="step-11" class="step-check" aria-label="Mark done: Connect Anthropic">
+            <input type="checkbox" id="step-11" class="step-check" aria-label="Mark done: Add your Anthropic key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">11</span>
-              <h3 class="step-title">Connect Anthropic</h3>
+              <h3 class="step-title">Add your Anthropic key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
               <span class="gnum">11/20</span>
             </div>
-            <p class="step-desc">Type <code>/connect</code> again, choose <strong>Anthropic</strong>, choose <strong>"Manually enter API Key"</strong>, and paste. Do not pick the Pro/Max option — see the warning in step 5 (Full plan only).</p>
+            <p class="step-desc">In <strong>Settings → Providers</strong>, choose <strong>Anthropic</strong>, paste the key from step 5, and save. Do not use the Claude Pro/Max sign-in option — paste an API key (see the warning in step 5).</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note" data-mode="budget">Budget: skip — nothing to connect without an Anthropic key. Add it later with <code>/connect</code> to unlock the mid/senior agents; nothing else to redo.</p>
+          <p class="note"><strong>Verify:</strong> Anthropic shows as connected in <strong>Settings → Providers</strong>.</p>
+          <p class="note" data-mode="budget">Budget: skip — there is nothing to add without an Anthropic key. Add it later in <strong>Settings → Providers</strong> and paste the key to unlock the mid/senior agents; nothing else has to be redone.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-12">
-            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Connect Google (Gemini)">
+            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Add your Google (Gemini) key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">12</span>
-              <h3 class="step-title">Connect Google (Gemini)</h3>
+              <h3 class="step-title">Add your Google (Gemini) key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-free" data-mode="budget">Recommended (Budget only)</span>
               <span class="gnum">12/20</span>
             </div>
-            <p class="step-desc">Type <code>/connect</code>, choose <strong>Google</strong>, choose <strong>API key</strong>, and paste. The key goes in the same way as the others — there is no file to edit.</p>
+            <p class="step-desc">In <strong>Settings → Providers</strong>, choose <strong>Google</strong>, paste the key from step 6, and save. This replaces the old way of setting an environment variable: the key goes in like the others, and there is no file to create or edit.</p>
           </div>
         </div>
         <div class="step-extras">
+          <p class="note"><strong>Verify:</strong> Google shows as connected in <strong>Settings → Providers</strong>.</p>
           <p class="note">This is what powers pasted screenshots (the Observer) and the Gemini agents.</p>
           <p class="note" data-mode="budget">Budget: still do this. In Budget the free tier is fine but Observer-only — it keeps the screenshot feature working. Don't use the Gemini agents on the free tier; add billing first.</p>
         </div>
@@ -1039,43 +1052,44 @@
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-13">
-            <input type="checkbox" id="step-13" class="step-check" aria-label="Mark done: Connect xAI">
+            <input type="checkbox" id="step-13" class="step-check" aria-label="Mark done: Add your xAI key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">13</span>
-              <h3 class="step-title">Connect xAI</h3>
+              <h3 class="step-title">Add your xAI key</h3>
               <span class="pill pill-opt">Optional</span>
               <span class="gnum">13/20</span>
             </div>
-            <p class="step-desc">Type <code>/connect</code>, choose <strong>xAI</strong>, and paste your Grok key.</p>
+            <p class="step-desc">In <strong>Settings → Providers</strong>, choose <strong>xAI</strong>, paste your Grok key, and save.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note">Skim or ignore this if you skipped the Grok key — nothing here needs it.</p>
+          <p class="note">Skip if you skipped the Grok key — xAI is not part of this setup unless you add it, and nothing here needs it.</p>
+          <p class="note"><strong>Verify:</strong> xAI shows as connected in <strong>Settings → Providers</strong>.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-14">
-            <input type="checkbox" id="step-14" class="step-check" aria-label="Mark done: Pick the default model">
+            <input type="checkbox" id="step-14" class="step-check" aria-label="Mark done: Pick your default model">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">14</span>
-              <h3 class="step-title">Pick the default model</h3>
+              <h3 class="step-title">Pick your default model</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">14/20</span>
             </div>
-            <p class="step-desc">Type <code>/models</code> in the chat box, search for <code>deepseek</code>, and choose <code>deepseek/deepseek-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. Do this now because it is what makes your <em>first</em> messages work: the config that sets the default hasn't been installed yet.</p>
+            <p class="step-desc">Open the <strong>model picker</strong> in the message box, search for <code>deepseek</code>, and choose <code>deepseek/deepseek-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. Do this now because it is what makes your <em>first</em> messages work: the config that sets the default hasn't been installed yet.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note">If <code>deepseek/deepseek-flash</code> isn't listed, DeepSeek isn't connected — redo step 10.</p>
-          <p class="note">After step 16 the config sets that same default, so nothing changes — this was not a temporary setting.</p>
+          <p class="note">If <code>deepseek/deepseek-flash</code> isn't listed, DeepSeek has no key saved — redo step 10.</p>
+          <p class="note">After step 17 the config sets that same default, so nothing changes — this was not a temporary setting.</p>
         </div>
       </article>
 
@@ -1109,7 +1123,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">15/20</span>
             </div>
-            <p class="step-desc">Paste this into OpenCode's chat box and press Enter. It downloads the configuration, puts it in the right folder, and sets everything up.</p>
+            <p class="step-desc">You don't copy files, extract ZIPs, or run setup commands. Paste <strong>one message</strong> into OpenCode's message box and let the agent do the work. It downloads the configuration, puts it in the right folder, and sets everything up.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1117,72 +1131,63 @@
             <p class="who">You, in OpenCode</p>
             <p class="bubble-text">Install your own configuration. Clone https://github.com/nigelianarmbuster-cmd/opencode-config.git into your global OpenCode config folder — ~/.config/opencode on macOS, %USERPROFILE%\.config\opencode on Windows — and set up its dependencies. If that folder already exists, keep the files that are already there and add the missing ones. Tell me when it is done.</p>
           </div>
-          <p class="note">This means OpenCode runs a few commands on your computer for you. It writes to <code>~/.config/opencode</code> on macOS or <code>%USERPROFILE%\.config\opencode</code> on Windows. It runs these commands itself and does not ask before each one. It may ask once for permission to work outside your project folder — the folder it needs is that config folder. <strong>Approving:</strong> if the prompt names that config folder, choose <strong>allow</strong>; if it names any other folder, choose <strong>no</strong> and stop. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops it if anything looks wrong.</p>
-          <p class="note">It may need <code>git</code>. If it asks to install something, read the prompt first and allow it only if it names <code>git</code>.</p>
-          <details class="customize">
-            <summary>Only if you'd rather do it yourself</summary>
-            <div class="customize-inner">
-              <p>Paste the command for your computer into a terminal instead of the chat box.</p>
-              <div class="cmd os-block" data-os="mac">
-                <button type="button" class="copy-btn" aria-label="Copy command">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-                </button>
-                <pre><code><span class="prompt">$</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git ~/.config/opencode</code></pre>
-              </div>
-              <div class="cmd os-block" data-os="win">
-                <button type="button" class="copy-btn" aria-label="Copy command">
-                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-                </button>
-                <pre><code><span class="prompt">PS&gt;</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"</code></pre>
-              </div>
-            </div>
-          </details>
+          <p class="note os-block" data-os="mac">On your Mac the folder it writes to is <code>~/.config/opencode</code> (that is <code>/Users/&lt;your-name&gt;/.config/opencode</code>). A few things to know while it runs:</p>
+          <p class="note os-block" data-os="win">On Windows the folder it writes to is <code>%USERPROFILE%\.config\opencode</code> — that is <code>C:\Users\&lt;you&gt;\.config\opencode</code>. A few things to know while it runs:</p>
+          <ul class="step-list">
+            <li>OpenCode runs the commands on your computer itself, and does not ask before each one.</li>
+            <li>Any permission requests appear as <strong>dialogs in the app</strong>. If a dialog asks for permission to work outside your project folder, allow it <strong>only</strong> if it names the config folder above. <strong>Approving:</strong> if the dialog names that config folder, choose <strong>allow</strong>; if it names any other folder, choose <strong>no</strong> and stop.</li>
+            <li>It may need <code>git</code> — <span class="os-inline" data-os="mac">which comes with the Xcode command-line tools</span><span class="os-inline" data-os="win">if the app asks to install something, read the dialog first</span>. Allow it only if the dialog names <code>git</code>.</li>
+            <li class="os-block" data-os="win"><strong>Windows Defender Firewall or SmartScreen</strong> may pop up; Windows does this for any program it has not seen before.</li>
+            <li><strong>Stop the run from the app</strong> — use the stop button in the app while it is working — if anything looks wrong.</li>
+            <li>If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it fails or says "destination path already exists" and stops, ask the app to try again — or ask the person who shared this guide.</li>
+          </ul>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-16">
-            <input type="checkbox" id="step-16" class="step-check" aria-label="Mark done: Restart OpenCode">
+            <input type="checkbox" id="step-16" class="step-check" aria-label="Mark done: Answer its questions and let it finish">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">16</span>
-              <h3 class="step-title">Restart OpenCode</h3>
+              <h3 class="step-title">Answer its questions and let it finish</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">16/20</span>
             </div>
-            <p class="step-desc">Type <code>/exit</code> in the chat box, then run <code>opencode</code> again in your terminal. (Or close the terminal, open a new one, and run <code>opencode</code>.)</p>
+            <p class="step-desc">While the config installs, the agent may ask you questions or ask to install <code>git</code>. Keep the app open and answer in the message box.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note"><strong>Verify:</strong> the agent name shown at the bottom of the OpenCode window reads <code>supervisor</code>, and pressing <kbd>Tab</kbd> cycles through the primary agents.</p>
+          <ul class="step-list">
+            <li>Answer its questions in the message box.</li>
+            <li>Approve only what it names: the config folder (<span class="os-inline" data-os="mac"><code>~/.config/opencode</code></span><span class="os-inline" data-os="win"><code>%USERPROFILE%\.config\opencode</code></span>), or installing <code>git</code>. If a dialog names anything else, choose <strong>no</strong>.</li>
+            <li>Wait for it to say it is done. <strong>Do not close the app while it is working</strong>, or it may stop halfway.</li>
+          </ul>
+          <p class="note"><strong>Verify:</strong> the agent tells you the configuration is installed.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-17">
-            <input type="checkbox" id="step-17" class="step-check" aria-label="Mark done: Confirm the team is loaded">
+            <input type="checkbox" id="step-17" class="step-check" aria-label="Mark done: Restart the app">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">17</span>
-              <h3 class="step-title">Confirm the team is loaded</h3>
+              <h3 class="step-title">Restart the app</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">17/20</span>
             </div>
-            <p class="step-desc">Ask the supervisor to list the team.</p>
+            <p class="step-desc"><span class="os-inline" data-os="mac">Quit OpenCode with <kbd>⌘</kbd>+<kbd>Q</kbd>, then reopen it from <strong>Launchpad</strong> or <strong>Applications</strong>.</span><span class="os-inline" data-os="win">Close OpenCode with <kbd>Alt</kbd>+<kbd>F4</kbd> (or click its × button), then open it again from the Start menu.</span> A restart is what loads the new configuration.</p>
           </div>
         </div>
         <div class="step-extras">
-          <div class="bubble">
-            <p class="who">You, in OpenCode</p>
-            <p class="bubble-text">List your subagents by tier.</p>
-          </div>
-          <p class="note"><strong>Verify:</strong> you should see the junior, mid and senior agent groups listed, plus the mule agents.</p>
+          <p class="note"><strong>Verify:</strong> the <strong>agent picker</strong> in the message box lists <code>supervisor</code>, and it is the selected agent.</p>
         </div>
       </article>
 
@@ -1202,26 +1207,21 @@
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-18">
-            <input type="checkbox" id="step-18" class="step-check" aria-label="Mark done: Check your connections">
+            <input type="checkbox" id="step-18" class="step-check" aria-label="Mark done: Check your models in the model picker">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">18</span>
-              <h3 class="step-title">Check your connections</h3>
+              <h3 class="step-title">Check your models in the model picker</h3>
               <span class="pill pill-req">Required</span>
               <span class="gnum">18/20</span>
             </div>
-            <p class="step-desc">Ask the supervisor — it runs the check for you.</p>
+            <p class="step-desc">Open the <strong>model picker</strong> in the message box and confirm your models are there: <code>deepseek/deepseek-flash</code>, plus Anthropic, Google or xAI models for whichever keys you added. <span data-mode="budget">(Budget plan: <code>deepseek/deepseek-flash</code> plus Gemini models.)</span></p>
           </div>
         </div>
         <div class="step-extras">
-          <div class="bubble">
-            <p class="who">You, in OpenCode</p>
-            <p class="bubble-text">Run opencode auth list and tell me which providers are connected.</p>
-          </div>
-          <p class="note"><strong>Verify:</strong> <code>deepseek</code> is listed, plus <code>anthropic</code>, <code>google</code> or <code>xai</code> if you connected them. If one is missing, connect it again.</p>
-          <p class="note">Prefer to check yourself? Run <code>opencode auth list</code> in a terminal.</p>
+          <p class="note"><strong>Verify:</strong> every provider you set up has its models listed. If a provider's models are missing, re-add that key in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google), then restart the app.</p>
         </div>
       </article>
 
@@ -1238,7 +1238,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">19/20</span>
             </div>
-            <p class="step-desc">Ask something simple. A normal answer means everything is wired up.</p>
+            <p class="step-desc">Ask something simple in the message box. A normal answer means everything is wired up.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1247,7 +1247,7 @@
             <p class="bubble-text">What is 2+2?</p>
           </div>
           <p class="note"><strong>Verify:</strong> a normal answer comes back.</p>
-          <p class="note">An error here means the model isn't connected — redo step 10 (connect DeepSeek), then step 9 (start OpenCode) again.</p>
+          <p class="note">An error here means the model isn't connected — redo step 10 (add the DeepSeek key), then restart the app (step 17). To leave OpenCode, close the app or start a new chat.</p>
         </div>
       </article>
 
@@ -1386,7 +1386,7 @@
       <ul class="safety-list">
         <li>Everything is <strong>prepaid</strong> — you add money, and usage is deducted from your balance.</li>
         <li><strong>API keys are stored by OpenCode itself</strong> in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat, an issue, or a commit.</li>
-        <li><strong>The agent can run commands on your computer</strong> when you paste an instruction — step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose <strong>no</strong>. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops the agent.</li>
+        <li><strong>The agent can run commands on your computer</strong> when you paste an instruction — step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose <strong>no</strong>. You can stop the run from the app.</li>
         <li><strong>Amounts change — verify in each console when you purchase.</strong> Anthropic credits expire after one year and are non-refundable.</li>
         <li><strong>Free tiers</strong> — Full plan: you pay for DeepSeek, Anthropic, and Gemini. Budget plan: you pay for DeepSeek; in Budget the only free-tier allowance is Gemini for the Observer (pasted screenshots) — the Gemini agents must not be run on it. Funding is never optional.</li>
       </ul>
@@ -1397,12 +1397,17 @@
     <div class="safety-card">
       <h2 id="trouble-title">Troubleshooting</h2>
       <ul class="safety-list">
-        <li><strong>Screenshots return nothing, or the Observer stays silent.</strong> The Gemini key is not reaching OpenCode. Run <code>opencode auth list</code> (or ask the supervisor to run it) and check that <code>google</code> is listed; if it is not, connect it again with <code>/connect</code> → <strong>Google</strong> → <strong>API key</strong>. Also make sure no old Google/Gemini environment variable is set — an environment variable overrides the connected key, so a stale one makes every Gemini call fail with "API key not valid". Check with <code>printenv | grep -i -E 'GOOGLE|GEMINI'</code> on macOS or <code>Get-ChildItem Env: | Where-Object Name -match 'GOOGLE|GEMINI'</code> in PowerShell; if anything appears, remove it and restart OpenCode.</li>
-        <li><strong><code>opencode: command not found</code> right after installing.</strong> Close the terminal completely and open a new window, then try again — new windows pick up newly installed commands.</li>
-        <li><strong><code>opencode --version</code> does not say <code>1.19.5</code>.</strong> You have OpenCode 2 (usually from <code>brew install opencode</code> or the download button on opencode.ai). Uninstall it and re-run the install command from step 8.</li>
-        <li><strong>"model not found", or an agent errors on every reply.</strong> That is almost always a key or funding problem. Connect the key again with <code>/connect</code>, and check the provider console shows a funded balance — an empty balance fails exactly like a missing key.</li>
-        <li><strong>No supervisor, or the agent team is missing.</strong> The config did not load. Redo step 15 (ask OpenCode to install the config), then restart with step 16. The agent name at the bottom of the window should read <code>supervisor</code>.</li>
-        <li><strong>A permission prompt names a folder you do not recognise.</strong> Choose <strong>no</strong>. The only folder this setup needs is <code>~/.config/opencode</code> (macOS) or <code>%USERPROFILE%\.config\opencode</code> (Windows).</li>
+        <li><strong>Screenshots return nothing, or the Observer stays silent.</strong> The Gemini key is not reaching OpenCode — in <strong>Settings → Providers</strong>, check that <strong>Google</strong> has a key saved, and reconnect it if not (step 12). Then: an old environment variable overrides the saved key, so ask OpenCode in the chat box: <code>Check whether any GOOGLE or GEMINI environment variable is set, and remove it if so, then tell me.</code> Restart the app afterwards. (If you can use a terminal: <code>printenv | grep -i -E 'GOOGLE|GEMINI'</code> on macOS, <code>Get-ChildItem Env: | Where-Object Name -match 'GOOGLE|GEMINI'</code> in PowerShell.)</li>
+        <li><strong>The app will not open, or the installer was blocked.</strong>
+          <span class="os-block" data-os="mac">macOS said it was from an "unidentified developer": click <strong>Done</strong>, then <strong>right-click</strong> (or Control-click) the OpenCode icon in Applications → <strong>Open</strong> → <strong>Open</strong>. If the button is not offered, go to <strong>System Settings → Privacy &amp; Security</strong> and click <strong>Open Anyway</strong> next to the OpenCode message.</span>
+          <span class="os-block" data-os="win">If Windows showed <strong>"Windows protected your PC"</strong>, open the downloaded <code>opencode-desktop-win-x64.exe</code> again, click <strong>More info</strong>, then <strong>Run anyway</strong>. If it still will not install, restart the computer and run the installer again.</span>
+        </li>
+        <li><strong>A provider key does not stick in Settings → Providers.</strong> Re-copy the key from your password manager — a missing character or a trailing space is the usual cause — and save it again. Make sure the key belongs to the provider you selected: an Anthropic key in the Google entry will not work, and a key that was deleted or revoked in the provider's console will not work either.</li>
+        <li><strong>A model is missing from the picker.</strong> The key for that provider is missing or wrong. Re-add it in <strong>Settings → Providers</strong> (step 10 for DeepSeek, step 11 for Anthropic, step 12 for Google, step 13 for xAI), then restart the app.</li>
+        <li><strong>The app offers an OpenCode 2 update.</strong> <strong>Decline it.</strong> These config files are built for OpenCode 1.19.5 only, and OpenCode 2 is not compatible. Keep using the installed app and dismiss the update prompt.</li>
+        <li><strong>"model not found", or an agent errors on every reply.</strong> That is almost always a key or funding problem. Open <strong>Settings → Providers</strong> and check the provider's key is there, then pick the model again in the model picker. Check the provider console shows a funded balance — an empty balance fails exactly like a missing key.</li>
+        <li><strong>No supervisor, or the agent team is missing.</strong> The config did not load. Redo step 15 (ask OpenCode to install the config), answer any questions it asks (step 16), and restart the app (step 17). The agent picker should then list <code>supervisor</code>.</li>
+        <li><strong>A permission dialog names a folder you do not recognise.</strong> Choose <strong>no</strong>. The only folder this setup needs is <code>~/.config/opencode</code> (macOS) or <code>%USERPROFILE%\.config\opencode</code> (Windows).</li>
         <li><strong>Gemini agents fail or behave oddly in the Budget plan.</strong> In Budget, the free tier is for pasted screenshots only. Add billing to the Google key before using the Gemini researcher or planner.</li>
         <li><strong>The progress bar looks wrong.</strong> Progress is stored only in this browser. Use <strong>Reset</strong> in the top bar to start the checklist again.</li>
       </ul>
@@ -1428,7 +1433,7 @@
   "use strict";
 
   var OS_KEY = "aosetup:os";
-  var DONE_KEY = "aosetup:done:v2";
+  var DONE_KEY = "aosetup:done:v3";
   var body = document.body;
   var inputs = Array.prototype.slice.call(document.querySelectorAll(".step-check"));
   var segButtons = Array.prototype.slice.call(document.querySelectorAll("[data-osval]"));
