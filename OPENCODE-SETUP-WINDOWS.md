@@ -6,7 +6,7 @@ Welcome. This guide walks you through setting up OpenCode on Windows, step by st
 
 - **PowerShell** — a built-in Windows app where you type text commands instead of clicking buttons. To open it: press the Windows key, type "PowerShell", press Enter. (The newer "Terminal" app also works — it runs PowerShell inside.)
 - **API key** — a secret password that lets a program use your account (and spend your balance). Treat it like a password.
-- **Environment variable (env var)** — a small setting stored on your computer that programs can read, so secrets do not have to be written into files.
+- **Prepaid balance** — money you add to a provider's console in advance. Usage is deducted from it. Every provider in this setup works this way: you cannot use a provider until you have funded it.
 - **Model** — the actual AI "brain" that does the thinking. Different companies make different models; each has a name like `deepseek/deepseek-flash`.
 - **API vs subscription** — a subscription (like ChatGPT Plus or Claude Pro) lets you chat inside a company's own app. API access is a separate pay-as-you-go balance that other programs, like OpenCode, can use. A subscription does not include API access.
 - **Prompt marker (`PS>`)** — commands sometimes start with `PS>`, which just marks where to paste: open PowerShell, paste the command after `PS>`, press Enter. You never type the `PS>` itself — only the command after it. The setup page's copy buttons leave the marker off automatically.
@@ -29,213 +29,223 @@ The setup gives you a team of about 44 AI agents, arranged in tiers. The main ag
 
 A few things to know:
 
-- The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. You do not configure any of this yourself — the files you copy in Step 2 handle it.
+- The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. You do not configure any of this yourself — the config you install in Step 15 handles it.
 
 **Why three providers?** This setup deliberately spreads work across DeepSeek, Anthropic, and Google instead of running everything on one model. Each is used where it is genuinely strongest, and spend is spread across all three prepaid balances. DeepSeek is the primary workhorse — the supervisor, juniors, and mules run on V4.1 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.8 Flash (Google) is used for research, planning, and vision (the Observer), where long-context synthesis shines at low quality risk. Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles that moved to Gemini, because that is where Gemini is genuinely competitive — structural planning and long-context web research carry little quality risk. The Observer reads screenshots, which is a vision task, so it needs a Google/Gemini key — not an Anthropic one.
-- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 3).
-- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 8 below). The macos-use one is for Macs only, and it is switched off in this config anyway. Railway is the one to leave off permanently — use the Railway CLI instead (see the Railway section), because enabling the Railway MCP has been known to break the screenshot (Observer) feature.
+
+- The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 6).
+- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 20 below). The macos-use one is for Macs only, and it is switched off in this config anyway. Railway is the one to leave off permanently — use the Railway CLI instead (see the Railway section), because enabling the Railway MCP has been known to break the screenshot (Observer) feature.
 
 ## 2. What you'll need before you start
 
 - A PC running Windows 10 or 11, and about 30–45 minutes.
-- **Node.js** (free) from https://nodejs.org — click the "LTS" button and run the installer. You need it even if you install OpenCode another way, because Step 2 uses it.
-- **Three accounts**: DeepSeek (required), Anthropic (required), Google (required only for the screenshot feature and Gemini agents).
-- **Money on prepaid balances**: DeepSeek and Anthropic are pay-as-you-go — you add money before use. Amounts change; verify in the console when you sign up. Google has a free tier.
-- Optional: an xAI account (only if you want Grok models), Ollama (free, no account), a Railway account (only if you deploy to Railway).
-- Nothing else — the configuration files are downloaded from a public GitHub page in Step 2. No GitHub account needed.
-- On a budget? Fund DeepSeek only — see the [Budget path](#budget-path) section at the end of this guide.
+- **A web browser** — Steps 1–7 happen entirely in the browser. No programming tools, no Node.js, nothing to install yet.
+- **Accounts and keys for four providers** — DeepSeek, Anthropic, Google Gemini, and optionally xAI. You create these in Steps 1–7.
+- **Funded prepaid balances**: DeepSeek, Anthropic, and Google (Gemini) all require you to add money or buy credits before they work. xAI does too, if you use it. Amounts change — verify in each console when you purchase.
+- **A way to store secrets** — a password manager, or a private note. You will keep four API keys in it.
+- Optional: a GitHub account (free — it is where you keep your own projects later, and some optional add-ons use it), Ollama (free, no account), a Railway account (only if you deploy to Railway).
+- On a budget? See the [Budget path](#budget-path) section at the end of this guide. You still have to fund DeepSeek; the only free allowance is the Gemini free tier, for the Observer.
 
-## 3. Step 1 — Install OpenCode
+**Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic, Gemini (full setup) or xAI account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan, below.
 
-Pick one option. Option A is easiest.
+## 3. Step 1 — Create a GitHub account
 
-**Option A — recommended, via Node.js.**
+Free, and it takes a minute. You do **not** need it to download anything on this page. It is where you keep your own projects later, and some optional add-ons use it.
 
-1. Download Node.js from https://nodejs.org — click the "LTS" button, download the Windows Installer (.msi), run it, and click through (the default settings are fine).
-2. Open PowerShell and run:
+1. Go to https://github.com/signup and create an account.
+2. Save the password in your password manager — but as its own entry, separate from the provider keys below.
 
-```
-npm install -g opencode-ai
-```
+## 4. Step 2 — Create your DeepSeek account and add funds
 
-**Option B — if you use Scoop or Chocolatey** (popular Windows package managers — only if you already use them):
-
-```
-scoop install opencode
-```
-
-or
-
-```
-choco install opencode
-```
-
-**Advanced alternative (one sentence):** Microsoft recommends running OpenCode under WSL (Windows Subsystem for Linux), a Linux environment inside Windows — if that sentence means nothing to you, skip it; the native install above works fine.
-
-Whichever you chose, verify:
-
-```
-opencode --version
-```
-
-It should print a version number. If PowerShell says `opencode` is "not recognized", close PowerShell completely and open a new window — Windows only refreshes its list of programs when a new window opens. If it still fails, restart the computer.
-
-## 4. Step 2 — Download and install the configuration files
-
-The setup is a folder of configuration files, published at https://github.com/nigelianarmbuster-cmd/opencode-config. It contains these seven items:
-
-- `opencode.json`
-- `opencode.jsonc`
-- `AGENTS.md`
-- `agents/` (a folder containing about 44 agent files ending in .md)
-- `observer-bridge.js`
-- `package.json`
-- `package-lock.json`
-
-It does not contain a `node_modules` folder — that is on purpose; you will generate it yourself in 4c.
-
-**Option A — easy: download the ZIP (no git needed).**
-1. Open https://github.com/nigelianarmbuster-cmd/opencode-config in your browser.
-2. Click the green **Code** button → **Download ZIP**.
-3. Find the downloaded file (usually in `Downloads`), double-click it and choose **Extract all** (or right-click → Extract All). You get a folder named `opencode-config-main`.
-
-Then follow **4a–4c** below.
-
-**Option B — with git.** If `git --version` works in PowerShell, this one-liner downloads the files and creates the config folder for you. Then skip straight to **4c**:
-
-```
-git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"
-```
-
-If `git` is "not recognized", just use Option A — you do not need git. If you get "destination path already exists", the config folder is not empty — either use Option A and let the files merge, or ask the person who shared this guide.
-
-The destination is `C:\Users\<you>\.config\opencode` — the same folder written as `%USERPROFILE%\.config\opencode`, where `%USERPROFILE%` is Windows shorthand for your user folder.
-
-**4a. Create the destination folder (Option A only — the clone already created it).** In PowerShell:
-
-```
-New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode"
-```
-
-`$env:USERPROFILE` is PowerShell's way of writing your user folder (for example `C:\Users\nigel`). `-Force` means "create it if missing, no error if it already exists".
-
-**4b. Copy the seven items in (Option A only).** Press the Windows key + R, paste `%USERPROFILE%\.config\opencode`, press Enter — File Explorer opens the folder. Open the unzipped `opencode-config-main` folder and drag its contents — the seven items listed above, not the outer folder itself — into it.
-
-**4c. Install the plugin (both options).** Back in PowerShell:
-
-```
-cd "$env:USERPROFILE\.config\opencode"
-npm install
-```
-
-The quotes around the path are only required if your username contains spaces, but leaving them in always works. This installs `@opencode-ai/plugin`, a helper package the config depends on, and creates a `node_modules` folder inside — that is expected. You will not touch this folder again.
-
-## 5. Step 3 — Create your accounts and add funds
-
-> **Budget path?** Fund DeepSeek only and skip the accounts you don't want — the supervisor and all junior agents run entirely on DeepSeek. Full instructions in the [Budget path](#budget-path) section at the end of this guide.
-
-### DeepSeek (required)
-
-DeepSeek powers the main assistant, the supervisor, and all the junior agents.
+DeepSeek powers the supervisor and all the junior agents — the bulk of the work.
 
 1. Create an account at https://platform.deepseek.com.
-2. Add money to your prepaid balance. DeepSeek is pay-as-you-go and has no documented free tier. Payment methods and minimum top-up amounts are only shown inside the console — amounts change, so verify there when you sign up.
-3. Create your API key: go to https://platform.deepseek.com/api_keys and click "Create API key". Copy the key and store it somewhere safe (a password manager or a private note — never paste it into a chat).
-4. You will connect it in Step 4. OpenCode refers to this key as `DEEPSEEK_API_KEY`.
+2. Add money to your prepaid balance. DeepSeek is pay-as-you-go with no free tier, so your balance must be funded before the model will answer.
+3. Payment methods and minimum top-up amounts are only shown inside the console — verify there when you sign up.
 
-### Anthropic Claude (required)
+## 5. Step 3 — Create your DeepSeek API key
+
+1. Create your API key: go to https://platform.deepseek.com/api_keys and click "Create API key". Copy the key into your password manager — never paste a key into a chat. OpenCode refers to this key as `DEEPSEEK_API_KEY`, but you will never type that name yourself.
+2. You will connect it in Step 10.
+
+## 6. Step 4 — Create your Anthropic account and buy credits
 
 Anthropic's Claude powers most mid-tier agents (except the researcher and planner, which run on Gemini) and all the senior agents.
 
-1. Go to https://platform.claude.com (the older console.anthropic.com address now redirects there).
-2. Sign up with Google or an email address.
-3. Add money: Anthropic uses prepaid "usage credits". You must buy credits before you can use the API. In the console: Billing → Buy credits. New users get a small amount of free credits to test with. Credits expire after one year and are non-refundable.
-4. Create your API key: https://platform.claude.com/settings/keys → "Create key". Choose the longest expiration (up to "Never") so you do not have to redo this.
-5. Important: the console also offers a "Claude Pro/Max" sign-in. That is a subscription for chatting in Anthropic's own apps. Anthropic's rules prohibit using a Pro/Max subscription through tools like OpenCode — use the API key route only.
-6. In OpenCode you will connect it via `/connect` → Anthropic → "Manually enter API Key" (Step 4). The env var name is `ANTHROPIC_API_KEY`.
+1. Go to https://platform.claude.com and sign up with Google or an email address.
+2. **Buy credits before you start.** Anthropic uses prepaid "usage credits", and the API does not work without them. In the console: Billing -> Buy credits. (New accounts sometimes show a small amount of trial credit — it is not enough to run this setup, so treat buying credits as part of the sign-up.) Credits expire after one year and are non-refundable.
 
-### Google Gemini (required for the screenshot feature and Gemini agents)
+**Warning — do not use the Claude Pro/Max login.** The console also offers a "Claude Pro/Max" sign-in. That is a subscription for chatting in Anthropic's own apps, and Anthropic's rules prohibit using it through tools like OpenCode. Use the API key route only.
+
+On the Budget plan, skip this whole part. Anthropic only powers the mid/senior agents, and you can add the key later with `/connect` — nothing else needs redoing.
+
+## 7. Step 5 — Create your Anthropic API key
+
+1. Create your API key: https://platform.claude.com/settings/keys -> "Create key". Choose the longest expiration (up to "Never") so you do not have to redo this. Copy it into your password manager.
+2. You will connect it in Step 11.
+
+## 8. Step 6 — Create your Google Gemini key and add billing
+
+The Gemini key does two jobs: it lets the Observer read screenshots you paste into the chat, and it powers the Gemini agents (long-context research, the mid researcher and planner, and the gemini-worker).
 
 1. Go to https://aistudio.google.com/apikey, sign in with any Google account, accept the terms, and click "Create API key".
-2. There is a free tier (its limits change — check in AI Studio).
-3. Paid tier: set up billing inside AI Studio. New users default to a prepay plan (the minimum is around $10 — verify at purchase, prices and minimums change).
-4. OpenCode has no login flow for Gemini. Instead you set the key as an environment variable called `GEMINI_API_KEY` (OpenCode also accepts `GOOGLE_API_KEY` or `GOOGLE_GENERATIVE_AI_API_KEY`). The easiest way is a `.env` file — covered in Step 4.
+2. **Add billing.** Open the plan/billing settings in AI Studio and set up the paid prepay plan. Google shows the free tier prominently, but the free tier is not part of the full setup — the Gemini mid-tier agents need a funded key. Minimums are only shown at purchase, so check there.
+3. Copy the key into your password manager. You will paste it in Step 12 — there is no file to edit.
 
-### xAI Grok (optional)
+**Budget plan exception:** the Gemini free tier is acceptable, but only for the Observer (pasted screenshots). It is not a substitute for funding the key, so do not use the Gemini mid-tier researcher/planner agents until the key is funded.
 
-Only needed if you want to use Grok models — nothing in this setup requires it.
+## 9. Step 7 — Create an xAI Grok key (optional)
 
-1. Console at https://console.x.ai → API keys page → create a key.
-2. Grok uses prepaid credits with auto top-up (the minimum is around $25 — verify at purchase).
-3. Env var: `XAI_API_KEY`.
+Only if you want Grok models — nothing in this setup requires them.
 
-## 6. Step 4 — Connect your API keys to OpenCode
+1. Console at https://console.x.ai -> add prepaid credits -> API Keys page -> create a key.
+2. As with every other provider, the credits must be funded before any Grok model will answer. Minimums are shown at purchase.
+3. Copy the key into your password manager. You will connect it in Step 13.
 
-OpenCode stores keys in a small credentials file on your computer. The `/connect` command is typed inside OpenCode's chat screen, and it walks you through pasting a key — just paste.
+Everything up to here happens in the browser. From here on, you type into PowerShell once for the install, once to start OpenCode, and after that into OpenCode's chat box.
 
-**DeepSeek.** Start `opencode`, type `/connect`, search for "DeepSeek", and paste your key. DeepSeek has no browser-login option — the key paste is the way.
+## 10. Step 8 — Install OpenCode
 
-**Anthropic.** In the same `/connect` screen, pick Anthropic and choose "Manually enter API Key", then paste. Do not pick the Pro/Max option (see the warning in Step 3).
+**Two terminal pastes, then plain typing.** You only paste into PowerShell **twice** — once to install OpenCode (Step 8) and once to start it (Step 9). Everything after that is typed into OpenCode's chat box, including the commands that start with `/`.
 
-**Gemini (via a `.env` file).** OpenCode reads `.env` files from your project folder — a plain text file of `KEY=value` lines. Create one in PowerShell:
+This setup is built for **OpenCode 1.19.5**, so use exactly this command. Open PowerShell (press the Windows key, type "PowerShell", press Enter) and run:
 
-```
-mkdir $HOME\ai-test
-cd $HOME\ai-test
-notepad .env
+```text
+PS> winget install --id SST.opencode -e
 ```
 
-Notepad asks whether to create the new file — click Yes. Type exactly this line:
+**Node.js is not required.** The installer is a self-contained program — that one paste is all it takes. OpenCode installs its own plugin dependencies later, so you never run `npm` or install Node.js at any point.
 
-```
-GEMINI_API_KEY=PASTE_YOUR_KEY_HERE
-```
+Then check it worked. **Close PowerShell and open a new window first** — Windows only refreshes its list of programs in a new window, so the `opencode` command will not be found in the old one:
 
-Replace `PASTE_YOUR_KEY_HERE` with your actual Gemini key (no spaces, no quotes around the key itself). Press Ctrl+S to save, then close Notepad. The file must be named exactly `.env` — no `.txt` on the end. If you want Grok too, add a second line to the file: `XAI_API_KEY=PASTE_YOUR_KEY_HERE`.
-
-If you prefer typing to Notepad, this PowerShell line does the same thing:
-
-```
-Set-Content -Path .env -Value 'GEMINI_API_KEY=PASTE_YOUR_KEY_HERE'
+```text
+PS> opencode --version
 ```
 
-The `.env` file must sit in the folder where you run OpenCode (your project folder). Each project can have its own.
+You should see `1.19.5`.
 
-**Check your connections** at any time:
+**If Windows says `winget` is not recognised**, install **App Installer** from the Microsoft Store, then run the install command again.
 
-```
-opencode auth list
-```
+**If the version is not 1.19.5**, you have an OpenCode 2 install. Do **not** use `scoop install opencode2`, and do not use the download button on opencode.ai — both install OpenCode 2, which these config files are not built for. OpenCode 1's installer refuses version 2 on purpose. Uninstall OpenCode 2, then repeat Step 8. The exact release this guide targets: https://github.com/anomalyco/opencode/releases/tag/v1.19.5
 
-This shows which providers are connected. `opencode auth logout` removes one.
+## 11. Step 9 — Start OpenCode
 
-## 7. Step 5 — Try it out
+In the same PowerShell window:
 
-In PowerShell:
-
-```
-mkdir $HOME\ai-test
-cd $HOME\ai-test
-opencode
+```text
+PS> opencode
 ```
 
-`mkdir` works in PowerShell, and `$HOME` means your user folder (the same as `%USERPROFILE%`). If you already created the folder in Step 4, the first line just prints that it exists — harmless.
+OpenCode opens its own chat screen. **That was the last terminal paste in this guide.** From now on you type in OpenCode's chat box — including commands that start with `/`.
 
-- A chat screen opens.
-- Type `/models` — you should see the model list. Pick `deepseek/deepseek-flash`.
-- Type `/agents` — you should see the agent team (about 44 agents).
-- Ask anything simple, like "What is 2+2?" — a normal reply means everything is wired up.
-- To leave, press Ctrl+C (twice if it is busy).
+**Verify:** OpenCode's chat screen appears.
 
-## 8. Optional extras
+## 12. Step 10 — Connect DeepSeek
+
+Type `/connect` in OpenCode's chat box, choose **DeepSeek**, choose **API key**, paste the key from Step 3, press Enter.
+
+OpenCode remembers keys itself, in its own credential store. You will never edit a file to add or change a key.
+
+**Verify:** OpenCode lists DeepSeek as connected. (You re-check them all in Step 18.)
+
+## 13. Step 11 — Connect Anthropic
+
+Type `/connect` again, choose **Anthropic**, choose **"Manually enter API Key"**, and paste the key from Step 5. Do not pick the Pro/Max option (see the warning in Step 4). **Budget plan: skip this.**
+
+**Verify:** OpenCode lists Anthropic as connected.
+
+## 14. Step 12 — Connect Google (Gemini)
+
+Type `/connect` again, choose **Google**, choose **API key**, and paste the key from Step 6. This replaces the old way of setting an environment variable: the key goes in the same way as the others, and there is no file to create or edit.
+
+**Verify:** OpenCode lists Google as connected.
+
+## 15. Step 13 — Connect xAI (optional)
+
+Type `/connect` again, choose **xAI**, and paste your Grok key. Skip if you skipped the Grok key.
+
+**Verify:** OpenCode lists xAI as connected.
+
+## 16. Step 14 — Pick the default model
+
+Type `/models`, search for `deepseek`, and choose `deepseek/deepseek-flash` — the default brain for the **supervisor**, the agent that plans and delegates.
+
+Do this now: it is what makes your *first* messages work, because the config that sets the default has not been installed yet. If `deepseek/deepseek-flash` is not listed, DeepSeek is not connected — redo Step 10.
+
+## 17. Step 15 — Ask OpenCode to install the config
+
+You do not copy files, extract ZIPs, or run setup commands. You paste **one message** into OpenCode's chat box and let the agent do the work.
+
+Paste this into OpenCode's chat box and press Enter:
+
+> Install your own configuration. Clone https://github.com/nigelianarmbuster-cmd/opencode-config.git into your global OpenCode config folder — ~/.config/opencode on macOS, %USERPROFILE%\.config\opencode on Windows — and set up its dependencies. If that folder already exists, keep the files that are already there and add the missing ones. Tell me when it is done.
+
+How it behaves:
+
+- OpenCode runs a few commands on your computer itself, and does not ask before each one. It writes to `%USERPROFILE%\.config\opencode`, which is `C:\Users\<you>\.config\opencode` — the same folder written as `%USERPROFILE%\.config\opencode`.
+- It may ask **once** for permission to work outside your project folder. **Approving:** if the prompt names that config folder, choose **allow**; if it names any other folder, choose **no** and stop.
+- It may need `git`. If it asks to install something, read the prompt first and allow it only if it names `git`.
+- **Windows Defender Firewall or SmartScreen** may pop up; Windows does this for any program it has not seen before.
+- **Ctrl+C stops it** if anything looks wrong.
+- If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it says "destination path already exists" and stops, run the manual fallback below.
+
+**Manual fallback (only if you would rather do it yourself).** In PowerShell:
+
+```text
+PS> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"
+```
+
+`$env:USERPROFILE` is PowerShell's way of writing your user folder (for example `C:\Users\nigel`). If `git` is "not recognized", let OpenCode do it as above instead — you do not need git installed yourself.
+
+## 18. Step 16 — Restart OpenCode
+
+Type `/exit` in the chat box, then run `opencode` again in PowerShell. (Or close PowerShell, open a new window, and run `opencode`.)
+
+**Verify:** the agent name shown at the bottom of the OpenCode window reads `supervisor`, and pressing **Tab** cycles through the primary agents. There is no `/agents` command in OpenCode 1 — Tab is how you look at the team.
+
+## 19. Step 17 — Confirm the team is loaded
+
+Ask the supervisor, in the chat box: **"List your subagents by tier."**
+
+**Verify:** the junior, mid and senior groups are listed, plus the mule agents.
+
+## 20. Step 18 — Check your connections
+
+Ask the supervisor — it runs the check for you:
+
+> Run opencode auth list and tell me which providers are connected.
+
+**Verify:** `deepseek` is listed, plus `anthropic`, `google` or `xai` for whichever ones you connected. (Budget plan: `deepseek` plus `google`.) If one is missing, connect it again with `/connect` (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google).
+
+Prefer to check yourself? Run this in PowerShell:
+
+```text
+PS> opencode auth list
+```
+
+`opencode auth list` shows which providers are connected; `opencode auth logout` removes one.
+
+## 21. Step 19 — Run a first smoke test
+
+Ask something simple in the chat box:
+
+> What is 2+2?
+
+**Verify:** a normal answer comes back, which means everything is wired up.
+
+An error here means the model is not connected — redo Step 10 (connect DeepSeek), then start OpenCode again (Step 16). To leave OpenCode, press Ctrl+C (twice if it is busy).
+
+If you are on the Budget plan, tell the supervisor: **"Use the budget instructions."** This switches it into budget mode: it sticks to the junior-tier (DeepSeek) agents and never calls the paid mid/senior tiers. The full production setup stays installed and untouched.
+
+## 22. Optional extras
 
 ### Ollama — free local models (no account, no key)
 
-Ollama runs AI models on your own PC — free, private, and offline. It is a good way to test the setup before paying for anything. Which model fits your machine depends on its memory and graphics card, so this setup does not assume everyone has the same hardware.
+Ollama runs AI models on your own PC — free, private, and offline. It is a good way to try local models without spending anything, and it is the only part of this setup where "free" replaces a paid provider. Which model fits your machine depends on its memory and graphics card, so this setup does not assume everyone has the same hardware.
 
 1. Download the Windows installer from https://ollama.com/download and run it.
 2. Let the setup pick the right model for your machine. In the OpenCode chat, ask: **"Set up local models that fit my machine."** The supervisor agent will check your PC's memory, graphics card, and free disk space, then download a model that fits — a small one on modest hardware, a larger one only if your machine can run it comfortably. It downloads **one model by default** — plenty to try things out. If you later want a bigger model, just ask for it in the chat.
-3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in `/models` automatically. Local models are slower and less capable than the cloud ones — that is the trade-off.
+3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in `/models` automatically. Local models are slower and less capable than the cloud ones — that is the trade-off. They are a try-out, not a replacement for the funded cloud providers.
 
 ### Railway deployments (CLI)
 
@@ -245,30 +255,45 @@ Railway deployments work through the Railway CLI — no add-on tool needed. Inst
 
 The config also includes a GitHub tool (MCP server) that is switched off. Turning it on lets OpenCode read and work with your GitHub repositories directly. It needs Docker and a GitHub token:
 
-1. Create a personal access token: on GitHub, go to Settings → Developer settings → Personal access tokens → Tokens (classic) → Generate new token (classic), tick the `repo` scope, generate, and copy it.
-2. Open `opencode.json` in a text editor (right-click → Open with → Notepad). Find the `github` entry under `mcp` and change `"enabled": false` to `"enabled": true`, and replace `"YOUR_GITHUB_TOKEN"` with your token. Save the file.
+1. Create a personal access token: on GitHub, go to Settings -> Developer settings -> Personal access tokens -> Tokens (classic) -> Generate new token (classic), tick the `repo` scope, generate, and copy it.
+2. Open `opencode.json` in a text editor (right-click -> Open with -> Notepad). Find the `github` entry under `mcp` and change `"enabled": false` to `"enabled": true`, and replace `"YOUR_GITHUB_TOKEN"` with your token. Save the file.
 3. Restart OpenCode.
 
 Docker (https://www.docker.com) is a heavy install — only do this if you actually want OpenCode to work with GitHub.
 
-## 9. Costs and safety
+## 23. Learn how to customize your OpenCode config
 
-- Everything here is prepaid: you add money, and usage is deducted from your balance. Both DeepSeek's and Anthropic's consoles show your usage — check occasionally.
-- API keys are secrets. Never paste them into a chat message, never share screenshots of them, and never put them into files you share, upload, or commit to git. If a key leaks, revoke it and make a new one in the console.
-- The `.env` file contains secrets too — keep it out of chats and out of git.
-- Anthropic credits expire after one year and are non-refundable.
-- Dollar amounts in this guide were checked in August 2026. Prices and minimums change — verify in each console when you purchase.
+Nothing to do now. Your setup ships with extra add-on tools called **MCP servers**. All of them are **dormant** — declared in the config but switched off — so they cost nothing and do nothing until you turn one on.
 
-## 10. Troubleshooting
+**Why they are off, and how to turn one on.** Every enabled MCP server loads at startup and adds tokens to each conversation, and some pull down packages or need their own accounts and keys. The core setup needs none of them, so they ship dormant — switch on exactly what you use.
+
+To enable one: open `opencode.json` in your config folder (`%USERPROFILE%\.config\opencode`), find the tool's name under `"mcp"`, change `"enabled": false` to `"enabled": true`, save, and restart OpenCode. Check it is live with:
+
+```text
+PS> opencode mcp list
+```
+
+## 24. Costs and safety
+
+- **Everything here is prepaid**: you add money, and usage is deducted from your balance. All three providers' consoles show your usage — check occasionally.
+- **Funding is required, not optional.** DeepSeek, Anthropic and Google (Gemini, full setup) each need a funded balance before they work; xAI does too if you set it up. Finishing sign-up without funds leaves that agent tier unusable.
+- **API keys are stored by OpenCode itself** in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat message, never share screenshots of them, and never put them into files you share, upload, or commit to git. If a key leaks, revoke it and make a new one in the console.
+- **The agent can run commands on your computer** when you paste an instruction — Step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose **no**. Ctrl+C stops the agent.
+- **Amounts change — verify in each console when you purchase.** Anthropic credits expire after one year and are non-refundable.
+
+## 25. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| "model not found" or a model error | Usually a key problem. Run `opencode auth list` to see which providers are connected, then re-paste the key with `/connect`. |
-| `npx: command not found` or `npm: command not found` | Node.js is missing. Install the LTS version from https://nodejs.org, then close and reopen PowerShell. |
-| `git` is "not recognized" | You do not need git. Use Option A (Download ZIP) in Step 2 instead. |
+| "model not found" or a model error | Usually a key or funding problem. Run `opencode auth list` (or ask the supervisor) to see which providers are connected, then re-paste the key with `/connect`. Check the provider's console that your prepaid balance is funded. |
+| `npm: command not found` or missing-module errors during setup | Not expected in this setup — start again from Step 8 with the winget command. Do not try to install Node.js to fix it: this setup does not use Node.js. |
+| `winget` is "not recognized" | Install **App Installer** from the Microsoft Store, then run `winget install --id SST.opencode -e` again. |
 | `opencode` is "not recognized" after installing | Close PowerShell completely and open a new window (Windows refreshes its program list only in new windows). Restart the computer if it still fails. |
+| `opencode --version` shows 2.x | You have OpenCode 2, which this config is not built for. Do not install from `scoop install opencode2` or opencode.ai/download. Uninstall it and repeat Step 8. |
 | Syntax errors or "unexpected token" | Make sure you are in PowerShell, not Command Prompt, and copy the commands from this guide exactly — including `$` and any quotes. |
-| Pasted screenshots are ignored, or observer errors | The Gemini key is missing. Make sure the project folder's `.env` contains a `GEMINI_API_KEY=` line with your key (Step 4). |
+| Pasted screenshots are ignored, or observer errors | The Gemini key is missing, or `google` is not listed in `opencode auth list`. Re-paste the key with `/connect` -> Google -> API key (Step 12). There is no file to check. |
+| The agent name at the bottom is not `supervisor` | The config did not install. Repeat Step 15, then `/exit` and run `opencode` again. |
+| The installer prompt asks about a folder you do not recognise | Choose **no** and stop. The only folder Step 15 needs is `%USERPROFILE%\.config\opencode`. |
 | Railway errors after you enable it | Use the Railway CLI instead of the MCP (see the Railway section). If OpenCode misbehaves with the Railway MCP on — for example the Observer returns empty screenshot results — set `mcp.railway` back to `"enabled": false` and restart. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
@@ -277,11 +302,17 @@ If something is still not right, ask the person who shared this guide — they h
 
 ## Budget path (alternative setup)
 
-Running on a budget? Fund DeepSeek only. The core of the setup — the supervisor and all the junior agents (V4.1 Flash) — runs entirely on DeepSeek, so you get the full day-to-day workflow for the price of one prepaid balance. Everything in this guide still applies; you simply complete a smaller subset of Step 3 and Step 4. DeepSeek-only is the intended budget minimum; the system is built so a beginner can start there and add Anthropic + Google keys later to unlock the full multi-provider tiers. The full setup spreads spend roughly 64% DeepSeek / 26% Anthropic / 10% Google — a deliberate deterministic choice. It does not use a soft "route more to gemini-worker" lever; this setup prefers structural wiring over prompt-based guidance.
+Running on a budget? Fund DeepSeek, and use the Gemini free tier for the Observer only. The core of the setup — the supervisor and all the junior agents (V4.1 Flash) — runs entirely on DeepSeek, so you get the full day-to-day workflow for the price of one prepaid balance.
 
-1. Follow Steps 1–2 as written (install OpenCode and the configuration files).
-2. In Step 3, do only the DeepSeek steps: account, prepaid funds, and API key.
-3. **Optional but recommended:** also grab the free Gemini key (the Google Gemini part of Step 3) — no payment needed, it has a free tier. That keeps the screenshot feature and the Gemini agents working.
-4. Skip the Anthropic and xAI accounts. The Claude mid-tier and senior agents (Sonnet 5 / Opus 4.8) stay configured but inactive — the supervisor won't use them until you add an Anthropic key later; Grok models remain an unused optional extra. (Without a Gemini key, the Gemini roles — the mid researcher and planner, the gemini-worker, and the Observer — also stay inactive, but the DeepSeek supervisor and junior agents keep running. The team table in section 1 describes the full setup — budget mode runs the DeepSeek tier plus whatever keys you have added.)
-5. In Step 4, connect only DeepSeek (and add the `GEMINI_API_KEY=` line to your `.env` file if you took the optional key). Then tell OpenCode to run in budget mode by prompting it: **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
-6. **Upgrade later without redoing anything:** connect the extra keys anytime with `/connect` (or add them to your `.env` file) and tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
+Funding rules on the Budget plan:
+
+- **DeepSeek still needs funds.** It runs everything that matters, so its balance is not optional.
+- **The Gemini free tier is acceptable — for the Observer (pasted screenshots) only.** Do not use the Gemini mid-tier researcher/planner agents until you fund the key; they are part of the full setup, not the budget one. Local models via Ollama are free too, but they are a try-out, not a substitute for the paid tiers.
+- **Anthropic is skipped, not made free.** The Claude mid-tier and senior agents (Sonnet 5 / Opus 4.8) stay configured but inactive until you add a funded Anthropic key later.
+- **xAI is skipped.** Grok models remain an unused optional extra.
+
+Steps:
+
+1. Follow Steps 1–3 as written, then skip Steps 4–5 (Anthropic) and do Steps 6–7 (Gemini, and xAI only if you want it). For Gemini, the free tier is fine for the Observer.
+2. Follow Steps 8–19 as written. In Steps 10–13, connect DeepSeek and Google; skip Anthropic and xAI. In Step 14, pick `deepseek/deepseek-flash`. Then finish Step 19 by telling OpenCode **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
+3. **Upgrade later without redoing anything:** follow Steps 4–5 to create a funded Anthropic key (and Step 7 if you want xAI), connect it with `/connect` (Steps 11–13) and redo Step 14 if needed, then tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
