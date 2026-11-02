@@ -645,10 +645,10 @@
       </button>
     </div>
     <div class="progress-row">
-      <div class="progress" id="progressbar" role="progressbar" aria-label="Setup progress" aria-valuemin="0" aria-valuemax="18" aria-valuenow="0">
+      <div class="progress" id="progressbar" role="progressbar" aria-label="Setup progress" aria-valuemin="0" aria-valuemax="20" aria-valuenow="0">
         <div class="progress-fill" id="progress-fill"></div>
       </div>
-      <span class="progress-count" id="progress-count">0 of 18 steps done</span>
+      <span class="progress-count" id="progress-count">0 of 20 steps done</span>
     </div>
   </div>
 </header>
@@ -662,6 +662,7 @@
       <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Gemini agents and the screenshot observer work if you grab the <strong>free</strong> Gemini key, and local models via Ollama are always free.</p>
       <p data-mode="full">Why three providers instead of one? Each is used for what it does best, and spend is deliberately spread across all three prepaid balances. <strong>DeepSeek</strong> is the affordable workhorse, so it carries the bulk of the volume; <strong>Claude</strong> keeps the quality gates (mid-tier review/security/fact-checking on Sonnet 5) and all senior judgment (Opus 4.8), where its subtle bug-detection, adversarial review, and exact-quote fidelity genuinely win; <strong>Gemini 3.8 Flash</strong> is intro-priced and cost-effective, so it handles long-context research, planning, and vision. Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking switched <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because Gemini 3.8 Flash is genuinely competitive there at low quality risk, and the balance is set structurally in the agent files — a deterministic ~64/26/10 DeepSeek/Anthropic/Google split — rather than by prompt-guessing how to route each task.</p>
       <ul class="fact-grid">
+        <li><span class="dot" aria-hidden="true"></span><span>You paste <strong>two commands</strong> (install, then start) — OpenCode does the rest</span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-flash</code></span></li>
         <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4.1 Flash drives the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.8 Flash researches &amp; sees</span></li>
@@ -678,8 +679,8 @@
     <div class="sec-head">
       <span class="sec-badge" aria-hidden="true">1</span>
       <div class="sec-titles">
-        <h2 id="s1-title">Install the tools</h2>
-        <p class="sec-sub">Steps 1–2</p>
+        <h2 id="s1-title">Create your accounts &amp; API keys</h2>
+        <p class="sec-sub">Steps 1–7</p>
       </div>
     </div>
     <div class="steps">
@@ -687,208 +688,41 @@
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-1">
-            <input type="checkbox" id="step-1" class="step-check" aria-label="Mark done: Install Node.js LTS">
+            <input type="checkbox" id="step-1" class="step-check" aria-label="Mark done: Create a GitHub account">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">1</span>
-              <h3 class="step-title">Install Node.js (LTS)</h3>
+              <h3 class="step-title">Create a GitHub account</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">1/18</span>
+              <span class="gnum">1/20</span>
             </div>
-            <p class="step-desc">OpenCode needs Node.js, and so does the config plugin in section 2. Download the <strong>LTS</strong> installer and click through — the defaults are fine.</p>
+            <p class="step-desc">Free, and it takes a minute. You don't need it to download anything on this page. It's where you'll keep your own projects later, and some optional add-ons later use it.</p>
           </div>
         </div>
         <div class="step-extras">
           <div class="link-row">
-            <a class="link-pill" href="https://nodejs.org" target="_blank" rel="noopener">Download Node.js (LTS)
+            <a class="link-pill" href="https://github.com/signup" target="_blank" rel="noopener">Create a GitHub account
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
+          <p class="note">Save this password in your password manager too — but as its own entry, separate from the provider keys below.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-2">
-            <input type="checkbox" id="step-2" class="step-check" aria-label="Mark done: Install OpenCode">
+            <input type="checkbox" id="step-2" class="step-check" aria-label="Mark done: Create a DeepSeek account and add funds">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">2</span>
-              <h3 class="step-title">Install OpenCode</h3>
-              <span class="pill pill-req">Required</span>
-              <span class="gnum">2/18</span>
-            </div>
-            <p class="step-desc">Install OpenCode globally with npm, then verify the version. If the command isn't found, close your terminal and open a new window (on Windows, restart if that still fails).</p>
-          </div>
-        </div>
-        <div class="step-extras">
-          <p class="os-note os-block" data-os="mac"><strong>New to command lines?</strong> The <code>$</code> at the start of each command tells you to paste it into Terminal. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Return. This applies to every command block on this page.</p>
-          <p class="os-note os-block" data-os="win"><strong>New to command lines?</strong> The <code>PS&gt;</code> at the start of each command tells you to paste it into PowerShell. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Enter. This applies to every command block on this page.</p>
-          <div class="cmd">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> npm install -g opencode-ai
-<span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode --version</code></pre>
-          </div>
-          <p class="note os-block" data-os="mac">Also works via Homebrew: <code>brew install anomalyco/tap/opencode</code> — you still need Node.js for section 2.</p>
-          <p class="note os-block" data-os="win">Also works via Scoop or Chocolatey: <code>scoop install opencode</code> / <code>choco install opencode</code> — you still need Node.js for section 2.</p>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="sec sec-s2" aria-labelledby="s2-title">
-    <div class="sec-head">
-      <span class="sec-badge" aria-hidden="true">2</span>
-      <div class="sec-titles">
-        <h2 id="s2-title">Get the configuration files</h2>
-        <p class="sec-sub">Steps 3–5</p>
-      </div>
-    </div>
-    <div class="steps">
-
-      <article class="step-card">
-        <div class="card-top">
-          <label class="check-wrap" for="step-3">
-            <input type="checkbox" id="step-3" class="step-check" aria-label="Mark done: Download the configuration files">
-            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
-          </label>
-          <div class="step-body">
-            <div class="step-head">
-              <span class="step-num" aria-hidden="true">3</span>
-              <h3 class="step-title">Download the configuration files</h3>
-              <span class="pill pill-req">Required</span>
-              <span class="gnum">3/18</span>
-            </div>
-            <p class="step-desc">The setup is a public GitHub repo — no GitHub account needed. Easiest: open it, click <strong>Code</strong> → <strong>Download ZIP</strong>, then unzip (you get a folder called <code>opencode-config-main</code>). With git installed, the command below does it in one step.</p>
-          </div>
-        </div>
-        <div class="step-extras">
-          <div class="link-row">
-            <a class="link-pill" href="https://github.com/nigelianarmbuster-cmd/opencode-config" target="_blank" rel="noopener">Open the config repo
-              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
-            </a>
-          </div>
-          <div class="cmd os-block" data-os="mac">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">$</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git ~/.config/opencode</code></pre>
-          </div>
-          <div class="cmd os-block" data-os="win">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">PS&gt;</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"</code></pre>
-          </div>
-          <p class="note">If git isn't installed, just use the ZIP — you don't need it.</p>
-        </div>
-      </article>
-
-      <article class="step-card">
-        <div class="card-top">
-          <label class="check-wrap" for="step-4">
-            <input type="checkbox" id="step-4" class="step-check" aria-label="Mark done: Put the config files in place">
-            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
-          </label>
-          <div class="step-body">
-            <div class="step-head">
-              <span class="step-num" aria-hidden="true">4</span>
-              <h3 class="step-title">Put the config files in place</h3>
-              <span class="pill pill-req">Required</span>
-              <span class="gnum">4/18</span>
-            </div>
-            <p class="step-desc">Create the config folder, then move the repo's contents into it — the seven items themselves, not the outer folder. <em>Skip this step if you used git clone — the folder already exists.</em></p>
-          </div>
-        </div>
-        <div class="step-extras">
-          <div class="cmd os-block" data-os="mac">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">$</span> mkdir -p ~/.config/opencode</code></pre>
-          </div>
-          <div class="cmd os-block" data-os="win">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">PS&gt;</span> New-Item -ItemType Directory -Force -Path "$env:USERPROFILE\.config\opencode"</code></pre>
-          </div>
-          <div class="os-note os-block" data-os="mac">In Finder press <kbd>Command</kbd>+<kbd>Shift</kbd>+<kbd>G</kbd>, type <code>~/.config/opencode</code>, press Return — then drag the seven items from the unzipped folder into it.</div>
-          <div class="os-note os-block" data-os="win">Press <kbd>Win</kbd>+<kbd>R</kbd>, paste <code>%USERPROFILE%\.config\opencode</code>, press Enter — then drag the seven items from the unzipped folder into it.</div>
-          <p class="note">Copy these seven items in: <code>opencode.json</code>, <code>opencode.jsonc</code>, <code>AGENTS.md</code>, <code>agents/</code> (the folder of ~44 agent files), <code>observer-bridge.js</code>, <code>package.json</code>, <code>package-lock.json</code>.</p>
-        </div>
-      </article>
-
-      <article class="step-card">
-        <div class="card-top">
-          <label class="check-wrap" for="step-5">
-            <input type="checkbox" id="step-5" class="step-check" aria-label="Mark done: Install the config's plugin">
-            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
-          </label>
-          <div class="step-body">
-            <div class="step-head">
-              <span class="step-num" aria-hidden="true">5</span>
-              <h3 class="step-title">Install the config's plugin</h3>
-              <span class="pill pill-req">Required</span>
-              <span class="gnum">5/18</span>
-            </div>
-            <p class="step-desc">Inside the config folder, run <code>npm install</code>. This installs <code>@opencode-ai/plugin</code> and creates a local <code>node_modules</code> folder — expected, and you won't touch it again.</p>
-          </div>
-        </div>
-        <div class="step-extras">
-          <div class="cmd os-block" data-os="mac">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">$</span> cd ~/.config/opencode
-<span class="prompt">$</span> npm install</code></pre>
-          </div>
-          <div class="cmd os-block" data-os="win">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">PS&gt;</span> cd "$env:USERPROFILE\.config\opencode"
-<span class="prompt">PS&gt;</span> npm install</code></pre>
-          </div>
-        </div>
-      </article>
-
-    </div>
-  </section>
-
-  <section class="sec sec-s3" aria-labelledby="s3-title">
-    <div class="sec-head">
-      <span class="sec-badge" aria-hidden="true">3</span>
-      <div class="sec-titles">
-        <h2 id="s3-title">Create accounts &amp; API keys</h2>
-        <p class="sec-sub">Steps 6–11</p>
-      </div>
-    </div>
-    <div class="banner-info" data-mode="budget">
-      <h4>Budget plan</h4>
-      <p>Fund DeepSeek only (steps 6–7). Grab the free Gemini key (steps 10 and 14) to keep the screenshot feature. Skip steps 8–9, 13 (Anthropic) and 11 (xAI). The supervisor and all junior agents run entirely on DeepSeek — the mid/senior agents unlock whenever you add a key later, no re-setup needed.</p>
-    </div>
-    <div class="steps">
-
-      <article class="step-card">
-        <div class="card-top">
-          <label class="check-wrap" for="step-6">
-            <input type="checkbox" id="step-6" class="step-check" aria-label="Mark done: Create a DeepSeek account and add funds">
-            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
-          </label>
-          <div class="step-body">
-            <div class="step-head">
-              <span class="step-num" aria-hidden="true">6</span>
               <h3 class="step-title">DeepSeek — create an account &amp; add funds</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">6/18</span>
+              <span class="gnum">2/20</span>
             </div>
             <p class="step-desc">DeepSeek powers the supervisor and all the junior agents. Create an account, then add money to your prepaid balance — pay-as-you-go, with no free tier. Minimums and payment methods are only shown inside the console, so verify there when you sign up.</p>
           </div>
@@ -904,16 +738,16 @@
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-7">
-            <input type="checkbox" id="step-7" class="step-check" aria-label="Mark done: Create a DeepSeek API key">
+          <label class="check-wrap" for="step-3">
+            <input type="checkbox" id="step-3" class="step-check" aria-label="Mark done: Create a DeepSeek API key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">7</span>
+              <span class="step-num" aria-hidden="true">3</span>
               <h3 class="step-title">DeepSeek — create your API key</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">7/18</span>
+              <span class="gnum">3/20</span>
             </div>
             <p class="step-desc">On the API keys page, click <strong>"Create API key"</strong> and copy it somewhere safe — never paste a key into a chat. OpenCode refers to this key as <code>DEEPSEEK_API_KEY</code>.</p>
           </div>
@@ -929,17 +763,17 @@
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-8">
-            <input type="checkbox" id="step-8" class="step-check" aria-label="Mark done: Create an Anthropic account and buy credits">
+          <label class="check-wrap" for="step-4">
+            <input type="checkbox" id="step-4" class="step-check" aria-label="Mark done: Create an Anthropic account and buy credits">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">8</span>
+              <span class="step-num" aria-hidden="true">4</span>
               <h3 class="step-title">Anthropic — create an account &amp; buy credits</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
-              <span class="gnum">8/18</span>
+              <span class="gnum">4/20</span>
             </div>
             <p class="step-desc">Anthropic's Claude powers the mid and senior tiers. Sign up, then buy prepaid usage credits (console: <strong>Billing → Buy credits</strong>). New users get a small free credit; credits expire after one year and are non-refundable.</p>
           </div>
@@ -956,17 +790,17 @@
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-9">
-            <input type="checkbox" id="step-9" class="step-check" aria-label="Mark done: Create an Anthropic API key">
+          <label class="check-wrap" for="step-5">
+            <input type="checkbox" id="step-5" class="step-check" aria-label="Mark done: Create an Anthropic API key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">9</span>
+              <span class="step-num" aria-hidden="true">5</span>
               <h3 class="step-title">Anthropic — create your API key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
-              <span class="gnum">9/18</span>
+              <span class="gnum">5/20</span>
             </div>
             <p class="step-desc">Create a key and choose the longest expiration (up to "Never") so you don't have to redo this later.</p>
           </div>
@@ -990,17 +824,17 @@
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-10">
-            <input type="checkbox" id="step-10" class="step-check" aria-label="Mark done: Create a Gemini API key">
+          <label class="check-wrap" for="step-6">
+            <input type="checkbox" id="step-6" class="step-check" aria-label="Mark done: Create a Gemini API key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">10</span>
+              <span class="step-num" aria-hidden="true">6</span>
               <h3 class="step-title">Google — create your Gemini API key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
-              <span class="gnum">10/18</span>
+              <span class="gnum">6/20</span>
             </div>
             <p class="step-desc">Needed for the screenshot observer and the Gemini agents. Sign in with any Google account, accept the terms, and click "Create API key". A free tier exists; a paid prepay plan is optional.</p>
           </div>
@@ -1017,16 +851,16 @@
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-11">
-            <input type="checkbox" id="step-11" class="step-check" aria-label="Mark done: Create an xAI account and Grok API key">
+          <label class="check-wrap" for="step-7">
+            <input type="checkbox" id="step-7" class="step-check" aria-label="Mark done: Create an xAI account and Grok API key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">11</span>
+              <span class="step-num" aria-hidden="true">7</span>
               <h3 class="step-title">xAI — Grok key</h3>
               <span class="pill pill-opt">Optional</span>
-              <span class="gnum">11/18</span>
+              <span class="gnum">7/20</span>
             </div>
             <p class="step-desc">Only if you want Grok models — nothing in this setup requires them. Create an account, add prepaid credits, and create a key on the API Keys page.</p>
           </div>
@@ -1043,30 +877,84 @@
     </div>
   </section>
 
-  <section class="sec sec-s4" id="s4" aria-labelledby="s4-title">
+  <section class="sec sec-s2" aria-labelledby="s2-title">
     <div class="sec-head">
-      <span class="sec-badge" aria-hidden="true">4</span>
+      <span class="sec-badge" aria-hidden="true">2</span>
       <div class="sec-titles">
-        <h2 id="s4-title">Connect your keys &amp; first run</h2>
-        <p class="sec-sub" id="sub-s4">Steps 12–17</p>
+        <h2 id="s2-title">Install OpenCode &amp; connect your keys</h2>
+        <p class="sec-sub">Steps 8–14</p>
       </div>
+    </div>
+    <div class="banner-info">
+      <h4>Two terminal pastes, then plain typing</h4>
+      <p>You only paste into a terminal <strong>twice</strong> — once to install OpenCode (step 8) and once to start it (step 9). Everything after that is typed into OpenCode's chat box.</p>
     </div>
     <div class="steps">
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-12">
-            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Start OpenCode and connect DeepSeek">
+          <label class="check-wrap" for="step-8">
+            <input type="checkbox" id="step-8" class="step-check" aria-label="Mark done: Install OpenCode">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">12</span>
-              <h3 class="step-title">Start OpenCode and connect DeepSeek</h3>
+              <span class="step-num" aria-hidden="true">8</span>
+              <h3 class="step-title">Install OpenCode</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">12/18</span>
+              <span class="gnum">8/20</span>
             </div>
-            <p class="step-desc">Run <code>opencode</code> in your terminal, then type <code>/connect</code> in the chat, search for "DeepSeek", and paste your key. DeepSeek has no browser-login option — pasting the key is the way.</p>
+            <p class="step-desc">Paste one command into your terminal. This setup is built for <strong>OpenCode 1.19.5</strong>, so use the command below for your computer.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <p class="os-note os-block" data-os="mac"><strong>New to command lines?</strong> The <code>$</code> at the start of a command tells you to paste it into Terminal. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Return. To open Terminal, press <kbd>Command</kbd>+<kbd>Space</kbd>, type <strong>Terminal</strong>, and press Return. This applies to every command block on this page.</p>
+          <p class="os-note os-block" data-os="win"><strong>New to command lines?</strong> The <code>PS&gt;</code> at the start of a command tells you to paste it into PowerShell. You never type the marker itself: click the copy button on a command block and it copies the command without it, then paste and press Enter. To open PowerShell, press <kbd>Win</kbd>, type <strong>PowerShell</strong>, and press Enter. This applies to every command block on this page.</p>
+          <div class="cmd os-block" data-os="mac">
+            <button type="button" class="copy-btn" aria-label="Copy command">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </button>
+            <pre><code><span class="prompt">$</span> curl -fsSL https://opencode.ai/install | bash</code></pre>
+          </div>
+          <div class="cmd os-block" data-os="win">
+            <button type="button" class="copy-btn" aria-label="Copy command">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </button>
+            <pre><code><span class="prompt">PS&gt;</span> winget install --id SST.opencode -e</code></pre>
+          </div>
+          <p class="note">Then check it worked. You should see <code>1.19.5</code>.</p>
+          <div class="cmd">
+            <button type="button" class="copy-btn" aria-label="Copy command">
+              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+            </button>
+            <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode --version</code></pre>
+          </div>
+          <p class="note">Close your terminal and open a new window afterwards — that's how it finds the new command.</p>
+          <p class="note os-block" data-os="win">If Windows says <code>winget</code> is not recognised, install <strong>App Installer</strong> from the Microsoft Store, then run the command again.</p>
+          <p class="note">Do <strong>not</strong> use <code>brew install opencode</code> or the download button on opencode.ai — both now install OpenCode 2, which these config files are not built for. OpenCode 1's installer refuses version 2 on purpose.</p>
+          <p class="note"><strong>Node.js is not needed.</strong> The installer is self-contained — just that one paste.</p>
+          <div class="link-row">
+            <a class="link-pill" href="https://github.com/anomalyco/opencode/releases/tag/v1.19.5" target="_blank" rel="noopener">OpenCode 1.19.5 release page
+              <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
+            </a>
+          </div>
+        </div>
+      </article>
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-9">
+            <input type="checkbox" id="step-9" class="step-check" aria-label="Mark done: Start OpenCode">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">9</span>
+              <h3 class="step-title">Start OpenCode</h3>
+              <span class="pill pill-req">Required</span>
+              <span class="gnum">9/20</span>
+            </div>
+            <p class="step-desc">Paste this into the same terminal. OpenCode opens its own chat screen.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1076,135 +964,281 @@
             </button>
             <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode</code></pre>
           </div>
+          <p class="note"><strong>Verify:</strong> OpenCode's chat screen appears. That was the last terminal paste on this page.</p>
+          <p class="note">From now on you type in OpenCode's chat box, not the terminal. Commands that start with <code>/</code> are typed there too.</p>
+        </div>
+      </article>
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-10">
+            <input type="checkbox" id="step-10" class="step-check" aria-label="Mark done: Connect DeepSeek">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">10</span>
+              <h3 class="step-title">Connect DeepSeek</h3>
+              <span class="pill pill-req">Required</span>
+              <span class="gnum">10/20</span>
+            </div>
+            <p class="step-desc">In OpenCode's chat box, type <code>/connect</code>, choose <strong>DeepSeek</strong>, choose <strong>API key</strong>, paste your key, and press Enter.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <p class="note">OpenCode remembers keys itself — you will never edit a file to add one.</p>
+          <p class="note"><strong>Verify:</strong> OpenCode lists DeepSeek as connected. (All your keys are re-checked in step 18.)</p>
+        </div>
+      </article>
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-11">
+            <input type="checkbox" id="step-11" class="step-check" aria-label="Mark done: Connect Anthropic">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">11</span>
+              <h3 class="step-title">Connect Anthropic</h3>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
+              <span class="gnum">11/20</span>
+            </div>
+            <p class="step-desc">Type <code>/connect</code> again, choose <strong>Anthropic</strong>, choose <strong>"Manually enter API Key"</strong>, and paste. Do not pick the Pro/Max option — see the warning in step 5 (Full plan only).</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <p class="note" data-mode="budget">Budget: skip — nothing to connect without an Anthropic key. Add it later with <code>/connect</code> to unlock the mid/senior agents; nothing else to redo.</p>
+        </div>
+      </article>
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-12">
+            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Connect Google (Gemini)">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">12</span>
+              <h3 class="step-title">Connect Google (Gemini)</h3>
+              <span class="pill pill-req" data-mode="full">Required</span>
+              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
+              <span class="gnum">12/20</span>
+            </div>
+            <p class="step-desc">Type <code>/connect</code>, choose <strong>Google</strong>, choose <strong>API key</strong>, and paste. The key goes in the same way as the others — there is no file to edit.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <p class="note">This is what powers pasted screenshots (the Observer) and the Gemini agents.</p>
+          <p class="note" data-mode="budget">Budget: still do this — the Gemini key is free (free tier) and keeps the screenshot feature working.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-13">
-            <input type="checkbox" id="step-13" class="step-check" aria-label="Mark done: Connect Anthropic">
+            <input type="checkbox" id="step-13" class="step-check" aria-label="Mark done: Connect xAI">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">13</span>
-              <h3 class="step-title">Connect Anthropic</h3>
-              <span class="pill pill-req" data-mode="full">Required</span>
-              <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
-              <span class="gnum">13/18</span>
+              <h3 class="step-title">Connect xAI</h3>
+              <span class="pill pill-opt">Optional</span>
+              <span class="gnum">13/20</span>
             </div>
-            <p class="step-desc">In the same <code>/connect</code> screen, pick Anthropic and choose <strong>"Manually enter API Key"</strong>, then paste. Do not pick the Pro/Max option — see the warning in section 3.</p>
+            <p class="step-desc">Type <code>/connect</code>, choose <strong>xAI</strong>, and paste your Grok key.</p>
           </div>
         </div>
         <div class="step-extras">
-          <p class="note" data-mode="budget">Budget: skip — nothing to connect without an Anthropic key. Add it later with <code>/connect</code> to unlock the mid/senior agents.</p>
+          <p class="note">Skim or ignore this if you skipped the Grok key — nothing here needs it.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-14">
-            <input type="checkbox" id="step-14" class="step-check" aria-label="Mark done: Create the .env file for Gemini">
+            <input type="checkbox" id="step-14" class="step-check" aria-label="Mark done: Pick the default model">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">14</span>
-              <h3 class="step-title">Create the .env file for Gemini</h3>
-              <span class="pill pill-req" data-mode="full">Required</span>
-              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
-              <span class="gnum">14/18</span>
+              <h3 class="step-title">Pick the default model</h3>
+              <span class="pill pill-req">Required</span>
+              <span class="gnum">14/20</span>
             </div>
-            <p class="step-desc">OpenCode has no login flow for Gemini — it reads the key from a <code>.env</code> file in the folder where you run OpenCode. Make a project folder, add a file named exactly <code>.env</code>, and put this line inside it:</p>
+            <p class="step-desc">Type <code>/models</code> in the chat box, search for <code>deepseek</code>, and choose <code>deepseek/deepseek-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. Do this now because it is what makes your <em>first</em> messages work: the config that sets the default hasn't been installed yet.</p>
           </div>
         </div>
         <div class="step-extras">
-          <div class="cmd">
-            <button type="button" class="copy-btn" aria-label="Copy line">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code>GEMINI_API_KEY=PASTE_YOUR_KEY_HERE</code></pre>
-          </div>
-          <p class="note">Replace <code>PASTE_YOUR_KEY_HERE</code> with your real key — no spaces, no quotes around the key itself. Want Grok too? Add a second line: <code>XAI_API_KEY=PASTE_YOUR_KEY_HERE</code>. OpenCode also accepts <code>GOOGLE_API_KEY</code> or <code>GOOGLE_GENERATIVE_AI_API_KEY</code> instead of <code>GEMINI_API_KEY</code>.</p>
-          <p class="note" data-mode="budget">Budget: still do this — the Gemini key is free (free tier) and keeps the screenshot feature working.</p>
-          <div class="cmd os-block" data-os="mac">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">$</span> mkdir ~/ai-test
-<span class="prompt">$</span> cd ~/ai-test
-<span class="prompt">$</span> echo 'GEMINI_API_KEY=PASTE_YOUR_KEY_HERE' &gt; .env</code></pre>
-          </div>
-          <div class="cmd os-block" data-os="win">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt">PS&gt;</span> mkdir $HOME\ai-test
-<span class="prompt">PS&gt;</span> cd $HOME\ai-test
-<span class="prompt">PS&gt;</span> notepad .env</code></pre>
-          </div>
-          <p class="note os-block" data-os="win">Notepad asks whether to create the new file — click Yes, type the line above, press Ctrl+S, close. Prefer typing? <code>Set-Content -Path .env -Value 'GEMINI_API_KEY=PASTE_YOUR_KEY_HERE'</code> does the same thing.</p>
+          <p class="note">If <code>deepseek/deepseek-flash</code> isn't listed, DeepSeek isn't connected — redo step 10.</p>
+          <p class="note">After step 16 the config sets that same default, so nothing changes — this was not a temporary setting.</p>
         </div>
       </article>
+
+    </div>
+  </section>
+
+  <section class="sec sec-s3" aria-labelledby="s3-title">
+    <div class="sec-head">
+      <span class="sec-badge" aria-hidden="true">3</span>
+      <div class="sec-titles">
+        <h2 id="s3-title">Let OpenCode install its configuration</h2>
+        <p class="sec-sub">Steps 15–17</p>
+      </div>
+    </div>
+    <div class="banner-info">
+      <h4>You paste one message and watch</h4>
+      <p>OpenCode can fetch and install its own configuration. You don't copy files or run setup commands — you paste one message into the chat box and let the agent do the work.</p>
+    </div>
+    <div class="steps">
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-15">
-            <input type="checkbox" id="step-15" class="step-check" aria-label="Mark done: Check your connections">
+            <input type="checkbox" id="step-15" class="step-check" aria-label="Mark done: Ask OpenCode to install the config">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">15</span>
-              <h3 class="step-title">Check your connections</h3>
+              <h3 class="step-title">Ask OpenCode to install the config</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">15/18</span>
+              <span class="gnum">15/20</span>
             </div>
-            <p class="step-desc">Run this in a terminal. It lists which providers are connected — if one is missing, re-paste its key with <code>/connect</code>.</p>
+            <p class="step-desc">Paste this into OpenCode's chat box and press Enter. It downloads the configuration, puts it in the right folder, and sets everything up.</p>
           </div>
         </div>
         <div class="step-extras">
-          <div class="cmd">
-            <button type="button" class="copy-btn" aria-label="Copy command">
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
-            </button>
-            <pre><code><span class="prompt os-inline" data-os="mac">$</span><span class="prompt os-inline" data-os="win">PS&gt;</span> opencode auth list</code></pre>
+          <div class="bubble">
+            <p class="who">You, in OpenCode</p>
+            <p class="bubble-text">Install your own configuration. Clone https://github.com/nigelianarmbuster-cmd/opencode-config.git into your global OpenCode config folder — ~/.config/opencode on macOS, %USERPROFILE%\.config\opencode on Windows — and set up its dependencies. If that folder already exists, keep the files that are already there and add the missing ones. Tell me when it is done.</p>
           </div>
+          <p class="note">This means OpenCode runs a few commands on your computer for you. It writes to <code>~/.config/opencode</code> on macOS or <code>%USERPROFILE%\.config\opencode</code> on Windows. It runs these commands itself and does not ask before each one. It may ask once for permission to work outside your project folder — the folder it needs is that config folder. <strong>Approving:</strong> if the prompt names that config folder, choose <strong>allow</strong>; if it names any other folder, choose <strong>no</strong> and stop. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops it if anything looks wrong.</p>
+          <p class="note">It may need <code>git</code>. If it asks to install something, read the prompt first and allow it only if it names <code>git</code>.</p>
+          <details class="customize">
+            <summary>Only if you'd rather do it yourself</summary>
+            <div class="customize-inner">
+              <p>Paste the command for your computer into a terminal instead of the chat box.</p>
+              <div class="cmd os-block" data-os="mac">
+                <button type="button" class="copy-btn" aria-label="Copy command">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                </button>
+                <pre><code><span class="prompt">$</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git ~/.config/opencode</code></pre>
+              </div>
+              <div class="cmd os-block" data-os="win">
+                <button type="button" class="copy-btn" aria-label="Copy command">
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><rect x="9" y="9" width="11" height="11" rx="2"/><path d="M5 15V5a2 2 0 0 1 2-2h10"/></svg>
+                </button>
+                <pre><code><span class="prompt">PS&gt;</span> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"</code></pre>
+              </div>
+            </div>
+          </details>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-16">
-            <input type="checkbox" id="step-16" class="step-check" aria-label="Mark done: Pick the default model">
+            <input type="checkbox" id="step-16" class="step-check" aria-label="Mark done: Restart OpenCode">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">16</span>
-              <h3 class="step-title">Pick the default model</h3>
+              <h3 class="step-title">Restart OpenCode</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">16/18</span>
+              <span class="gnum">16/20</span>
             </div>
-            <p class="step-desc">Inside OpenCode, type <code>/models</code> and pick <code>deepseek/deepseek-flash</code> — the default brain for the <strong>supervisor</strong>, the agent that plans and delegates. (The junior and mule agents it calls don't use this default: they are wired individually to <strong>DeepSeek V4.1 Flash</strong> in their agent files, so your day-to-day delegation stays low-cost while the supervisor runs at high effort.)</p>
+            <p class="step-desc">Type <code>/exit</code> in the chat box, then run <code>opencode</code> again in your terminal. (Or close the terminal, open a new one, and run <code>opencode</code>.)</p>
           </div>
+        </div>
+        <div class="step-extras">
+          <p class="note"><strong>Verify:</strong> the agent name shown at the bottom of the OpenCode window reads <code>supervisor</code>, and pressing <kbd>Tab</kbd> cycles through the primary agents.</p>
         </div>
       </article>
 
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-17">
-            <input type="checkbox" id="step-17" class="step-check" aria-label="Mark done: Run the first smoke test">
+            <input type="checkbox" id="step-17" class="step-check" aria-label="Mark done: Confirm the team is loaded">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">17</span>
+              <h3 class="step-title">Confirm the team is loaded</h3>
+              <span class="pill pill-req">Required</span>
+              <span class="gnum">17/20</span>
+            </div>
+            <p class="step-desc">Ask the supervisor to list the team.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <div class="bubble">
+            <p class="who">You, in OpenCode</p>
+            <p class="bubble-text">List your subagents by tier.</p>
+          </div>
+          <p class="note"><strong>Verify:</strong> you should see the junior, mid and senior agent groups listed, plus the mule agents.</p>
+        </div>
+      </article>
+
+    </div>
+  </section>
+
+  <section class="sec sec-s4" id="s4" aria-labelledby="s4-title">
+    <div class="sec-head">
+      <span class="sec-badge" aria-hidden="true">4</span>
+      <div class="sec-titles">
+        <h2 id="s4-title">First run &amp; verify</h2>
+        <p class="sec-sub" id="sub-s4">Steps 18–19</p>
+      </div>
+    </div>
+    <div class="steps">
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-18">
+            <input type="checkbox" id="step-18" class="step-check" aria-label="Mark done: Check your connections">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">18</span>
+              <h3 class="step-title">Check your connections</h3>
+              <span class="pill pill-req">Required</span>
+              <span class="gnum">18/20</span>
+            </div>
+            <p class="step-desc">Ask the supervisor — it runs the check for you.</p>
+          </div>
+        </div>
+        <div class="step-extras">
+          <div class="bubble">
+            <p class="who">You, in OpenCode</p>
+            <p class="bubble-text">Run opencode auth list and tell me which providers are connected.</p>
+          </div>
+          <p class="note"><strong>Verify:</strong> <code>deepseek</code> is listed, plus <code>anthropic</code>, <code>google</code> or <code>xai</code> if you connected them. If one is missing, connect it again.</p>
+          <p class="note">Prefer to check yourself? Run <code>opencode auth list</code> in a terminal.</p>
+        </div>
+      </article>
+
+      <article class="step-card">
+        <div class="card-top">
+          <label class="check-wrap" for="step-19">
+            <input type="checkbox" id="step-19" class="step-check" aria-label="Mark done: Run a first smoke test">
+            <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
+          </label>
+          <div class="step-body">
+            <div class="step-head">
+              <span class="step-num" aria-hidden="true">19</span>
               <h3 class="step-title">Run a first smoke test</h3>
               <span class="pill pill-req">Required</span>
-              <span class="gnum">17/18</span>
+              <span class="gnum">19/20</span>
             </div>
-            <p class="step-desc">Ask the chat something simple. A normal reply means everything is wired up. (Curious? Type <code>/agents</code> — you should see the whole team, about 44 agents.)</p>
+            <p class="step-desc">Ask something simple. A normal answer means everything is wired up.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1212,6 +1246,8 @@
             <p class="who">You, in OpenCode</p>
             <p class="bubble-text">What is 2+2?</p>
           </div>
+          <p class="note"><strong>Verify:</strong> a normal answer comes back.</p>
+          <p class="note">An error here means the model isn't connected — redo step 10 (connect DeepSeek), then step 9 (start OpenCode) again.</p>
         </div>
       </article>
 
@@ -1223,10 +1259,10 @@
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">18</span>
+              <span class="step-num" aria-hidden="true">20</span>
               <h3 class="step-title">Tell OpenCode to use the budget instructions</h3>
               <span class="pill pill-opt">Budget</span>
-              <span class="gnum">18/18</span>
+              <span class="gnum">20/20</span>
             </div>
             <p class="step-desc">This switches the supervisor into budget mode: it sticks to the junior-tier (DeepSeek) agents and never calls the paid mid/senior tiers. The full production setup stays installed and untouched — upgrade anytime by adding keys and asking to switch back.</p>
           </div>
@@ -1247,23 +1283,23 @@
       <span class="sec-badge" aria-hidden="true">5</span>
       <div class="sec-titles">
         <h2 id="s5-title">Optional extras</h2>
-        <p class="sec-sub">No numbered steps</p>
+        <p class="sec-sub">Optional — nothing required</p>
       </div>
     </div>
     <div class="steps">
 
       <article class="step-card">
         <div class="card-top">
-          <label class="check-wrap" for="step-18">
-            <input type="checkbox" id="step-18" class="step-check" aria-label="Mark done: Install Ollama for free local models">
+          <label class="check-wrap" for="step-20">
+            <input type="checkbox" id="step-20" class="step-check" aria-label="Mark done: Install Ollama for free local models">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
-              <span class="step-num" aria-hidden="true">18</span>
+              <span class="step-num" aria-hidden="true">20</span>
               <h3 class="step-title">Free local models with Ollama</h3>
               <span class="pill pill-opt">Optional</span>
-              <span class="gnum">18/18</span>
+              <span class="gnum">20/20</span>
             </div>
             <p class="step-desc">Ollama runs models on your own machine — free, private, offline, no account or key. Install it, then ask the supervisor in the OpenCode chat to pick a model that fits your hardware.</p>
           </div>
@@ -1349,8 +1385,8 @@
       <h2 id="safety-title">Costs &amp; safety</h2>
       <ul class="safety-list">
         <li>Everything is <strong>prepaid</strong> — you add money, and usage is deducted from your balance.</li>
-        <li><strong>API keys are secrets.</strong> Never paste them into a chat, and never commit them to git.</li>
-        <li>The <code>.env</code> file contains secrets too — keep it out of chats and out of git.</li>
+        <li><strong>API keys are stored by OpenCode itself</strong> in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat, an issue, or a commit.</li>
+        <li><strong>The agent can run commands on your computer</strong> when you paste an instruction — step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose <strong>no</strong>. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops the agent.</li>
         <li><strong>Amounts change — verify in each console when you purchase.</strong> Anthropic credits expire after one year and are non-refundable.</li>
       </ul>
     </div>
@@ -1375,7 +1411,7 @@
   "use strict";
 
   var OS_KEY = "aosetup:os";
-  var DONE_KEY = "aosetup:done";
+  var DONE_KEY = "aosetup:done:v2";
   var body = document.body;
   var inputs = Array.prototype.slice.call(document.querySelectorAll(".step-check"));
   var segButtons = Array.prototype.slice.call(document.querySelectorAll("[data-osval]"));
@@ -1486,8 +1522,10 @@
   }
 
   function updateProgress() {
-    var done = inputs.filter(function (inp) { return inp.checked; }).length;
-    var pct = total > 0 ? Math.round((done / total) * 100) : 0;
+    var done = inputs.filter(function (inp) {
+      return inp.offsetParent !== null && inp.checked;
+    }).length;
+    var pct = total > 0 ? Math.min(100, Math.round((done / total) * 100)) : 0;
     progressFill.style.width = pct + "%";
     progressBar.setAttribute("aria-valuenow", String(done));
     progressCount.textContent = done + " of " + total + " steps done";
@@ -1529,7 +1567,7 @@
       setDone(inp);
     });
     saveDone();
-    updateProgress();
+    renumber();
   });
 
   function markCopied(btn) {

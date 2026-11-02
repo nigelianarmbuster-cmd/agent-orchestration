@@ -11,7 +11,7 @@ The guides below are the detailed source of truth.
 
 **The configuration files themselves live in a separate public repo:**
 https://github.com/nigelianarmbuster-cmd/opencode-config
-(Clone it into `~/.config/opencode` / `%USERPROFILE%\.config\opencode`, then run `npm install`.)
+(Clone it into `~/.config/opencode` / `%USERPROFILE%\.config\opencode`. OpenCode installs the plugin dependency it declares itself — no `npm install` and no Node.js needed.)
 
 ## Guides
 
@@ -22,7 +22,7 @@ https://github.com/nigelianarmbuster-cmd/opencode-config
 | `OPENCODE-SETUP-MACOS.md` | First-time AI users on macOS | Terminal / bash, `~/.config/opencode` |
 | `OPENCODE-SETUP-WINDOWS.md` | First-time AI users on Windows | PowerShell, `%USERPROFILE%\.config\opencode` |
 
-Both guides cover: install OpenCode → download the config (ZIP or `git clone`) → create provider accounts (DeepSeek, Anthropic, Google Gemini) → add prepaid funds → connect API keys (`/connect` + `.env`) → first-run test → optional extras (Ollama local models, Railway via CLI, GitHub MCP) → costs and safety → troubleshooting.
+Both guides cover: create accounts & keys (GitHub, DeepSeek, Anthropic, Google Gemini, optional xAI) → install OpenCode 1.19.5 → connect the keys with `/connect` (Gemini included — no `.env` file) → ask OpenCode to clone and install its own config → first-run test → optional extras (Ollama local models, Railway via CLI, GitHub MCP) → costs and safety → troubleshooting.
 
 ## The setup, in one paragraph
 
