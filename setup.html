@@ -672,20 +672,9 @@
   <section class="intro" aria-labelledby="intro-title">
     <div class="intro-card">
       <h2 id="intro-title">What you're building</h2>
-      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup: A <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. <strong>DeepSeek</strong> is the primary workhorse — the supervisor, junior agents, and role-mules all run on <strong>V4.1 Flash</strong>. <strong>Claude</strong> (<strong>Sonnet 5</strong> on the mid tier, <strong>Opus 4.8</strong> on the senior tier) acts as the quality gates that review, secure, and fact-check the work. <strong>Gemini 3.8 Flash</strong> handles research, planning, and the multimodal screenshot observer. Optional free local models run via <strong>Ollama</strong>. The observer plugin reads screenshots. Every provider you actually use must be <strong>funded</strong> first: add billing or prepaid credits before you start.</p>
-      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Fund DeepSeek before you start. The <strong>only</strong> free-tier allowance on this page is the Gemini key, and in Budget it is for the Observer (pasted screenshots) only — not for the Gemini researcher/planner agents. Local models via Ollama are free.</p>
-      <p data-mode="full">Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because <strong>Gemini 3.8 Flash</strong> is genuinely competitive, and the balance is set structurally to a deterministic <strong>~64/26/10</strong> DeepSeek/Anthropic/Google split.</p>
-      <ul class="fact-grid">
-        <li><span class="dot" aria-hidden="true"></span><span>You download <strong>one app</strong> and open it — no command line, then OpenCode does the rest</span></li>
-        <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
-        <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-flash</code></span></li>
-        <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4.1 Flash drives the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.8 Flash researches &amp; sees</span></li>
-        <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — fund every provider you use before you start; no subscription needed</span></li>
-        <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
-        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek — the whole core workflow runs on it. Gemini is the only free-tier allowance, and only for the Observer (screenshots)</span></li>
-        <li data-mode="full"><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a Gemini key)</span></li>
-        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (Budget: a Gemini free-tier key is fine for this one use)</span></li>
-      </ul>
+      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup:<br>A supervisor agent plans the work and delegates to about 44 tiered agents. <strong>DeepSeek</strong> is the primary workhorse — the supervisor, junior agents, and role-mules all run on <strong>V4.1 Flash</strong>. <strong>Claude</strong> (Sonnet 5 on the mid tier, Opus 4.8 on the senior tier) acts as the quality gates that review, secure, and fact-check the work. <strong>Gemini 3.8 Flash</strong> handles research, planning, and the multimodal screenshot observer. Optional free local models run via <strong>Ollama</strong>. The observer plugin reads screenshots. Every provider you actually use must be funded first: add billing or prepaid credits before you start.</p>
+      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup:<br>an OpenCode instance where a supervisor agent plans the work and delegates to about 44 tiered agents. On the budget plan, DeepSeek is the whole core workflow — the supervisor and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Fund DeepSeek before you start. The only free-tier allowance on this page is the Gemini key, and in Budget it is for the Observer (pasted screenshots) only — not for the Gemini researcher/planner agents. Local models via Ollama are free.</p>
+      <p data-mode="full">Effort is tiered too — juniors run low effort, mid/senior run high, and the role-mules run with thinking off. Researcher and planner are the only mid roles routed to Gemini (not Claude) because <strong>Gemini 3.8 Flash</strong> is genuinely competitive, and the balance is set structurally to a deterministic ~64/26/10 DeepSeek/Anthropic/Google split.</p>
     </div>
   </section>
 
@@ -1028,13 +1017,13 @@
       <article class="step-card">
         <div class="card-top">
           <label class="check-wrap" for="step-12">
-            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Add your Google (Gemini) key">
+            <input type="checkbox" id="step-12" class="step-check" aria-label="Mark done: Add your Google key">
             <span class="check-visual" aria-hidden="true"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="3" stroke-linecap="round" stroke-linejoin="round"><path d="M4 12.5 9.5 18 20 6.5"/></svg></span>
           </label>
           <div class="step-body">
             <div class="step-head">
               <span class="step-num" aria-hidden="true">12</span>
-              <h3 class="step-title">Add your Google (Gemini) key</h3>
+              <h3 class="step-title">Add your Google key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
               <span class="pill pill-free" data-mode="budget">Recommended (Budget only)</span>
               <span class="gnum">12/20</span>
@@ -1090,7 +1079,6 @@
         <div class="step-extras">
           <p class="note">If <code>deepseek/deepseek-flash</code> isn't listed, DeepSeek has no key saved — redo step 10.</p>
           <p class="note">After step 17 the config sets that same default, so nothing changes — this was not a temporary setting.</p>
-          <p class="note"><strong>No restart needed</strong> — a key you saved shows its models in the picker straight away. The restart in step 17 is only to load the config file.</p>
         </div>
       </article>
 
@@ -1137,7 +1125,7 @@
           <ul class="step-list">
             <li>OpenCode runs the commands on your computer itself, and does not ask before each one.</li>
             <li>Any permission requests appear as <strong>dialogs in the app</strong>. If a dialog asks for permission to work outside your project folder, review it carefully before you approve.</li>
-            <li>It may need <code>git</code> — <span class="os-inline" data-os="mac">which comes with the Xcode command-line tools</span><span class="os-inline" data-os="win">if the app asks to install something, read the dialog first</span>. Allow it only if the dialog names <code>git</code>.</li>
+            <li>It may need <code>git</code> — <span class="os-inline" data-os="mac">which comes with the Xcode command-line tools</span><span class="os-inline" data-os="win">if the app asks to install something, read the dialog first</span>.</li>
             <li class="os-block" data-os="win"><strong>Windows Defender Firewall or SmartScreen</strong> may pop up; Windows does this for any program it has not seen before.</li>
             <li><strong>Stop the run from the app</strong> — use the stop button in the app while it is working — if anything looks wrong.</li>
             <li>If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it fails or says "destination path already exists" and stops, ask the app to try again — or ask the person who shared this guide.</li>

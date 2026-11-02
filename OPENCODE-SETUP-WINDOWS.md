@@ -15,7 +15,7 @@ Welcome. This guide walks you through setting up OpenCode on Windows, step by st
 
 ## 1. What you're getting
 
-The setup gives you a team of about 44 AI agents, arranged in tiers. The main agent (the "supervisor") plans the work and hands pieces to specialist agents.
+The setup gives you a team of about 44 AI agents, arranged in tiers. The supervisor plans the work and hands pieces to specialist agents.
 
 | What | Model / provider | What it's for |
 |---|---|---|
@@ -29,26 +29,28 @@ The setup gives you a team of about 44 AI agents, arranged in tiers. The main ag
 | Observer | google/gemini-3.8-flash (Google) | Reads screenshots you paste into the chat |
 | Local models | Ollama (runs on your PC) | Free and private — optional extra |
 
-A few things to know:
+Work is split across three providers instead of running on one model, and spend is spread across all three prepaid balances: a structural ~64/26/10 DeepSeek/Anthropic/Google split.
 
-- The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. You do not configure any of this yourself — the config you install in Step 15 handles it.
+DeepSeek is the primary workhorse — the supervisor, juniors, and mules run on V4.1 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.8 Flash (Google) is used for research, planning, and vision (the Observer). Optional free local models run via Ollama.
 
-**Why three providers?** This setup deliberately spreads work across DeepSeek, Anthropic, and Google instead of running everything on one model. Each is used where it is genuinely strongest, and spend is spread across all three prepaid balances. DeepSeek is the primary workhorse — the supervisor, juniors, and mules run on V4.1 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.8 Flash (Google) is used for research, planning, and vision (the Observer), where long-context synthesis shines at low quality risk. Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles that moved to Gemini, because that is where Gemini is genuinely competitive — structural planning and long-context web research carry little quality risk. The Observer reads screenshots, which is a vision task, so it needs a Google/Gemini key — not an Anthropic one.
+Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles routed to Gemini, because structural planning and long-context web research carry little quality risk.
+
+The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. The config you install in Step 15 sets both.
 
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs a Google Gemini key (Step 6).
-- **Add-on tools (MCP servers)** — an MCP server is an optional add-on that gives OpenCode extra tools. All of them are switched off in this config (playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use, railway) — you can ignore them. They stay dormant until you turn one on (see the "Learn how to customize your OpenCode config" section of the setup page, or section 20 below). The macos-use one is for Macs only, and it is switched off in this config anyway. Railway is the one to leave off permanently — use the Railway CLI instead (see the Railway section), because enabling the Railway MCP has been known to break the screenshot (Observer) feature.
+- **Add-on tools (MCP servers)** — all of them ship switched off, so turn one on only when you need it (see section 23). The list is playwright, chrome-devtools, elevenlabs, yt-dlp, vercel, gemini-api-docs, context7, github, macos-use and railway. The macos-use one is Mac-only, and Railway is the one to leave off permanently: enabling it can break the Observer, so use the Railway CLI instead.
 
 ## 2. What you'll need before you start
 
 - A PC running Windows 10 or 11, and about 30–45 minutes.
 - **A web browser** — Steps 1–7 happen entirely in the browser. Step 8 is a single download in that same browser; Steps 9 onward happen inside the OpenCode app.
-- **Accounts and keys for three providers** — DeepSeek, Anthropic, and Google Gemini — plus xAI if you choose to add it. xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it. You create these in Steps 1–7.
-- **Funded prepaid balances**: DeepSeek, Anthropic, and Google (Gemini) all require you to add money or buy credits before they work. Amounts change — verify in each console when you purchase.
-- **A way to store secrets** — a password manager, or a private note. You will keep four API keys in it.
-- Optional: a GitHub account (free — it is where you keep your own projects later, and some optional add-ons use it), Ollama (free, no account), a Railway account (only if you deploy to Railway).
-- On a budget? See the [Budget path](#budget-path) section at the end of this guide. You still have to fund DeepSeek; the only free allowance is the Gemini free tier, for the Observer.
+- **Accounts and keys for three providers** — DeepSeek, Anthropic, and Google Gemini — plus xAI if you choose to add it. xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it. Create them in Steps 1–7.
+- **Funded prepaid balances**: DeepSeek, Anthropic, and Google all require money or credits before they work. Amounts change — verify in each console when you purchase.
+- **A password manager, or a private note**, for your four API keys.
+- Optional: a GitHub account (free — for your own projects later, and some optional add-ons), Ollama (free, no account), a Railway account (only if you deploy to Railway).
+- On a budget? See the [Budget path](#budget-path) section at the end of this guide.
 
-**Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic or Gemini (full setup) account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan, below.
+**Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic or Google account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan: there the Gemini free tier is accepted for the Observer only.
 
 > **Caution:** API keys are secret. Never post one in a chat, an issue, or a screenshot — paste it only into **Settings → Providers** inside the app.
 
@@ -148,7 +150,7 @@ In **Settings → Providers**, choose **Anthropic**, paste the key from Step 5, 
 
 **Verify:** Anthropic shows as connected in Settings → Providers.
 
-## 14. Step 12 — Add your Google (Gemini) key
+## 14. Step 12 — Add your Google key
 
 In **Settings → Providers**, choose **Google**, paste the key from Step 6, and save.
 
@@ -166,8 +168,6 @@ Open the **model picker** in the message box, search for `deepseek`, and choose 
 
 Do this now: it is what makes your *first* messages work, because the config that sets the default has not been installed yet. If `deepseek/deepseek-flash` is not in the list, DeepSeek is not connected — redo Step 10.
 
-**No restart needed** — a key you saved shows its models in the picker straight away. The restart in Step 17 is only to load the config file.
-
 ## 17. Step 15 — Ask OpenCode to install the config
 
 You paste **one message** into OpenCode's message box and let the agent do the work.
@@ -180,7 +180,7 @@ How it behaves:
 
 - OpenCode runs a few commands on your computer itself, and does not ask before each one. It writes to `%USERPROFILE%\.config\opencode`, which is `C:\Users\<you>\.config\opencode` — the same folder written as `%USERPROFILE%\.config\opencode`.
 - It may ask **once** for permission to work outside your project folder. The prompt appears as an app dialog. If a dialog asks for permission to work outside your project folder, review it carefully before you approve.
-- It may need `git`. If it asks to install something, read the dialog first and allow it only if it names `git`.
+- It may need `git`. If it asks to install something, read the dialog first.
 - **Windows Defender Firewall or SmartScreen** may pop up; Windows does this for any program it has not seen before.
 - **Stop the run from the app** if anything looks wrong — use the stop button in the app while it is working.
 - If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it fails or says "destination path already exists" and stops, ask the app to try again — or ask the person who shared this guide.
