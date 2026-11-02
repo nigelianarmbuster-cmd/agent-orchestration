@@ -777,7 +777,7 @@
         <h4>Gemini</h4>
         <div class="tier-model">Gemini 3.8 Flash</div>
         <p class="tier-desc">Research, long documents, and images, consolidated on Gemini 3.8 Flash. It powers the mid researcher/planner and the Observer — roles where Gemini is genuinely competitive (long-context web synthesis, structural planning, vision) at low quality risk — plus the Gemini agents. Runs alongside the tiers.</p>
-        <div class="cost cost-mule">free tier available</div>
+        <div class="cost cost-mule">intro-priced, billed</div>
       </div>
     </div>
 
@@ -793,10 +793,10 @@
     </div>
 
     <div class="callout callout-budget" style="margin-top:12px;">
-      <b>Budget mode:</b> DeepSeek only — the junior tier plus 9 DeepSeek mules. The junior tier handles the bulk of routine work, and a few dollars of credit lasts weeks. Fund DeepSeek, and add the optional free Gemini key to keep screenshots working.
+      <b>Budget mode:</b> DeepSeek only — the junior tier plus 9 DeepSeek mules. The junior tier handles the bulk of routine work, and a few dollars of credit lasts weeks. Every provider you use must be funded. Here only DeepSeek is paid; the free Gemini tier may be used for the Observer (pasted screenshots) only — Gemini agents need the paid tier. Fund DeepSeek; funding it is not optional.
     </div>
     <div class="callout callout-full" style="margin-top:12px;">
-      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5 (researcher/planner on Gemini 3.8 Flash), senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
+      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5 (researcher/planner on Gemini 3.8 Flash), senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional as a provider choice, but a Grok model still needs a funded key. Every provider used here must be funded — the Anthropic and Google tiers are no exception. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
     </div>
 
     <div class="divider-dot"><span></span></div>
@@ -944,7 +944,7 @@
   <div class="wrap">
     <div class="eyebrow">Visual tools</div>
     <h2>Visual Verification &amp; Observer</h2>
-    <p class="lede">The Supervisor is text-only and cannot see images. Visual tools bridge the gap — Observer ships ready once a Google key is added, because it is a Gemini <em>vision</em> agent that activates on a Google key, not an Anthropic one; the browser tools are switched off in the default config and flipped on when needed.</p>
+    <p class="lede">The Supervisor is text-only and cannot see images. Visual tools bridge the gap — Observer starts working once you connect a Google key with <code>/connect</code> — it is a Gemini <em>vision</em> agent that needs a Google key, not an Anthropic one; the browser tools are switched off in the default config and flipped on when needed.</p>
 
     <table class="styled-table" style="margin-bottom:16px;">
       <thead>
@@ -970,11 +970,11 @@
     <div class="observer-flow observer-flow-budget">
       <div class="observer-step"><strong>Paste screenshot</strong><span>Plugin saves it</span></div>
       <div class="observer-arrow">&rarr;</div>
-      <div class="observer-step"><strong>Observer reads it</strong><span>Needs the free Gemini key</span></div>
+      <div class="observer-step"><strong>Observer reads it</strong><span>Needs the Gemini key</span></div>
       <div class="observer-arrow">&rarr;</div>
       <div class="observer-step"><strong>Text analysis</strong><span>Back to Supervisor</span></div>
     </div>
-    <p class="observer-note-budget">Budget mode still gets screenshots &mdash; add the free Gemini key.</p>
+    <p class="observer-note-budget">Budget mode still gets screenshots &mdash; the free Gemini tier is allowed for the Observer only.</p>
 
     <div class="callout" style="margin-top:16px;">
       <b>Verification loop:</b> Capture before state &rarr; make change &rarr; capture after state &rarr; Observer compares &rarr; fix discrepancies &rarr; repeat. <b>Graceful degradation:</b> if any visual tool is unavailable, the system falls back gracefully — never fail a task because a visual tool is down.
@@ -1044,13 +1044,13 @@
     document.getElementById("segFull").setAttribute("aria-pressed", mode === "full" ? "true" : "false");
     document.getElementById("modeLine").textContent = mode === "full"
       ? "Full production: DeepSeek + Anthropic + Google, all tiers, Observer vision."
-      : "Budget: DeepSeek key only \u2014 add the free Gemini key to keep screenshots working.";
+      : "Budget: DeepSeek key only \u2014 the Gemini free tier is Observer-only (pasted screenshots), and nothing else is free.";
     document.getElementById("providerLabel").textContent = mode === "full"
       ? "3 core providers \u2014 xAI optional"
-      : "1 paid key: DeepSeek (+ optional free Gemini)";
+      : "1 paid key: DeepSeek (+ free Gemini for screenshots only)";
     document.getElementById("modeHint").textContent = mode === "full"
       ? "3 core providers \u00b7 all tiers \u00b7 Observer"
-      : "DeepSeek \u00b7 optional free Gemini";
+      : "DeepSeek \u00b7 Gemini free tier, screenshots only";
   }
 
   function setMode(next) {

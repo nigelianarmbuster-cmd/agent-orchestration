@@ -658,19 +658,19 @@
   <section class="intro" aria-labelledby="intro-title">
     <div class="intro-card">
       <h2 id="intro-title">What you're building</h2>
-      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong> across three prepaid providers, each used where it is genuinely strongest. <strong>DeepSeek</strong> is the primary workhorse — the supervisor, junior agents, and role-mules all run on <strong>V4.1 Flash</strong>. <strong>Claude</strong> (Sonnet 5 on the mid tier, Opus 4.8 on the senior tier) acts as the quality gates that review, secure, and fact-check the work. <strong>Gemini 3.8 Flash</strong> handles research, planning, and the multimodal screenshot observer. Optional free local models run via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a Gemini key.</p>
-      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Gemini agents and the screenshot observer work if you grab the <strong>free</strong> Gemini key, and local models via Ollama are always free.</p>
+      <p data-mode="full">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong> across three prepaid providers, each used where it is genuinely strongest. <strong>DeepSeek</strong> is the primary workhorse — the supervisor, junior agents, and role-mules all run on <strong>V4.1 Flash</strong>. <strong>Claude</strong> (Sonnet 5 on the mid tier, Opus 4.8 on the senior tier) acts as the quality gates that review, secure, and fact-check the work. <strong>Gemini 3.8 Flash</strong> handles research, planning, and the multimodal screenshot observer. Optional free local models run via Ollama. The observer plugin reads screenshots you paste into the chat — it needs a Gemini key. Every provider you actually use must be <strong>funded</strong> first: add billing or prepaid credits before you start. Funding is never optional, and free tiers are not a substitute for it.</p>
+      <p data-mode="budget">This page walks a first-time user through the OpenCode agent-orchestration setup described in the guides: an OpenCode instance where a <strong>supervisor</strong> agent plans the work and delegates to about <strong>44 tiered agents</strong>. On the budget plan, DeepSeek is the whole core workflow — the <strong>supervisor</strong> and all the junior agents run on <strong>V4.1 Flash</strong>. The Claude mid-tier and senior agents (Claude Sonnet 5 / Opus 4.8) stay configured but inactive until you add an Anthropic key later. Fund DeepSeek before you start. The <strong>only</strong> free-tier allowance on this page is the Gemini key, and in Budget it is for the Observer (pasted screenshots) only — not for the Gemini researcher/planner agents. Local models via Ollama are free.</p>
       <p data-mode="full">Why three providers instead of one? Each is used for what it does best, and spend is deliberately spread across all three prepaid balances. <strong>DeepSeek</strong> is the affordable workhorse, so it carries the bulk of the volume; <strong>Claude</strong> keeps the quality gates (mid-tier review/security/fact-checking on Sonnet 5) and all senior judgment (Opus 4.8), where its subtle bug-detection, adversarial review, and exact-quote fidelity genuinely win; <strong>Gemini 3.8 Flash</strong> is intro-priced and cost-effective, so it handles long-context research, planning, and vision. Effort is tiered too — juniors run <strong>low</strong> effort, mid/senior run <strong>high</strong>, and the role-mules run with thinking switched <strong>off</strong>. Researcher and planner are the only mid roles routed to Gemini (not Claude) because Gemini 3.8 Flash is genuinely competitive there at low quality risk, and the balance is set structurally in the agent files — a deterministic ~64/26/10 DeepSeek/Anthropic/Google split — rather than by prompt-guessing how to route each task.</p>
       <ul class="fact-grid">
         <li><span class="dot" aria-hidden="true"></span><span>You paste <strong>two commands</strong> (install, then start) — OpenCode does the rest</span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default agent:</strong> <code>supervisor</code></span></li>
         <li><span class="dot" aria-hidden="true"></span><span><strong>Default model:</strong> <code>deepseek/deepseek-flash</code></span></li>
         <li data-mode="full"><span class="dot" aria-hidden="true"></span><span><strong>Model coordination:</strong> DeepSeek V4.1 Flash drives the workflow, Claude Sonnet 5 / Opus 4.8 gate quality, Gemini 3.8 Flash researches &amp; sees</span></li>
-        <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — no subscription needed</span></li>
+        <li><span class="dot" aria-hidden="true"></span><span>Everything is <strong>prepaid</strong> — fund every provider you use before you start; no subscription needed</span></li>
         <li><span class="dot" aria-hidden="true"></span><span>Plan on <strong>30–45 minutes</strong>, start to finish</span></li>
-        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek only — the whole core workflow still runs on it</span></li>
+        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span><strong>Budget plan:</strong> fund DeepSeek — the whole core workflow runs on it. Gemini is the only free-tier allowance, and only for the Observer (screenshots)</span></li>
         <li data-mode="full"><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a Gemini key)</span></li>
-        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (needs a free Gemini key)</span></li>
+        <li data-mode="budget"><span class="dot" aria-hidden="true"></span><span>Past screenshots are read by the <strong>observer</strong> plugin (Budget: a Gemini free-tier key is fine for this one use)</span></li>
       </ul>
     </div>
   </section>
@@ -724,7 +724,7 @@
               <span class="pill pill-req">Required</span>
               <span class="gnum">2/20</span>
             </div>
-            <p class="step-desc">DeepSeek powers the supervisor and all the junior agents. Create an account, then add money to your prepaid balance — pay-as-you-go, with no free tier. Minimums and payment methods are only shown inside the console, so verify there when you sign up.</p>
+            <p class="step-desc">DeepSeek powers the supervisor and all the junior agents. Create an account, then add money to your prepaid balance before you go any further — pay-as-you-go, with no free tier, so the balance must be funded before the agents will work. Minimums and payment methods are only shown inside the console, so verify there when you sign up.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -775,7 +775,7 @@
               <span class="pill pill-skip" data-mode="budget">Budget: skip</span>
               <span class="gnum">4/20</span>
             </div>
-            <p class="step-desc">Anthropic's Claude powers the mid and senior tiers. Sign up, then buy prepaid usage credits (console: <strong>Billing → Buy credits</strong>). New users get a small free credit; credits expire after one year and are non-refundable.</p>
+            <p class="step-desc">Anthropic's Claude powers the mid and senior tiers. Sign up, then buy prepaid usage credits (console: <strong>Billing → Buy credits</strong>) — the mid and senior agents will not work until you do. Credits expire after one year and are non-refundable.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -833,10 +833,10 @@
               <span class="step-num" aria-hidden="true">6</span>
               <h3 class="step-title">Google — create your Gemini API key</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
-              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
+              <span class="pill pill-free" data-mode="budget">Recommended (Budget only)</span>
               <span class="gnum">6/20</span>
             </div>
-            <p class="step-desc">Needed for the screenshot observer and the Gemini agents. Sign in with any Google account, accept the terms, and click "Create API key". A free tier exists; a paid prepay plan is optional.</p>
+            <p class="step-desc">Needed for the screenshot observer and the Gemini agents. Sign in with any Google account, accept the terms, and click "Create API key". Then add billing and fund it before you start — the free tier is rate-limited and not for regular use.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -845,7 +845,7 @@
               <svg width="12" height="12" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M7 17 17 7M9 7h8v8"/></svg>
             </a>
           </div>
-          <p class="note" data-mode="budget">Budget: this one is free (free tier) — do it anyway; it keeps the screenshot feature and the Gemini agents working.</p>
+          <p class="note" data-mode="budget">Budget: the free tier is fine here, but only for screenshots (the Observer). Don't use the Gemini researcher/planner agents until you add billing.</p>
         </div>
       </article>
 
@@ -862,7 +862,7 @@
               <span class="pill pill-opt">Optional</span>
               <span class="gnum">7/20</span>
             </div>
-            <p class="step-desc">Only if you want Grok models — nothing in this setup requires them. Create an account, add prepaid credits, and create a key on the API Keys page.</p>
+            <p class="step-desc">Only if you want Grok models — nothing in this setup requires them. If you do want Grok, you must fund the account first: xAI has no free tier for API use. Create an account, add prepaid credits, and create a key on the API Keys page.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1024,7 +1024,7 @@
               <span class="step-num" aria-hidden="true">12</span>
               <h3 class="step-title">Connect Google (Gemini)</h3>
               <span class="pill pill-req" data-mode="full">Required</span>
-              <span class="pill pill-free" data-mode="budget">Recommended (free)</span>
+              <span class="pill pill-free" data-mode="budget">Recommended (Budget only)</span>
               <span class="gnum">12/20</span>
             </div>
             <p class="step-desc">Type <code>/connect</code>, choose <strong>Google</strong>, choose <strong>API key</strong>, and paste. The key goes in the same way as the others — there is no file to edit.</p>
@@ -1032,7 +1032,7 @@
         </div>
         <div class="step-extras">
           <p class="note">This is what powers pasted screenshots (the Observer) and the Gemini agents.</p>
-          <p class="note" data-mode="budget">Budget: still do this — the Gemini key is free (free tier) and keeps the screenshot feature working.</p>
+          <p class="note" data-mode="budget">Budget: still do this. In Budget the free tier is fine but Observer-only — it keeps the screenshot feature working. Don't use the Gemini agents on the free tier; add billing first.</p>
         </div>
       </article>
 
@@ -1388,6 +1388,7 @@
         <li><strong>API keys are stored by OpenCode itself</strong> in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat, an issue, or a commit.</li>
         <li><strong>The agent can run commands on your computer</strong> when you paste an instruction — step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose <strong>no</strong>. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops the agent.</li>
         <li><strong>Amounts change — verify in each console when you purchase.</strong> Anthropic credits expire after one year and are non-refundable.</li>
+        <li><strong>Free tiers</strong> — Full plan: you pay for DeepSeek, Anthropic, and Gemini. Budget plan: you pay for DeepSeek; in Budget the only free-tier allowance is Gemini for the Observer (pasted screenshots) — the Gemini agents must not be run on it. Funding is never optional.</li>
       </ul>
     </div>
   </section>
