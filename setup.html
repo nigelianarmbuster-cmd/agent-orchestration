@@ -862,7 +862,7 @@
               <span class="pill pill-opt">Optional</span>
               <span class="gnum">7/20</span>
             </div>
-            <p class="step-desc">Only if you want Grok models — nothing in this setup requires them. If you do want Grok, you must fund the account first: xAI has no free tier for API use. Create an account, add prepaid credits, and create a key on the API Keys page.</p>
+            <p class="step-desc">Optional and separate from the rest of the setup — skip it unless you want Grok models. Nothing else here needs it. Create an account and create a key on the API Keys page.</p>
           </div>
         </div>
         <div class="step-extras">
@@ -1389,6 +1389,22 @@
         <li><strong>The agent can run commands on your computer</strong> when you paste an instruction — step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose <strong>no</strong>. <kbd>Ctrl</kbd>+<kbd>C</kbd> stops the agent.</li>
         <li><strong>Amounts change — verify in each console when you purchase.</strong> Anthropic credits expire after one year and are non-refundable.</li>
         <li><strong>Free tiers</strong> — Full plan: you pay for DeepSeek, Anthropic, and Gemini. Budget plan: you pay for DeepSeek; in Budget the only free-tier allowance is Gemini for the Observer (pasted screenshots) — the Gemini agents must not be run on it. Funding is never optional.</li>
+      </ul>
+    </div>
+  </section>
+
+  <section class="safety" aria-labelledby="trouble-title">
+    <div class="safety-card">
+      <h2 id="trouble-title">Troubleshooting</h2>
+      <ul class="safety-list">
+        <li><strong>Screenshots return nothing, or the Observer stays silent.</strong> The Gemini key is not reaching OpenCode. Run <code>opencode auth list</code> (or ask the supervisor to run it) and check that <code>google</code> is listed; if it is not, connect it again with <code>/connect</code> → <strong>Google</strong> → <strong>API key</strong>. Also make sure no old Google/Gemini environment variable is set — an environment variable overrides the connected key, so a stale one makes every Gemini call fail with "API key not valid". Check with <code>printenv | grep -i -E 'GOOGLE|GEMINI'</code> on macOS or <code>Get-ChildItem Env: | Where-Object Name -match 'GOOGLE|GEMINI'</code> in PowerShell; if anything appears, remove it and restart OpenCode.</li>
+        <li><strong><code>opencode: command not found</code> right after installing.</strong> Close the terminal completely and open a new window, then try again — new windows pick up newly installed commands.</li>
+        <li><strong><code>opencode --version</code> does not say <code>1.19.5</code>.</strong> You have OpenCode 2 (usually from <code>brew install opencode</code> or the download button on opencode.ai). Uninstall it and re-run the install command from step 8.</li>
+        <li><strong>"model not found", or an agent errors on every reply.</strong> That is almost always a key or funding problem. Connect the key again with <code>/connect</code>, and check the provider console shows a funded balance — an empty balance fails exactly like a missing key.</li>
+        <li><strong>No supervisor, or the agent team is missing.</strong> The config did not load. Redo step 15 (ask OpenCode to install the config), then restart with step 16. The agent name at the bottom of the window should read <code>supervisor</code>.</li>
+        <li><strong>A permission prompt names a folder you do not recognise.</strong> Choose <strong>no</strong>. The only folder this setup needs is <code>~/.config/opencode</code> (macOS) or <code>%USERPROFILE%\.config\opencode</code> (Windows).</li>
+        <li><strong>Gemini agents fail or behave oddly in the Budget plan.</strong> In Budget, the free tier is for pasted screenshots only. Add billing to the Google key before using the Gemini researcher or planner.</li>
+        <li><strong>The progress bar looks wrong.</strong> Progress is stored only in this browser. Use <strong>Reset</strong> in the top bar to start the checklist again.</li>
       </ul>
     </div>
   </section>

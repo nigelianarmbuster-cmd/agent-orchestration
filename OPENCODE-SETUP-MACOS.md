@@ -33,7 +33,7 @@ A few things to know:
 - The default model is `deepseek/deepseek-flash` and the default agent is `supervisor`. You pick the model once in `/models` (Step 14) and the config supplies the agent.
 - Plan on **30–45 minutes**, start to finish.
 
-**Funding is never optional.** DeepSeek, Anthropic, Google (Full plan) and xAI (if you use it) all require prepaid funds or credits before the agents will run. A trial credit is not enough — buy credits before you start. There is exactly one exception in this whole guide: on the **Budget plan**, the Gemini free tier is acceptable for the Observer (pasted screenshots) only. See the [Budget path](#budget-path) at the end.
+**Funding is never optional.** DeepSeek, Anthropic and Google (Full plan) all require prepaid funds or credits before the agents will run. A trial credit is not enough — buy credits before you start. There is exactly one exception in this whole guide: on the **Budget plan**, the Gemini free tier is acceptable for the Observer (pasted screenshots) only. See the [Budget path](#budget-path) at the end.
 
 **Why three providers?** This setup deliberately spreads work across DeepSeek, Anthropic, and Google instead of running everything on one model. Each is used where it is genuinely strongest, and spend is spread across all three prepaid balances. DeepSeek is the primary workhorse — the supervisor, juniors, and mules run on V4.1 Flash. Claude (Anthropic) is used for quality gates — review, security, and exact-quote checking — and for mid/senior work where careful judgment matters. Gemini 3.8 Flash (Google) is used for research, planning, and vision (the Observer), where long-context synthesis shines at low quality risk. Effort is tiered too: juniors run at low effort with thinking on, mid/senior agents run at high effort with thinking on, and mules run with thinking off to keep them cheap. Researcher and planner are the only mid-tier roles that moved to Gemini, because that is where Gemini is genuinely competitive. The Observer reads screenshots, which is a vision task, so it needs a Google/Gemini key — not an Anthropic one.
 - The **observer-bridge plugin**: when you paste a screenshot into the chat, it saves the image and automatically calls the observer agent to describe it. This needs the Google key you connect in Step 12.
@@ -43,8 +43,8 @@ A few things to know:
 
 - Your Mac and about 30–45 minutes.
 - **OpenCode 1.19.5** — installed in Step 8 with one command. You do **not** need Node.js.
-- **Four accounts**: GitHub (free), DeepSeek (required), Anthropic (required on the Full plan), Google (required on the Full plan). Optional: xAI (only if you want Grok models) and Ollama (free, no account).
-- **Money on prepaid balances**: DeepSeek, Anthropic, Google, and xAI (if used) are all pay-as-you-go — you add money before use, and the balance must be funded before the agents will work. Amounts and minimums change; verify in each console when you sign up. The only exception is the Budget plan's Gemini free tier, and only for the Observer.
+- **Four accounts**: GitHub (free), DeepSeek (required), Anthropic (required on the Full plan), Google (required on the Full plan). Optional: xAI (only if you want Grok models — it is entirely optional and separate, and the Grok agent only exists if you add that key) and Ollama (free, no account).
+- **Money on prepaid balances**: DeepSeek, Anthropic and Google are all pay-as-you-go — you add money before use, and the balance must be funded before the agents will work. Amounts and minimums change; verify in each console when you sign up. The only exception is the Budget plan's Gemini free tier, and only for the Observer.
 - Nothing else — the configuration files are downloaded from a public GitHub page in Step 15. You do not need a GitHub account for that (the repository is public); the account is for keeping your own projects later.
 - On a budget? Fund DeepSeek and take the free Gemini key for screenshots — see the [Budget path](#budget-path) section at the end of this guide.
 
@@ -92,11 +92,11 @@ The Gemini key powers the screenshot Observer and the Gemini agents. On the Full
 
 ## 9. Step 7 — Create an xAI Grok key (optional)
 
-Only needed if you want to use Grok models — nothing in this setup requires them.
+xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it.
 
-1. If you want Grok, add prepaid credits **first**: xAI has no free tier for API use.
+1. Skim this step only if you want Grok models — nothing else in the setup uses it.
 2. Console at https://console.x.ai → API Keys page → create a key.
-3. You will connect it in Step 13. The key name is `XAI_API_KEY`.
+3. You will connect it in Step 13. There is no file to create and no environment variable to set.
 
 ## 10. Step 8 — Install OpenCode
 
@@ -155,7 +155,7 @@ This is what powers pasted screenshots (the Observer) and the Gemini agents.
 
 ## 15. Step 13 — Connect xAI (optional)
 
-Type `/connect`, choose **xAI**, and paste your Grok key. Skim or ignore this if you skipped the Grok key — nothing here needs it.
+Type `/connect`, choose **xAI**, and paste your Grok key. Skim or ignore this if you skipped the Grok key — xAI is not part of this setup unless you add it, and nothing here needs it.
 
 ## 16. Step 14 — Pick the default model
 
@@ -261,7 +261,7 @@ $ opencode mcp list
 
 ## 24. Costs and safety
 
-- Everything here is prepaid: you add money, and usage is deducted from your balance. Each console shows your usage — check occasionally. Funding is never optional: DeepSeek, Anthropic, Google (Full plan) and xAI (if used) must be funded before the agents will work.
+- Everything here is prepaid: you add money, and usage is deducted from your balance. Each console shows your usage — check occasionally. Funding is never optional: DeepSeek, Anthropic and Google (Full plan) must be funded before the agents will work.
 - **The only free-tier allowance** is the Budget plan's Gemini free tier, and only for the Observer (pasted screenshots). Do not drive the Gemini agents on it.
 - API keys are stored by OpenCode itself in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat message, an issue, or a commit, and never share a screenshot of one. If a key leaks, revoke it in the provider console and make a new one.
 - **The agent can run commands on your computer** when you paste an instruction — Step 15 is the main one here. Those commands do not prompt individually. You may be asked once to allow work in `~/.config/opencode`; that is the only folder it needs. If any other folder is named, choose **no**. Ctrl+C stops the agent.
@@ -276,11 +276,15 @@ $ opencode mcp list
 | `opencode --version` does not say `1.19.5` | You have OpenCode 2 (usually from `brew install opencode` or opencode.ai/download). Uninstall it, then re-run the one-line installer from Step 8. |
 | "model not found" or a model error | Usually a key or funding problem. Ask the supervisor to run `opencode auth list`, then re-paste the key with `/connect`. A funded balance is required — an empty balance fails the same way as a missing key. |
 | The agent name at the bottom is not `supervisor` | The config did not load. Check that `~/.config/opencode/opencode.json` exists, then `/exit` and run `opencode` again. |
+| No supervisor, or the agent team is missing | The config did not load. Redo Step 15 (ask OpenCode to install the config) and restart (Step 16). The agent name at the bottom of the window should read `supervisor`. |
 | The config paste stops or asks for a folder you do not recognise | Ctrl+C stops it. Allow only a prompt that names `~/.config/opencode`; choose no for anything else. The manual `git clone` in Step 15 is the fallback. |
+| A permission prompt names a folder you do not recognise | Choose **no**. The only folder this setup needs is `~/.config/opencode`. |
 | `git: command not found` while installing the config | Install the Xcode command-line tools (your Mac offers them automatically the first time you use `git`), then re-run the Step 15 instruction. |
 | `brew: command not found` | Homebrew is not installed. Use the one-line installer from Step 8 — you do not need Homebrew. |
 | A command gives a syntax error | Copy the commands from this guide exactly, including the `~` and any quotes. If you re-typed them by hand, retype carefully. |
 | Pasted screenshots are ignored, or observer errors | The Google key is missing or unfunded. Connect it again with `/connect` → Google → API key (Step 12). |
+| Screenshots return nothing, or the Observer stays silent | The Gemini key is not reaching OpenCode. Run `opencode auth list` (or ask the supervisor to run it) and confirm `google` is listed; if not, reconnect with `/connect` → **Google** → **API key**. Also check no stale Google/Gemini environment variable is set — an environment variable overrides the connected key, so an old one makes every Gemini call fail with "API key not valid". Check with `printenv \| grep -i -E 'GOOGLE\|GEMINI'`. If anything appears, remove it: delete the export from your shell profile, reopen Terminal, and restart OpenCode. |
+| Gemini agents fail or behave oddly in the Budget plan | In Budget the free tier is for pasted screenshots only; add billing to the Google key before using the Gemini researcher or planner. |
 | Railway errors after you enable it | Use the Railway CLI instead of the MCP (see the Railway section). If OpenCode misbehaves with the Railway MCP on — for example the Observer returns empty screenshot results — set `mcp.railway` back to `"enabled": false` and restart. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
@@ -296,7 +300,7 @@ The one free-tier allowance in this setup is the **Gemini free tier, for the Obs
 1. Follow Steps 1, 2, 8, 9 (GitHub, DeepSeek with funds, install OpenCode, start it) as written.
 2. In Step 4, skip it — no Anthropic account, no credits. The Claude mid-tier and senior agents (Sonnet 5 / Opus 4.8) stay configured but inactive.
 3. In Step 6, create the Gemini key and add billing; the free tier is fine for screenshots, but do not use the Gemini agents on it. Connect it in Step 12.
-4. Skip xAI (Step 7).
+4. Skip xAI (Step 7) — it is not part of this setup unless you add it.
 5. In Steps 10 and 12, connect DeepSeek and Google only. Then pick `deepseek/deepseek-flash` in Step 14, install the config (Step 15), restart (Step 16), and verify (Steps 17–19).
 6. Tell OpenCode to run in budget mode by prompting it: **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and will not call the paid tiers.
 7. **Upgrade later without redoing anything:** connect the extra keys anytime with `/connect` and tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting. Fund the Anthropic and Google keys first: the mid and senior agents will not work until the balances are funded.

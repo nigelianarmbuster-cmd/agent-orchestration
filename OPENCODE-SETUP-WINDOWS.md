@@ -40,13 +40,13 @@ A few things to know:
 
 - A PC running Windows 10 or 11, and about 30–45 minutes.
 - **A web browser** — Steps 1–7 happen entirely in the browser. No programming tools, no Node.js, nothing to install yet.
-- **Accounts and keys for four providers** — DeepSeek, Anthropic, Google Gemini, and optionally xAI. You create these in Steps 1–7.
-- **Funded prepaid balances**: DeepSeek, Anthropic, and Google (Gemini) all require you to add money or buy credits before they work. xAI does too, if you use it. Amounts change — verify in each console when you purchase.
+- **Accounts and keys for three providers** — DeepSeek, Anthropic, and Google Gemini — plus xAI if you choose to add it. xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it. You create these in Steps 1–7.
+- **Funded prepaid balances**: DeepSeek, Anthropic, and Google (Gemini) all require you to add money or buy credits before they work. Amounts change — verify in each console when you purchase.
 - **A way to store secrets** — a password manager, or a private note. You will keep four API keys in it.
 - Optional: a GitHub account (free — it is where you keep your own projects later, and some optional add-ons use it), Ollama (free, no account), a Railway account (only if you deploy to Railway).
 - On a budget? See the [Budget path](#budget-path) section at the end of this guide. You still have to fund DeepSeek; the only free allowance is the Gemini free tier, for the Observer.
 
-**Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic, Gemini (full setup) or xAI account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan, below.
+**Funding is never optional for a provider you set up.** If you create a DeepSeek, Anthropic or Gemini (full setup) account, you must add funds or credits before you use it. Finishing the sign-up is not the same as being able to use the model. The single exception is the Budget plan, below.
 
 ## 3. Step 1 — Create a GitHub account
 
@@ -96,10 +96,10 @@ The Gemini key does two jobs: it lets the Observer read screenshots you paste in
 
 ## 9. Step 7 — Create an xAI Grok key (optional)
 
-Only if you want Grok models — nothing in this setup requires them.
+xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it.
 
-1. Console at https://console.x.ai -> add prepaid credits -> API Keys page -> create a key.
-2. As with every other provider, the credits must be funded before any Grok model will answer. Minimums are shown at purchase.
+1. Console at https://console.x.ai -> API Keys page -> create a key.
+2. This step is optional and separate: skip it unless you want Grok models.
 3. Copy the key into your password manager. You will connect it in Step 13.
 
 Everything up to here happens in the browser. From here on, you type into PowerShell once for the install, once to start OpenCode, and after that into OpenCode's chat box.
@@ -162,7 +162,7 @@ Type `/connect` again, choose **Google**, choose **API key**, and paste the key 
 
 ## 15. Step 13 — Connect xAI (optional)
 
-Type `/connect` again, choose **xAI**, and paste your Grok key. Skip if you skipped the Grok key.
+Type `/connect` again, choose **xAI**, and paste your Grok key. Skip if you skipped the Grok key — xAI is not part of this setup unless you add it.
 
 **Verify:** OpenCode lists xAI as connected.
 
@@ -276,7 +276,7 @@ PS> opencode mcp list
 ## 24. Costs and safety
 
 - **Everything here is prepaid**: you add money, and usage is deducted from your balance. All three providers' consoles show your usage — check occasionally.
-- **Funding is required, not optional.** DeepSeek, Anthropic and Google (Gemini, full setup) each need a funded balance before they work; xAI does too if you set it up. Finishing sign-up without funds leaves that agent tier unusable.
+- **Funding is required, not optional.** DeepSeek, Anthropic and Google (Gemini, full setup) each need a funded balance before they work. Finishing sign-up without funds leaves that agent tier unusable.
 - **API keys are stored by OpenCode itself** in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat message, never share screenshots of them, and never put them into files you share, upload, or commit to git. If a key leaks, revoke it and make a new one in the console.
 - **The agent can run commands on your computer** when you paste an instruction — Step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose **no**. Ctrl+C stops the agent.
 - **Amounts change — verify in each console when you purchase.** Anthropic credits expire after one year and are non-refundable.
@@ -292,8 +292,12 @@ PS> opencode mcp list
 | `opencode --version` shows 2.x | You have OpenCode 2, which this config is not built for. Do not install from `scoop install opencode2` or opencode.ai/download. Uninstall it and repeat Step 8. |
 | Syntax errors or "unexpected token" | Make sure you are in PowerShell, not Command Prompt, and copy the commands from this guide exactly — including `$` and any quotes. |
 | Pasted screenshots are ignored, or observer errors | The Gemini key is missing, or `google` is not listed in `opencode auth list`. Re-paste the key with `/connect` -> Google -> API key (Step 12). There is no file to check. |
+| Screenshots return nothing, or the Observer stays silent | The Gemini key is not reaching OpenCode. Run `opencode auth list` (or ask the supervisor to run it) and confirm `google` is listed; if not, reconnect with `/connect` -> **Google** -> **API key**. Also check no stale Google/Gemini environment variable is set — an environment variable overrides the connected key, so an old one makes every Gemini call fail with "API key not valid". Check with `Get-ChildItem Env: \| Where-Object Name -match 'GOOGLE\|GEMINI'`. If anything appears, remove it with `[Environment]::SetEnvironmentVariable('NAME', $null, 'User')`, reopen PowerShell, and restart OpenCode. |
+| Gemini agents fail or behave oddly in the Budget plan | In Budget the free tier is for pasted screenshots only; add billing to the Google key before using the Gemini researcher or planner. |
 | The agent name at the bottom is not `supervisor` | The config did not install. Repeat Step 15, then `/exit` and run `opencode` again. |
+| No supervisor, or the agent team is missing | The config did not load. Redo Step 15 (ask OpenCode to install the config) and restart (Step 16). The agent name at the bottom of the window should read `supervisor`. |
 | The installer prompt asks about a folder you do not recognise | Choose **no** and stop. The only folder Step 15 needs is `%USERPROFILE%\.config\opencode`. |
+| A permission prompt names a folder you do not recognise | Choose **no**. The only folder this setup needs is `%USERPROFILE%\.config\opencode`. |
 | Railway errors after you enable it | Use the Railway CLI instead of the MCP (see the Railway section). If OpenCode misbehaves with the Railway MCP on — for example the Observer returns empty screenshot results — set `mcp.railway` back to `"enabled": false` and restart. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
@@ -309,10 +313,10 @@ Funding rules on the Budget plan:
 - **DeepSeek still needs funds.** It runs everything that matters, so its balance is not optional.
 - **The Gemini free tier is acceptable — for the Observer (pasted screenshots) only.** Do not use the Gemini mid-tier researcher/planner agents until you fund the key; they are part of the full setup, not the budget one. Local models via Ollama are free too, but they are a try-out, not a substitute for the paid tiers.
 - **Anthropic is skipped, not made free.** The Claude mid-tier and senior agents (Sonnet 5 / Opus 4.8) stay configured but inactive until you add a funded Anthropic key later.
-- **xAI is skipped.** Grok models remain an unused optional extra.
+- **xAI is skipped.** It is not part of this setup unless you add it; Grok models remain an unused optional extra.
 
 Steps:
 
-1. Follow Steps 1–3 as written, then skip Steps 4–5 (Anthropic) and do Steps 6–7 (Gemini, and xAI only if you want it). For Gemini, the free tier is fine for the Observer.
+1. Follow Steps 1–3 as written, then skip Steps 4–5 (Anthropic) and do Steps 6–7 (Gemini, and xAI only if you choose to add it). For Gemini, the free tier is fine for the Observer.
 2. Follow Steps 8–19 as written. In Steps 10–13, connect DeepSeek and Google; skip Anthropic and xAI. In Step 14, pick `deepseek/deepseek-flash`. Then finish Step 19 by telling OpenCode **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
-3. **Upgrade later without redoing anything:** follow Steps 4–5 to create a funded Anthropic key (and Step 7 if you want xAI), connect it with `/connect` (Steps 11–13) and redo Step 14 if needed, then tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
+3. **Upgrade later without redoing anything:** follow Steps 4–5 to create a funded Anthropic key (and Step 7 if you choose to add xAI), connect it with `/connect` (Steps 11–13) and redo Step 14 if needed, then tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
