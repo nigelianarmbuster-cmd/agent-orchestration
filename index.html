@@ -753,8 +753,8 @@
       </div>
       <div class="tier-card mid">
         <h4>Mid</h4>
-        <div class="tier-model">Claude Sonnet 5 &middot; researcher/planner on Gemini 3.7 Flash</div>
-        <p class="tier-desc">Deeper reasoning for complex tasks. Seven roles — architect, debugger, editor, quote-auditor, reviewer, security, worker — run on Claude Sonnet 5; the mid <b>researcher</b> and <b>planner</b> run on Gemini 3.7 Flash. Activated by saying &ldquo;use the architect&rdquo; or &ldquo;send this to the worker.&rdquo;</p>
+        <div class="tier-model">Claude Sonnet 5 &middot; researcher/planner on Gemini 3.8 Flash</div>
+        <p class="tier-desc">Deeper reasoning for complex tasks. Seven roles — architect, debugger, editor, quote-auditor, reviewer, security, worker — run on Claude Sonnet 5; the mid <b>researcher</b> and <b>planner</b> run on Gemini 3.8 Flash. Activated by saying &ldquo;use the architect&rdquo; or &ldquo;send this to the worker.&rdquo;</p>
         <div class="cost cost-mid">$$ &mdash; moderate</div>
         <span class="tier-badge badge-inactive">Inactive &mdash; needs Anthropic key</span>
         <span class="tier-badge badge-active">Active</span>
@@ -775,8 +775,8 @@
       </div>
       <div class="tier-card">
         <h4>Gemini</h4>
-        <div class="tier-model">Gemini 3.7 Flash</div>
-        <p class="tier-desc">Research, long documents, and images, consolidated on Gemini 3.7 Flash. It powers the mid researcher/planner and the Observer — roles where Gemini is genuinely competitive (long-context web synthesis, structural planning, vision) at low quality risk — plus the Gemini agents. Runs alongside the tiers.</p>
+        <div class="tier-model">Gemini 3.8 Flash</div>
+        <p class="tier-desc">Research, long documents, and images, consolidated on Gemini 3.8 Flash. It powers the mid researcher/planner and the Observer — roles where Gemini is genuinely competitive (long-context web synthesis, structural planning, vision) at low quality risk — plus the Gemini agents. Runs alongside the tiers.</p>
         <div class="cost cost-mule">free tier available</div>
       </div>
     </div>
@@ -796,7 +796,7 @@
       <b>Budget mode:</b> DeepSeek only — the junior tier plus 9 DeepSeek mules. The junior tier handles the bulk of routine work, and a few dollars of credit lasts weeks. Fund DeepSeek, and add the optional free Gemini key to keep screenshots working.
     </div>
     <div class="callout callout-full" style="margin-top:12px;">
-      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5 (researcher/planner on Gemini 3.7 Flash), senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
+      <b>Full production:</b> all 4 tiers live — junior on DeepSeek, mid on Claude Sonnet 5 (researcher/planner on Gemini 3.8 Flash), senior on Claude Opus 4.8, plus every mule and Observer vision. Add the Anthropic key and tell OpenCode to switch to the full production setup — that activates the mid + senior tiers. Gemini agents cover research and multimodal work; xAI is optional. Cost guidance: juniors for routine work, seniors sparingly — escalate only when the stakes justify it.
     </div>
 
     <div class="divider-dot"><span></span></div>
@@ -813,7 +813,7 @@
       <div class="mule-chip"><code>researcher-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
       <div class="mule-chip"><code>editor-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
       <div class="mule-chip"><code>quote-auditor-mule</code><span class="mmodel">DeepSeek V4.1 Flash</span></div>
-      <div class="mule-chip needs-key"><code>gemini-mule</code><span class="mmodel">Gemini 3.7 Flash</span><span class="keymark">needs key</span></div>
+      <div class="mule-chip needs-key"><code>gemini-mule</code><span class="mmodel">Gemini 3.5 Flash-Lite</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>grok-mule</code><span class="mmodel">Grok 4.3</span><span class="keymark">needs key</span></div>
       <div class="mule-chip needs-key"><code>claude-mule</code><span class="mmodel">Claude Sonnet 5</span><span class="keymark">needs key</span></div>
     </div>
@@ -951,7 +951,7 @@
         <tr><th>Tool</th><th>Powered by</th><th>What it does</th></tr>
       </thead>
       <tbody>
-        <tr class="tool-observer"><td><b>Observer</b> <span class="tool-badge badge-inactive">Inactive &mdash; needs Google (Gemini) key</span><span class="tool-badge badge-active">Active</span></td><td>Gemini 3.7 Flash</td><td>Reads screenshots, mockups, error images — returns structured text analysis. 7 modes: Quick State, Error Extraction, UI Comparison, Charts, Issue Location, Page Restoration, Text Extraction.</td></tr>
+        <tr class="tool-observer"><td><b>Observer</b> <span class="tool-badge badge-inactive">Inactive &mdash; needs Google (Gemini) key</span><span class="tool-badge badge-active">Active</span></td><td>Gemini 3.8 Flash</td><td>Reads screenshots, mockups, error images — returns structured text analysis. 7 modes: Quick State, Error Extraction, UI Comparison, Charts, Issue Location, Page Restoration, Text Extraction.</td></tr>
         <tr><td><b>Playwright</b> <span class="tool-badge badge-optional">Optional</span></td><td>Browser automation</td><td>Captures browser screenshots, DOM snapshots, console logs. Switched off in the default config — enable when you want browser-driven verification.</td></tr>
         <tr><td><b>macos-use</b> <span class="tool-badge badge-optional">Optional</span></td><td>macOS desktop control</td><td>Captures native macOS app UI state. Switched off in config; macOS only, requires Accessibility permission.</td></tr>
       </tbody>

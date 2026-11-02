@@ -79,7 +79,8 @@
       <tr><td><span class="tag deepseek">DS</span> DeepSeek V4.1 Flash</td><td>DeepSeek</td><td>Supervisor (primary orchestrator); junior tier (all 9 roles) + role-mules (9); accountability coach (local-only)</td></tr>
       <tr><td><span class="tag claude">CL</span> Claude Sonnet 5</td><td>Anthropic</td><td>Mid tier (7 roles) + claude-mule</td></tr>
       <tr><td><span class="tag claude">CL</span> Claude Opus 4.8</td><td>Anthropic</td><td>Senior tier (all 9 roles)</td></tr>
-      <tr><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td>Google</td><td>Mid researcher &amp; planner, gemini-worker, gemini-mule, Observer</td></tr>
+      <tr><td><span class="tag gemini">GM</span> Gemini 3.8 Flash</td><td>Google</td><td>Mid researcher &amp; planner, gemini-worker, Observer</td></tr>
+      <tr><td><span class="tag gemini">GM</span> Gemini 3.5 Flash-Lite</td><td>Google</td><td>gemini-mule (leaf)</td></tr>
       <tr><td><span class="tag local">LOC</span> Qwen 2.5 Coder 7B</td><td>Ollama (local)</td><td>local-coder</td></tr>
       <tr><td><span class="tag local">LOC</span> DeepSeek R1 32B</td><td>Ollama (local)</td><td>local-reasoner</td></tr>
     </tbody>
@@ -108,7 +109,7 @@
     </tbody>
   </table>
 
-  <h2>Mid tier — Claude Sonnet 5 &amp; Gemini 3.7 Flash</h2>
+  <h2>Mid tier — Claude Sonnet 5 &amp; Gemini 3.8 Flash</h2>
   <table>
     <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
     <tbody>
@@ -118,8 +119,8 @@
       <tr><td><code>mid-reviewer</code></td><td>reviewer</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
       <tr><td><code>mid-security</code></td><td>security</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
       <tr><td><code>mid-worker</code></td><td>worker</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff med">medium</td><td class="think lvl">adaptive: medium</td></tr>
-      <tr><td><code>mid-researcher</code></td><td>researcher</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
-      <tr><td><code>mid-planner</code></td><td>planner</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
+      <tr><td><code>mid-researcher</code></td><td>researcher</td><td><span class="tag gemini">GM</span> Gemini 3.8 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
+      <tr><td><code>mid-planner</code></td><td>planner</td><td><span class="tag gemini">GM</span> Gemini 3.8 Flash</td><td class="eff high">high</td><td class="think lvl">high level</td></tr>
     </tbody>
   </table>
 
@@ -153,7 +154,7 @@
       <tr><td><code>security-mule</code></td><td>security (leaf)</td><td><span class="tag deepseek">DS</span> V4.1 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
       <tr><td><code>worker-mule</code></td><td>worker (leaf)</td><td><span class="tag deepseek">DS</span> V4.1 Flash</td><td class="eff low">low</td><td class="think off">off</td></tr>
       <tr><td><code>claude-mule</code></td><td>general (leaf)</td><td><span class="tag claude">CL</span> Sonnet 5</td><td class="eff low">low</td><td class="think off">off</td></tr>
-      <tr><td><code>gemini-mule</code></td><td>general (leaf)</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think lvl">minimal</td></tr>
+      <tr><td><code>gemini-mule</code></td><td>general (leaf)</td><td><span class="tag gemini">GM</span> Gemini 3.5 Flash-Lite</td><td class="muted">default</td><td class="think lvl">minimal</td></tr>
     </tbody>
   </table>
 
@@ -161,8 +162,8 @@
   <table>
     <thead><tr><th>Agent</th><th>Role</th><th>Model</th><th>Effort</th><th>Thinking</th></tr></thead>
     <tbody>
-      <tr><td><code>gemini-worker</code></td><td>generalist</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
-      <tr><td><code>observer</code></td><td>vision</td><td><span class="tag gemini">GM</span> Gemini 3.7 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
+      <tr><td><code>gemini-worker</code></td><td>generalist</td><td><span class="tag gemini">GM</span> Gemini 3.8 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
+      <tr><td><code>observer</code></td><td>vision</td><td><span class="tag gemini">GM</span> Gemini 3.8 Flash</td><td class="muted">default</td><td class="think on">on</td></tr>
     </tbody>
   </table>
 
@@ -185,7 +186,7 @@
     </ul>
     <p><strong>Global default (DeepSeek V4.1 Flash):</strong> when running V4.1 Flash as the supervisor, it lands on <code>reasoningEffort: max</code> with thinking <strong>on</strong> — overridable manually. Juniors and mules pin themselves to <code>low</code> + thinking <strong>off</strong> at the agent level, which overrides the global.</p>
     <p><strong>No Claude Haiku tier:</strong> the high-volume cheap work runs on <strong>DeepSeek V4.1 Flash</strong> (juniors + mules), which is cheaper than Haiku. Claude is reserved for the quality gates (Sonnet 5 mid, Opus 4.8 senior) — there is no "cheap Claude" tier in this wiring.</p>
-    <p><strong>Cost rationale:</strong> DeepSeek V4.1 Flash is the high-volume workhorse, so juniors/mules run cheap (low effort, no thinking). Claude carries the quality gates (review, security, quote-auditor, debugger) at adaptive effort medium. Gemini 3.7 Flash handles research, planning, and vision. Senior Claude Opus 4.8 is the highest-stakes tier (adaptive high), used sparingly.</p>
+    <p><strong>Cost rationale:</strong> DeepSeek V4.1 Flash is the high-volume workhorse, so juniors/mules run cheap (low effort, no thinking). Claude carries the quality gates (review, security, quote-auditor, debugger) at adaptive effort medium. Gemini 3.8 Flash handles research, planning, and vision. Senior Claude Opus 4.8 is the highest-stakes tier (adaptive high), used sparingly.</p>
   </div>
 
   <footer>
