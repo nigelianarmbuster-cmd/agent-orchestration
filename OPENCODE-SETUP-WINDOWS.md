@@ -1,15 +1,17 @@
 # OpenCode Setup Guide (Windows)
 
-Welcome. This guide walks you through setting up OpenCode on Windows, step by step. OpenCode is a free, open-source program that runs in PowerShell and gives you a team of AI assistants that can read your files, write code, and run commands on your computer. This guide assumes you have never used an AI coding tool before. Follow the steps in order, and copy-paste commands exactly. Use PowerShell throughout — not the older Command Prompt (cmd), which uses different syntax.
+Welcome. This guide walks you through setting up OpenCode on Windows, step by step. OpenCode is a free, open-source desktop app that gives you a team of AI assistants that can read your files, write code, and run commands on your computer. This guide assumes you have never used an AI coding tool before. Follow the steps in order. Everything happens by clicking and typing in the app — you never open a terminal.
 
 ## A few words you will see
 
-- **PowerShell** — a built-in Windows app where you type text commands instead of clicking buttons. To open it: press the Windows key, type "PowerShell", press Enter. (The newer "Terminal" app also works — it runs PowerShell inside.)
+- **App window** — the OpenCode desktop app: a normal Windows window you open from the Start menu. It has a message box for chatting, a model picker, an agent picker, and a Settings screen.
+- **Providers** — the screen where you give OpenCode your API keys. You reach it from inside the app: **Settings → Providers**. Each provider (DeepSeek, Anthropic, Google, xAI) gets its own entry and its own key.
+- **Model picker** — the list of available models, opened from the message box. You search it and click a model to use it.
+- **Agent picker** — the list of agents (the "supervisor" and its team), also opened from the message box. It shows which agent is answering.
 - **API key** — a secret password that lets a program use your account (and spend your balance). Treat it like a password.
 - **Prepaid balance** — money you add to a provider's console in advance. Usage is deducted from it. Every provider in this setup works this way: you cannot use a provider until you have funded it.
 - **Model** — the actual AI "brain" that does the thinking. Different companies make different models; each has a name like `deepseek/deepseek-flash`.
 - **API vs subscription** — a subscription (like ChatGPT Plus or Claude Pro) lets you chat inside a company's own app. API access is a separate pay-as-you-go balance that other programs, like OpenCode, can use. A subscription does not include API access.
-- **Prompt marker (`PS>`)** — commands sometimes start with `PS>`, which just marks where to paste: open PowerShell, paste the command after `PS>`, press Enter. You never type the `PS>` itself — only the command after it. The setup page's copy buttons leave the marker off automatically.
 
 ## 1. What you're getting
 
@@ -39,7 +41,7 @@ A few things to know:
 ## 2. What you'll need before you start
 
 - A PC running Windows 10 or 11, and about 30–45 minutes.
-- **A web browser** — Steps 1–7 happen entirely in the browser. No programming tools, no Node.js, nothing to install yet.
+- **A web browser** — Steps 1–7 happen entirely in the browser. Step 8 is a single download in that same browser; Steps 9 onward happen inside the OpenCode app.
 - **Accounts and keys for three providers** — DeepSeek, Anthropic, and Google Gemini — plus xAI if you choose to add it. xAI is entirely optional and separate — the Grok agent only exists if you add that key, and nothing else in the setup depends on it. You create these in Steps 1–7.
 - **Funded prepaid balances**: DeepSeek, Anthropic, and Google (Gemini) all require you to add money or buy credits before they work. Amounts change — verify in each console when you purchase.
 - **A way to store secrets** — a password manager, or a private note. You will keep four API keys in it.
@@ -77,7 +79,7 @@ Anthropic's Claude powers most mid-tier agents (except the researcher and planne
 
 **Warning — do not use the Claude Pro/Max login.** The console also offers a "Claude Pro/Max" sign-in. That is a subscription for chatting in Anthropic's own apps, and Anthropic's rules prohibit using it through tools like OpenCode. Use the API key route only.
 
-On the Budget plan, skip this whole part. Anthropic only powers the mid/senior agents, and you can add the key later with `/connect` — nothing else needs redoing.
+On the Budget plan, skip this whole part. Anthropic only powers the mid/senior agents, and you can add the key later in **Settings → Providers** — nothing else needs redoing.
 
 ## 7. Step 5 — Create your Anthropic API key
 
@@ -102,138 +104,117 @@ xAI is entirely optional and separate — the Grok agent only exists if you add 
 2. This step is optional and separate: skip it unless you want Grok models.
 3. Copy the key into your password manager. You will connect it in Step 13.
 
-Everything up to here happens in the browser. From here on, you type into PowerShell once for the install, once to start OpenCode, and after that into OpenCode's chat box.
+Everything up to here happens in the browser. Everything after it happens in the app; the only typing is your keys and two chat messages.
 
-## 10. Step 8 — Install OpenCode
+## 10. Step 8 — Install the OpenCode app
 
-**Two terminal pastes, then plain typing.** You only paste into PowerShell **twice** — once to install OpenCode (Step 8) and once to start it (Step 9). Everything after that is typed into OpenCode's chat box, including the commands that start with `/`.
+**Everything happens in the app.** From here on there is nothing to type into a terminal — the only typing is your API keys and two chat messages.
 
-This setup is built for **OpenCode 1.19.5**, so use exactly this command. Open PowerShell (press the Windows key, type "PowerShell", press Enter) and run:
+This setup is built for **OpenCode 1.19.5**, so download exactly this file:
 
-```text
-PS> winget install --id SST.opencode -e
-```
+- **[Download OpenCode 1.19.5 for Windows (64-bit)](https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-x64.exe)**
+- [Download for Windows on an ARM chip](https://github.com/anomalyco/opencode/releases/download/v1.19.5/opencode-desktop-win-arm64.exe)
 
-**Node.js is not required.** The installer is a self-contained program — that one paste is all it takes. OpenCode installs its own plugin dependencies later, so you never run `npm` or install Node.js at any point.
+Most PCs use the 64-bit link; use the ARM link only if you know your PC has an ARM processor.
 
-Then check it worked. **Close PowerShell and open a new window first** — Windows only refreshes its list of programs in a new window, so the `opencode` command will not be found in the old one:
+Then:
 
-```text
-PS> opencode --version
-```
+1. Open your Downloads folder and double-click `opencode-desktop-win-x64.exe`.
+2. If Windows shows a blue **"Windows protected your PC"** screen, click **More info**, then **Run anyway**. Windows shows this for any program it has not seen before.
+3. Let the installer run and finish. It installs for your user account and adds an OpenCode entry to the Start menu.
 
-You should see `1.19.5`.
+**Why this download and not the download page?** The download page at opencode.ai/download currently serves **OpenCode 2**, which these config files are not built for. This direct link is the pinned OpenCode 1.19.5 app.
 
-**If Windows says `winget` is not recognised**, install **App Installer** from the Microsoft Store, then run the install command again.
+> **Later, the app may offer an OpenCode 2 update.** The app updates itself automatically. Decline any update that says it moves OpenCode to version 2 — these config files are only built for 1.19.5.
 
-**If the version is not 1.19.5**, you have an OpenCode 2 install. Do **not** use `scoop install opencode2`, and do not use the download button on opencode.ai — both install OpenCode 2, which these config files are not built for. OpenCode 1's installer refuses version 2 on purpose. Uninstall OpenCode 2, then repeat Step 8. The exact release this guide targets: https://github.com/anomalyco/opencode/releases/tag/v1.19.5
+## 11. Step 9 — Open the app
 
-## 11. Step 9 — Start OpenCode
+Press the Windows key, type "OpenCode", and click the OpenCode entry in the Start menu (or double-click the desktop shortcut if the installer made one).
 
-In the same PowerShell window:
+OpenCode opens its home screen. **From here on you work inside the app** — every step below is a click, a key, or a chat message.
 
-```text
-PS> opencode
-```
+**Verify:** OpenCode's home screen appears.
 
-OpenCode opens its own chat screen. **That was the last terminal paste in this guide.** From now on you type in OpenCode's chat box — including commands that start with `/`.
+## 12. Step 10 — Add your DeepSeek key
 
-**Verify:** OpenCode's chat screen appears.
+In the app, open **Settings → Providers**, choose **DeepSeek**, paste the key from Step 3 into its key field, and save.
 
-## 12. Step 10 — Connect DeepSeek
+OpenCode stores the keys itself, in its own credential store. You will never edit a file to add or change a key.
 
-Type `/connect` in OpenCode's chat box, choose **DeepSeek**, choose **API key**, paste the key from Step 3, press Enter.
+**Verify:** DeepSeek shows as connected in Settings → Providers, with its key filled in. (You re-check the models they unlock in Step 18.)
 
-OpenCode remembers keys itself, in its own credential store. You will never edit a file to add or change a key.
+## 13. Step 11 — Add your Anthropic key
 
-**Verify:** OpenCode lists DeepSeek as connected. (You re-check them all in Step 18.)
+In **Settings → Providers**, choose **Anthropic**, paste the key from Step 5, and save. Do not use the Claude Pro/Max sign-in option — paste an API key (see the warning in Step 4). **Budget plan: skip this.**
 
-## 13. Step 11 — Connect Anthropic
+**Verify:** Anthropic shows as connected in Settings → Providers.
 
-Type `/connect` again, choose **Anthropic**, choose **"Manually enter API Key"**, and paste the key from Step 5. Do not pick the Pro/Max option (see the warning in Step 4). **Budget plan: skip this.**
+## 14. Step 12 — Add your Google (Gemini) key
 
-**Verify:** OpenCode lists Anthropic as connected.
+In **Settings → Providers**, choose **Google**, paste the key from Step 6, and save. This replaces the old way of setting an environment variable: the key goes in the same way as the others, and there is no file to create or edit.
 
-## 14. Step 12 — Connect Google (Gemini)
+**Verify:** Google shows as connected in Settings → Providers.
 
-Type `/connect` again, choose **Google**, choose **API key**, and paste the key from Step 6. This replaces the old way of setting an environment variable: the key goes in the same way as the others, and there is no file to create or edit.
+## 15. Step 13 — Add your xAI key (optional)
 
-**Verify:** OpenCode lists Google as connected.
+In **Settings → Providers**, choose **xAI**, paste your Grok key, and save. Skip if you skipped the Grok key — xAI is not part of this setup unless you add it.
 
-## 15. Step 13 — Connect xAI (optional)
+**Verify:** xAI shows as connected in Settings → Providers.
 
-Type `/connect` again, choose **xAI**, and paste your Grok key. Skip if you skipped the Grok key — xAI is not part of this setup unless you add it.
+## 16. Step 14 — Pick your default model
 
-**Verify:** OpenCode lists xAI as connected.
+Open the **model picker** in the message box, search for `deepseek`, and choose `deepseek/deepseek-flash` — the default brain for the **supervisor**, the agent that plans and delegates.
 
-## 16. Step 14 — Pick the default model
-
-Type `/models`, search for `deepseek`, and choose `deepseek/deepseek-flash` — the default brain for the **supervisor**, the agent that plans and delegates.
-
-Do this now: it is what makes your *first* messages work, because the config that sets the default has not been installed yet. If `deepseek/deepseek-flash` is not listed, DeepSeek is not connected — redo Step 10.
+Do this now: it is what makes your *first* messages work, because the config that sets the default has not been installed yet. If `deepseek/deepseek-flash` is not in the list, DeepSeek is not connected — redo Step 10.
 
 ## 17. Step 15 — Ask OpenCode to install the config
 
-You do not copy files, extract ZIPs, or run setup commands. You paste **one message** into OpenCode's chat box and let the agent do the work.
+You do not copy files, extract ZIPs, or run setup commands. You paste **one message** into OpenCode's message box and let the agent do the work.
 
-Paste this into OpenCode's chat box and press Enter:
+Paste this into OpenCode's message box and press Enter:
 
 > Install your own configuration. Clone https://github.com/nigelianarmbuster-cmd/opencode-config.git into your global OpenCode config folder — ~/.config/opencode on macOS, %USERPROFILE%\.config\opencode on Windows — and set up its dependencies. If that folder already exists, keep the files that are already there and add the missing ones. Tell me when it is done.
 
 How it behaves:
 
 - OpenCode runs a few commands on your computer itself, and does not ask before each one. It writes to `%USERPROFILE%\.config\opencode`, which is `C:\Users\<you>\.config\opencode` — the same folder written as `%USERPROFILE%\.config\opencode`.
-- It may ask **once** for permission to work outside your project folder. **Approving:** if the prompt names that config folder, choose **allow**; if it names any other folder, choose **no** and stop.
-- It may need `git`. If it asks to install something, read the prompt first and allow it only if it names `git`.
+- It may ask **once** for permission to work outside your project folder. The prompt appears as an app dialog. **Approving:** if the dialog names that config folder, choose **allow**; if it names any other folder, choose **no** and stop.
+- It may need `git`. If it asks to install something, read the dialog first and allow it only if it names `git`.
 - **Windows Defender Firewall or SmartScreen** may pop up; Windows does this for any program it has not seen before.
-- **Ctrl+C stops it** if anything looks wrong.
-- If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it says "destination path already exists" and stops, run the manual fallback below.
+- **Stop the run from the app** if anything looks wrong — use the stop button in the app while it is working.
+- If the folder already exists and is not empty, the agent adds the missing files instead of failing. If it fails or says "destination path already exists" and stops, ask the app to try again — or ask the person who shared this guide.
 
-**Manual fallback (only if you would rather do it yourself).** In PowerShell:
+## 18. Step 16 — Answer its questions and let it finish
 
-```text
-PS> git clone https://github.com/nigelianarmbuster-cmd/opencode-config.git "$env:USERPROFILE\.config\opencode"
-```
+While the config installs, the agent may ask you questions or ask to install `git`.
 
-`$env:USERPROFILE` is PowerShell's way of writing your user folder (for example `C:\Users\nigel`). If `git` is "not recognized", let OpenCode do it as above instead — you do not need git installed yourself.
+- Answer its questions in the message box.
+- Approve only what it names: the config folder (`%USERPROFILE%\.config\opencode`), or installing `git`. If a dialog names anything else, choose **no**.
+- Wait for it to say it is done. Do not close the app while it is working.
 
-## 18. Step 16 — Restart OpenCode
+**Verify:** the agent tells you the configuration is installed.
 
-Type `/exit` in the chat box, then run `opencode` again in PowerShell. (Or close PowerShell, open a new window, and run `opencode`.)
+## 19. Step 17 — Restart the app
 
-**Verify:** the agent name shown at the bottom of the OpenCode window reads `supervisor`, and pressing **Tab** cycles through the primary agents. There is no `/agents` command in OpenCode 1 — Tab is how you look at the team.
+Quit OpenCode and open it again from the Start menu. A restart is what loads the new configuration.
 
-## 19. Step 17 — Confirm the team is loaded
+**Verify:** the **agent picker** in the message box lists `supervisor`, and it is the selected agent.
 
-Ask the supervisor, in the chat box: **"List your subagents by tier."**
+## 20. Step 18 — Check your models in the model picker
 
-**Verify:** the junior, mid and senior groups are listed, plus the mule agents.
+Open the **model picker** in the message box and confirm your models are there: `deepseek/deepseek-flash`, plus Anthropic, Google or xAI models for whichever keys you added. (Budget plan: `deepseek/deepseek-flash` plus Gemini models.)
 
-## 20. Step 18 — Check your connections
-
-Ask the supervisor — it runs the check for you:
-
-> Run opencode auth list and tell me which providers are connected.
-
-**Verify:** `deepseek` is listed, plus `anthropic`, `google` or `xai` for whichever ones you connected. (Budget plan: `deepseek` plus `google`.) If one is missing, connect it again with `/connect` (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google).
-
-Prefer to check yourself? Run this in PowerShell:
-
-```text
-PS> opencode auth list
-```
-
-`opencode auth list` shows which providers are connected; `opencode auth logout` removes one.
+**Verify:** every provider you set up has its models listed. If a provider's models are missing, re-add that key in **Settings → Providers** (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google), then restart the app.
 
 ## 21. Step 19 — Run a first smoke test
 
-Ask something simple in the chat box:
+Ask something simple in the message box:
 
 > What is 2+2?
 
 **Verify:** a normal answer comes back, which means everything is wired up.
 
-An error here means the model is not connected — redo Step 10 (connect DeepSeek), then start OpenCode again (Step 16). To leave OpenCode, press Ctrl+C (twice if it is busy).
+An error here means the model is not connected — redo Step 10 (add the DeepSeek key), then restart the app (Step 17). To leave OpenCode, close the app or start a new chat.
 
 If you are on the Budget plan, tell the supervisor: **"Use the budget instructions."** This switches it into budget mode: it sticks to the junior-tier (DeepSeek) agents and never calls the paid mid/senior tiers. The full production setup stays installed and untouched.
 
@@ -245,7 +226,7 @@ Ollama runs AI models on your own PC — free, private, and offline. It is a goo
 
 1. Download the Windows installer from https://ollama.com/download and run it.
 2. Let the setup pick the right model for your machine. In the OpenCode chat, ask: **"Set up local models that fit my machine."** The supervisor agent will check your PC's memory, graphics card, and free disk space, then download a model that fits — a small one on modest hardware, a larger one only if your machine can run it comfortably. It downloads **one model by default** — plenty to try things out. If you later want a bigger model, just ask for it in the chat.
-3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in `/models` automatically. Local models are slower and less capable than the cloud ones — that is the trade-off. They are a try-out, not a replacement for the funded cloud providers.
+3. The config already includes the Ollama provider (it points at `http://localhost:11434/v1`), so pulled models appear in the model picker automatically. Local models are slower and less capable than the cloud ones — that is the trade-off. They are a try-out, not a replacement for the funded cloud providers.
 
 ### Railway deployments (CLI)
 
@@ -267,37 +248,30 @@ Nothing to do now. Your setup ships with extra add-on tools called **MCP servers
 
 **Why they are off, and how to turn one on.** Every enabled MCP server loads at startup and adds tokens to each conversation, and some pull down packages or need their own accounts and keys. The core setup needs none of them, so they ship dormant — switch on exactly what you use.
 
-To enable one: open `opencode.json` in your config folder (`%USERPROFILE%\.config\opencode`), find the tool's name under `"mcp"`, change `"enabled": false` to `"enabled": true`, save, and restart OpenCode. Check it is live with:
-
-```text
-PS> opencode mcp list
-```
+To enable one: open `opencode.json` in your config folder (`%USERPROFILE%\.config\opencode`), find the tool's name under `"mcp"`, change `"enabled": false` to `"enabled": true`, save, and restart OpenCode. To check it is live, ask the agent: **"List the MCP servers and which ones are enabled."**
 
 ## 24. Costs and safety
 
 - **Everything here is prepaid**: you add money, and usage is deducted from your balance. All three providers' consoles show your usage — check occasionally.
 - **Funding is required, not optional.** DeepSeek, Anthropic and Google (Gemini, full setup) each need a funded balance before they work. Finishing sign-up without funds leaves that agent tier unusable.
 - **API keys are stored by OpenCode itself** in its own credential store — not in this repo, and not in a file you edit. Never paste a key into a chat message, never share screenshots of them, and never put them into files you share, upload, or commit to git. If a key leaks, revoke it and make a new one in the console.
-- **The agent can run commands on your computer** when you paste an instruction — Step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose **no**. Ctrl+C stops the agent.
+- **The agent can run commands on your computer** when you paste an instruction — Step 15 is the main one here. The commands do not prompt individually. You may be asked once to allow work in your home config folder (that is the only folder it needs here); if any other folder is named, choose **no**. You can stop the run from the app.
 - **Amounts change — verify in each console when you purchase.** Anthropic credits expire after one year and are non-refundable.
 
 ## 25. Troubleshooting
 
 | Symptom | Fix |
 |---|---|
-| "model not found" or a model error | Usually a key or funding problem. Run `opencode auth list` (or ask the supervisor) to see which providers are connected, then re-paste the key with `/connect`. Check the provider's console that your prepaid balance is funded. |
-| `npm: command not found` or missing-module errors during setup | Not expected in this setup — start again from Step 8 with the winget command. Do not try to install Node.js to fix it: this setup does not use Node.js. |
-| `winget` is "not recognized" | Install **App Installer** from the Microsoft Store, then run `winget install --id SST.opencode -e` again. |
-| `opencode` is "not recognized" after installing | Close PowerShell completely and open a new window (Windows refreshes its program list only in new windows). Restart the computer if it still fails. |
-| `opencode --version` shows 2.x | You have OpenCode 2, which this config is not built for. Do not install from `scoop install opencode2` or opencode.ai/download. Uninstall it and repeat Step 8. |
-| Syntax errors or "unexpected token" | Make sure you are in PowerShell, not Command Prompt, and copy the commands from this guide exactly — including `$` and any quotes. |
-| Pasted screenshots are ignored, or observer errors | The Gemini key is missing, or `google` is not listed in `opencode auth list`. Re-paste the key with `/connect` -> Google -> API key (Step 12). There is no file to check. |
-| Screenshots return nothing, or the Observer stays silent | The Gemini key is not reaching OpenCode. Run `opencode auth list` (or ask the supervisor to run it) and confirm `google` is listed; if not, reconnect with `/connect` -> **Google** -> **API key**. Also check no stale Google/Gemini environment variable is set — an environment variable overrides the connected key, so an old one makes every Gemini call fail with "API key not valid". Check with `Get-ChildItem Env: \| Where-Object Name -match 'GOOGLE\|GEMINI'`. If anything appears, remove it with `[Environment]::SetEnvironmentVariable('NAME', $null, 'User')`, reopen PowerShell, and restart OpenCode. |
+| "model not found" or a model error | Usually a key or funding problem. Open **Settings → Providers** and check that the provider's key is there, then open the model picker to confirm the model is listed. Check the provider's console that your prepaid balance is funded. |
+| The app will not open, or SmartScreen blocked the installer | If Windows showed **"Windows protected your PC"**, open the downloaded `opencode-desktop-win-x64.exe` again, click **More info**, then **Run anyway**. If it still will not install, restart the computer and run the installer again. |
+| A provider key does not stick in Settings → Providers | Re-copy the key from your password manager — a missing character or a trailing space is the usual cause — and save it again. Make sure the key belongs to the provider you selected: an Anthropic key in the Google entry will not work. |
+| A model is missing from the picker | The key for that provider is missing or wrong. Re-add it in **Settings → Providers** (Step 10 for DeepSeek, Step 11 for Anthropic, Step 12 for Google), then restart the app. |
+| The app offers an OpenCode 2 update | **Decline it.** These config files are built for OpenCode 1.19.5, and OpenCode 2 is not compatible. Keep using the installed app and dismiss the update prompt. |
+| Screenshots return nothing, or the Observer stays silent | The Gemini key is not reaching OpenCode. Open **Settings → Providers** and confirm the **Google** key is filled in; if it is missing, re-add it (Step 12). Also check no stale Google/Gemini environment variable is set — an environment variable overrides the saved key, so an old one makes every Gemini call fail with "API key not valid". Check with `Get-ChildItem Env: \| Where-Object Name -match 'GOOGLE\|GEMINI'`. If anything appears, remove it with `[Environment]::SetEnvironmentVariable('NAME', $null, 'User')`, then restart the app. |
 | Gemini agents fail or behave oddly in the Budget plan | In Budget the free tier is for pasted screenshots only; add billing to the Google key before using the Gemini researcher or planner. |
-| The agent name at the bottom is not `supervisor` | The config did not install. Repeat Step 15, then `/exit` and run `opencode` again. |
-| No supervisor, or the agent team is missing | The config did not load. Redo Step 15 (ask OpenCode to install the config) and restart (Step 16). The agent name at the bottom of the window should read `supervisor`. |
-| The installer prompt asks about a folder you do not recognise | Choose **no** and stop. The only folder Step 15 needs is `%USERPROFILE%\.config\opencode`. |
-| A permission prompt names a folder you do not recognise | Choose **no**. The only folder this setup needs is `%USERPROFILE%\.config\opencode`. |
+| The agent picker does not show `supervisor` | The config did not install. Redo Step 15 (ask OpenCode to install the config), answer any questions it asks (Step 16), and restart the app (Step 17). |
+| No supervisor, or the agent team is missing | The config did not load. Redo Step 15 (ask OpenCode to install the config) and restart the app (Step 17). The agent picker should then list `supervisor`. |
+| A permission dialog names a folder you do not recognise | Choose **no**. The only folder this setup needs is `%USERPROFILE%\.config\opencode`. |
 | Railway errors after you enable it | Use the Railway CLI instead of the MCP (see the Railway section). If OpenCode misbehaves with the Railway MCP on — for example the Observer returns empty screenshot results — set `mcp.railway` back to `"enabled": false` and restart. |
 
 If something is still not right, ask the person who shared this guide — they have the same setup.
@@ -318,5 +292,5 @@ Funding rules on the Budget plan:
 Steps:
 
 1. Follow Steps 1–3 as written, then skip Steps 4–5 (Anthropic) and do Steps 6–7 (Gemini, and xAI only if you choose to add it). For Gemini, the free tier is fine for the Observer.
-2. Follow Steps 8–19 as written. In Steps 10–13, connect DeepSeek and Google; skip Anthropic and xAI. In Step 14, pick `deepseek/deepseek-flash`. Then finish Step 19 by telling OpenCode **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
-3. **Upgrade later without redoing anything:** follow Steps 4–5 to create a funded Anthropic key (and Step 7 if you choose to add xAI), connect it with `/connect` (Steps 11–13) and redo Step 14 if needed, then tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
+2. Follow Steps 8–19 as written. In Steps 10–13, add the DeepSeek and Google keys in **Settings → Providers**; skip Anthropic and xAI. In Step 14, pick `deepseek/deepseek-flash`. Then finish Step 19 by telling OpenCode **"Use the budget instructions."** The supervisor sticks to junior-tier (DeepSeek) agents and won't call the paid tiers.
+3. **Upgrade later without redoing anything:** follow Steps 4–5 to create a funded Anthropic key (and Step 7 if you choose to add xAI), add it in **Settings → Providers** (Steps 11–13) and redo Step 14 if needed, then tell OpenCode **"Switch to the full production setup"** — everything is already configured and waiting.
